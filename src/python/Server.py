@@ -10,6 +10,7 @@ s.bind((host, port))
 s.listen(5)
 
 while True:
+    print('Server is listening')
     #The return value is a pair (conn, address) where conn is a new socket object usable
     #to send and receive data on the connection, and address is the address bound to the
     #socket on the other end of the connection.
@@ -18,9 +19,10 @@ while True:
     while True:
         data = conn.recv(4096) #up to 4096 bytes received
         if not data: break
-        from_client += data
+        dataStr = data.decode("utf-8")
+        from_client += dataStr
         print('Got connection from', addr)
-        print(addr + 'says: ' + from_client)
-        conn.send('Thank you for your connecting')
+        print(addr, 'says: ' , from_client)
+        conn.send(b'Thank you for your connecting')
     conn.close()
     print('client disconnected')
