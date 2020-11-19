@@ -51,6 +51,7 @@ public class serverConnection {
 
             try {
                 server = new ServerSocket(getPort());
+                System.out.println(getPort());
                 alive = false;
             } catch (IOException e) {
                 setPort(++this.port);
@@ -88,7 +89,7 @@ public class serverConnection {
     public void readSocket(){
         Thread thread = new Thread(()-> {
             try {
-
+                System.out.println("leooooo");
                 String message = this.serverInD.readUTF();
                 System.out.println(message);
 
