@@ -13,9 +13,7 @@ public class server {
     
     public static void main(String[] args){
         serverConnection server = serverConnection.getInstance();
-        while (true){
-            server.listenSocket();
-        }
+        server.listenSocket();
 
         //server.writeSocket("soy el server de java");
     }

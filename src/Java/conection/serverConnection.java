@@ -76,13 +76,14 @@ public class serverConnection {
                     socketClient = server.accept();
                     System.out.println("Cliente conectado en el puerto 1024");
                     BufferedReader in = new BufferedReader(new InputStreamReader(socketClient.getInputStream()));
-                    PrintWriter out = new PrintWriter(socketClient.getOutputStream(),true);
+                    PrintWriter out = new PrintWriter(socketClient.getOutputStream(), true);
+
+                    out.write("Saludos desde el servidor");
 
                     String clientMessage = in.readLine();
                     System.out.println("mensaje del cliente: " + clientMessage);
-                    
-                    //this.serverInD = new DataInputStream(this.socketClient.getInputStream());
 
+                    //this.serverInD = new DataInputStream(this.socketClient.getInputStream());
                     //this.serverOutD = new DataOutputStream(this.socketClient.getOutputStream());
                     //readSocket();
                     break;

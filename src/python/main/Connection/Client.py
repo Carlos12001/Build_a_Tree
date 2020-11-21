@@ -13,16 +13,13 @@ class Socket(object):
         self.port = port
 
     def sendM(self):
-
         self.client.connect((self.host, self.port))
         self.client.send(b"Im a new client")
-        #from_server = self.client.recv(4096)
-        #from_serverSrt = from_server.decode("utf-8")
 
-        self.client.close()
-        #print('Server says: ', from_serverSrt)
+        #self.client.keepAlive()
 
-
-# socket = Socket('0.0.0.0', 8080)
-
-# socket.sendM()
+    def readM(self):
+        #self.client.connect((self.host, self.port))
+        from_server = self.client.recv(4096)
+        from_serverSrt = from_server.decode("utf-8")
+        print('Server says: ', from_serverSrt)
