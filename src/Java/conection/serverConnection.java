@@ -1,8 +1,6 @@
 package Java.conection;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
@@ -51,7 +49,7 @@ public class serverConnection {
 
             try {
                 server = new ServerSocket(getPort());
-                System.out.println(getPort());
+                System.out.println("Esperando cliente en: " + getPort());
                 alive = false;
             } catch (IOException e) {
                 setPort(++this.port);
@@ -69,6 +67,32 @@ public class serverConnection {
             newInstance = new serverConnection();
         }
         return newInstance;
+    }
+
+    public void listenSocket(){
+        Thread thread = new Thread(() -> {
+            while (true) {
+                try {
+                    socketClient = server.accept();
+                    System.out.println("Cliente conectado en el puerto 1024");
+                    BufferedReader in = new BufferedReader(new InputStreamReader(socketClient.getInputStream()));
+                    PrintWriter out = new PrintWriter(socketClient.getOutputStream(),true);
+
+                    String clientMessage = in.readLine();
+                    System.out.println("mensaje del cliente: " + clientMessage);
+                    
+                    //this.serverInD = new DataInputStream(this.socketClient.getInputStream());
+
+                    //this.serverOutD = new DataOutputStream(this.socketClient.getOutputStream());
+                    //readSocket();
+                    break;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.setDaemon(true);
+        thread.start();
     }
 
     /**
@@ -89,7 +113,6 @@ public class serverConnection {
     public void readSocket(){
         Thread thread = new Thread(()-> {
             try {
-                System.out.println("leooooo");
                 String message = this.serverInD.readUTF();
                 System.out.println(message);
 

@@ -1,7 +1,8 @@
 import src.python.main.Connection.Server as srv
 import src.python.main.Connection.Client as clnt
 
-print("hola")
+
 #server = srv.Server()
-clnt = clnt.Socket("0.0.0.0", 1024)
+clnt = clnt.Socket("localhost", 1024)
+clnt.sendM()
 
