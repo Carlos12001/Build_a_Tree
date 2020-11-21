@@ -16,7 +16,7 @@ class Socket(object):
         self.client.connect((self.host, self.port))
         self.client.send(b"Im a new client")
 
-        #self.client.keepAlive()
+        self.client.close()
 
     def readM(self):
         #self.client.connect((self.host, self.port))
