@@ -1,0 +1,11 @@
+{
+  "playersName": ["Nacho", "Carlos", "Mauro", "" ],
+  "playersGameOver": [ true, true, false, true],
+  "time": 0,
+  "treeB": "treeB@2",
+  "treeBST": "treeBST@16",
+  "treeAVL": "treeAVL@16",
+  "treeSplay": "treeSplay@1",
+  "tokenSend": "------",
+  "challenge": ["treeB", "", "treeAVL", ""]
+}
