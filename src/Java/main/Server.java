@@ -6,7 +6,7 @@ import Java.conection.serverConnection;
 /**
  *
  */
-public class server {
+public class Server {
 
     /**
      * @param args
