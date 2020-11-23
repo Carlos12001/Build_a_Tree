@@ -105,8 +105,12 @@ class UpdateInfo(object):
 #    {"playerName": [], "playerGameOver": [], "treeB": "", "treeBST": "", "treeAVL": "", "treeSplay": "", "time": 44,
 #     "tokenSend": "treeAVL@88", "challenge": ["treeB", "treeAVL"]})
 
-Ramon = JManager().selectAction('{"playerName": [], "playerGameOver": [], "treeB": "", "treeBST": "", "treeAVL": "", "treeSplay": "", "time": "44","tokenSend": "treeAVL@88", "challenge": ["treeB", "treeAVL"]}')
-print(Ramon)
-desensablar = UpdateInfo()
+#Ramon = JManager().selectAction('{"playerName": [], "playerGameOver": [], "treeB": "", "treeBST": "", "treeAVL": "", "treeSplay": "", "time": "44","tokenSend": "treeAVL@88", "challenge": ["treeB", "treeAVL"]}')
+#print(Ramon)
+#desensablar = UpdateInfo()
 
-desensablar.unwrapper(Ramon)
+#desensablar.unwrapper(Ramon)
+
+la = UpdateInfo()
+print (la.updateWrapper(["LOLA", "LOLO"], [False, False], "", "treeBST@24", "", ""))
+lo = JManager().selectAction(la.updateWrapper(["LOLA", "LOLO"], [False, False], "", "treeBST@24", "", ""))
