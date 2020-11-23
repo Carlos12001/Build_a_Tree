@@ -26,16 +26,17 @@ class Animal:
 
     says_str: str = "A {name} says {sound}"
 
-    def __init__(self, name, sound, num_legs=4):
+    def __init__(self, name: str, sound: object, num_legs: int=4) -> None:
         """
         Parameters
         ----------
-        name : str
+
             The name of the animal
         sound : str
             The sound the animal makes
         num_legs : int, optional
             The number of legs the animal (default is 4)
+            :type name: str
         """
 
         self.name = name
@@ -43,7 +44,7 @@ class Animal:
         self.num_legs = num_legs
         var = self.says_str
 
-    def says(self, sound=None):
+    def says(self, sound=None) -> None:
         """Prints what the animals name is and what sound it makes.
 
         If the argument `sound` isn't passed in, the default Animal
@@ -51,7 +52,7 @@ class Animal:
 
         Parameters
         ----------
-        sound : str, optional
+        sound: str, optional
             The sound the animal makes (default is None)
 
         Raises
@@ -59,6 +60,10 @@ class Animal:
         NotImplementedError
             If no sound is set for the animal or passed in as a
             parameter.
+
+        Returns
+        ---
+        :return: None
         """
 
         if self.sound is None and sound is None:

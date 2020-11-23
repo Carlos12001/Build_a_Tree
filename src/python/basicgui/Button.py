@@ -1,7 +1,7 @@
 from typing import Tuple
-
 import pygame
 from pygame.surface import Surface
+from python.basicgui.CursorRect import CursorRect
 
 
 class Button(pygame.sprite.Sprite):
@@ -15,7 +15,7 @@ class Button(pygame.sprite.Sprite):
         self.__rect.center = position
 
 
-    def update(self, cursor):
+    def update(self, cursor: CursorRect):
         if cursor.colliderect(self.__rect):
             self.__image_current = self.__image_selection
         else:
