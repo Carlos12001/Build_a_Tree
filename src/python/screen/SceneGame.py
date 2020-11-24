@@ -271,7 +271,7 @@ __path_game: str
                     self.keydown(event.key)
 
                 if event.type == pygame.KEYUP:
-                    self.keydown(event.key)
+                    self.keyup(event.key)
 
             dt = self.__time_pygame.tick(60)
 

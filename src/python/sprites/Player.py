@@ -18,13 +18,15 @@ class Player(pygame.sprite.Sprite):
         self.image: pygame.Surface = None
 
         self.__name: str = name
+        self.__life: int = 1500
+        self.__attack: int = 50
 
         self.__jumping: bool = False
         self.__speed: int = 3.5
 
         # Images
         from python.screen import SceneGame
-        self.__walking_image_right: pygame.Surface = SceneGame.SceneGame.load_out_img("player1Run.png")
+        self.__walking_image_right: pygame.Surface = SceneGame.SceneGame.load_out_img("player1Run.png",(1800,300))
         self.__number_of_sprites_walking = 8
 
         self.__walking_right_state = AnimatedState(self.__walking_image_right, self.__number_of_sprites_walking,
@@ -72,13 +74,15 @@ class Player(pygame.sprite.Sprite):
         if key == pygame.K_UP:
             if not self.__jumping:
                 self.jump(10)
-                self.__jumping = False
+                self.__jumping = True
         if key == pygame.K_DOWN:
             pass
         if key == pygame.K_RIGHT:
             self.__dx = self.__speed
+            self.set_current_state(self.__walking_right_state.get_name())
         if key == pygame.K_LEFT:
-            self.__dx = self.__speed
+            self.__dx = -self.__speed
+            # Aqui seria left
             self.set_current_state(self.__walking_right_state.get_name())
 
     def key_up(self, key):
@@ -99,8 +103,9 @@ class Player(pygame.sprite.Sprite):
     def update(self, dt):
 
         self.calculate_gravity()
-        self.rect.x = self.rect.x + self.__dx
-        self.rect.y = self.rect.y + self.__dy
+
+        self.rect.x += self.__dx
+        self.rect.y += self.__dy
 
         if self.rect.y + self.rect.height > self.__screen.get_height():
             self.rect.y = self.__screen.get_height() - self.rect.height
@@ -108,6 +113,5 @@ class Player(pygame.sprite.Sprite):
             self.__dy = 0
 
 
-        print(type(self.__current_state))
         self.__current_state.update(dt=dt)
         self.image = self.__current_state.get_current_sprite()
