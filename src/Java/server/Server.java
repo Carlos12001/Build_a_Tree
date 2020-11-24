@@ -1,7 +1,4 @@
-package Java.main;
-
-import Java.GUI.serverGUI;
-import Java.conection.serverConnection;
+package java.server;
 
 /**
  *
@@ -13,9 +10,9 @@ public class Server {
      */
     
     public static void main(String[] args){
-        serverConnection server = serverConnection.getInstance();
+        java.conection.ServerConnection server = java.conection.ServerConnection.getInstance();
         server.listenSocket();
-        serverGUI frame = new serverGUI(server.getPort());
+        java.GUI.ServerGUI frame = new java.GUI.ServerGUI(server.getPort());
 
         //server.writeSocket("soy el server de java");
     }

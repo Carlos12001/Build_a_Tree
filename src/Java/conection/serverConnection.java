@@ -1,4 +1,4 @@
-package Java.conection;
+package java.conection;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -8,7 +8,7 @@ import java.net.SocketException;
 /**
  *
  */
-public class serverConnection {
+public class ServerConnection {
 
     /**
      *
@@ -18,7 +18,7 @@ public class serverConnection {
     /**
      *
      */
-    private static serverConnection instance;
+    private static java.conection.ServerConnection instance;
 
     /**
      *
@@ -42,7 +42,7 @@ public class serverConnection {
     /**
      *
      */
-    private serverConnection(){
+    private ServerConnection(){
         boolean alive = true;
 
         while (alive){
@@ -61,10 +61,10 @@ public class serverConnection {
     /**
      * @return serverConnecton new server
      */
-    public static serverConnection getInstance(){
-        serverConnection newInstance = instance;
+    public static java.conection.ServerConnection getInstance(){
+        java.conection.ServerConnection newInstance = instance;
         if (newInstance == null){
-            newInstance = new serverConnection();
+            newInstance = new java.conection.ServerConnection();
         }
         return newInstance;
     }

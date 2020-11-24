@@ -1,13 +1,13 @@
-package Java.GUI;
+package java.GUI;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class serverGUI extends JFrame {
+public class ServerGUI extends JFrame {
 
     private JLabel portLabel;
 
-    public serverGUI(int port){
+    public ServerGUI(int port){
         // Create variables for an easy change
         short Fwidth = 300;
         short Fheight = 200;
