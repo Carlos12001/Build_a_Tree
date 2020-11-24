@@ -7,6 +7,7 @@ import pygame
 from python.basicgui.Button import Button
 from python.basicgui.LabelText import LabelText
 from python.basicgui.CursorRect import CursorRect
+from python.sprites.Player import Player
 
 
 class SceneGame:
@@ -244,7 +245,10 @@ __path_game: str
               "\nUsuario de 3 con nombre:    " + name3 +
               "\nUsuario de 4 con nombre:    " + name4)
 
-        # crear los jugadores y meterlos en el grupo
+        self.player = Player( self.__screen, "Carlos",self.__scene_size_X/2, 0)
+
+        self.__players_group.add(self.player)
+        self.__all_sprite_group.add(self.player)
 
         # crear los plataforma y meterlos en el grupo
 
@@ -252,7 +256,7 @@ __path_game: str
 
         self.__game_view()
 
-    def __game_view(self) ->None:
+    def __game_view(self) -> None:
         bg_image = SceneGame.load_out_img("backgroundGame.png", (self.__scene_size_X, self.__scene_size_Y))
 
         while self.running:
@@ -270,14 +274,22 @@ __path_game: str
                     self.keydown(event.key)
 
             dt = self.__time_pygame.tick(60)
+
+            self.player.update(dt)
             self.__all_sprite_group.draw(self.__screen)
             pygame.display.flip()
 
     def keydown(self, event_key) -> None:
-        pass
+        self.player.key_down(event_key)
 
     def keyup(self, event_key) -> None:
-        pass
+        self.player.key_up(event_key)
+
+    def get_Y(self) -> int:
+        return self.__scene_size_Y
+
+    def get_X(self) -> int:
+        return self.__scene_size_X
 
     @staticmethod
     def get_path_game() -> str:

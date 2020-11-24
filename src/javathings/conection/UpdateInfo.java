@@ -9,7 +9,7 @@ public class UpdateInfo {
     private String treeSplay;
     private int time;
     private String tokenSend;
-    private String[] challenge;
+    private String[] challenggge;
 
 
     /**
