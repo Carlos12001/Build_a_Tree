@@ -1,4 +1,4 @@
-package java.conection;
+package javathings.conection;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -18,7 +18,7 @@ public class ServerConnection {
     /**
      *
      */
-    private static java.conection.ServerConnection instance;
+    private static ServerConnection instance;
 
     /**
      *
@@ -61,10 +61,10 @@ public class ServerConnection {
     /**
      * @return serverConnecton new server
      */
-    public static java.conection.ServerConnection getInstance(){
-        java.conection.ServerConnection newInstance = instance;
+    public static ServerConnection getInstance(){
+        ServerConnection newInstance = instance;
         if (newInstance == null){
-            newInstance = new java.conection.ServerConnection();
+            newInstance = new ServerConnection();
         }
         return newInstance;
     }

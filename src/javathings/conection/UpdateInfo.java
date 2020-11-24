@@ -1,4 +1,4 @@
-package java.conection;
+package javathings.conection;
 
 public class UpdateInfo {
     private String[] playersName;
