@@ -260,6 +260,8 @@ __path_game: str
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
+                    pygame.quit()
+                    sys.exit()
 
                 if event.type == pygame.KEYDOWN:
                     self.keydown(event.key)
