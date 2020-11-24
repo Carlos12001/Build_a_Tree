@@ -4,9 +4,9 @@ from typing import Tuple
 
 import pygame
 
-import python.basicgui.Button
-from python.basicgui.CursorRect import CursorRect
+from python.basicgui.Button import Button
 from python.basicgui.LabelText import LabelText
+from python.basicgui.CursorRect import CursorRect
 
 
 class SceneGame:
@@ -27,7 +27,7 @@ __path_game: str
 
    """
 
-    __path_game: str = os.getcwd()[0:len(os.getcwd()) - 5]
+    __path_game: str = os.getcwd()[0:len(os.getcwd())]
     __colors: dict = {"black": (0, 0, 0),
                       "cyan": (14, 190, 187),
                       "red_light": (190, 74, 71),
@@ -46,15 +46,18 @@ __path_game: str
         self.__scene_size_Y: int = 800
         self.__screen: pygame.Surface = pygame.display.set_mode((self.__scene_size_X, self.__scene_size_Y))
 
-        self.__trees_group: pygame.sprite.Group
-        self.__players_group: pygame.sprite.Group
-        self.__platforms_group: pygame.sprite.Group
-        self.__tokens_group: pygame.sprite.Group
-        self.__labels_text_game_group: pygame.sprite.Group
-        self.__powers_group: pygame.sprite.Group
+        self.__trees_group: pygame.sprite.Group = pygame.sprite.Group()
+        self.__players_group: pygame.sprite.Group = pygame.sprite.Group()
+        self.__platforms_group: pygame.sprite.Group = pygame.sprite.Group()
+        self.__tokens_group: pygame.sprite.Group = pygame.sprite.Group()
+        self.__labels_text_game_group: pygame.sprite.Group = pygame.sprite.Group()
+        self.__powers_group: pygame.sprite.Group = pygame.sprite.Group()
+        self.__all_sprite_group: pygame.sprite.Group = pygame.sprite.Group()
 
         self.__time_server: int
         self.__time_pygame: pygame.time.Clock = pygame.time.Clock()
+
+        self.running: bool = True
 
         pygame.display.set_caption("Build a Tree")
         pygame.display.set_icon(SceneGame.load_out_img("iconGame.png"))
@@ -97,9 +100,9 @@ __path_game: str
         label_text_text_field_4 = LabelText(user_name_4, 1, SceneGame.get_color()["white"], self.__screen,
                                             (text_field_4.x + 200, text_field_4.y + 25))
 
-        button_start = python.basicgui.Button.Button(SceneGame.load_out_img("buttonStartNormal.png", (150, 100)),
-                                                     SceneGame.load_out_img("buttonStartSelection.png", (150, 100)),
-                                                     (500, 600), self.__screen)
+        button_start = Button(SceneGame.load_out_img("buttonStartNormal.png", (150, 100)),
+                              SceneGame.load_out_img("buttonStartSelection.png", (150, 100)),
+                              (500, 600), self.__screen)
 
         run = True
         while run:
@@ -243,13 +246,6 @@ __path_game: str
               "\nUsuario de 3 con nombre:    " + name3 +
               "\nUsuario de 4 con nombre:    " + name4)
 
-        self.__trees_group = pygame.sprite.Group()
-        self.__players_group = pygame.sprite.Group()
-        self.__platforms_group = pygame.sprite.Group()
-        self.__tokens_group = pygame.sprite.Group()
-        self.__labels_text_game_group = pygame.sprite.Group()
-        self.__powers_group = pygame.sprite.Group()
-
         # crear los jugadores y meterlos en el grupo
 
         # crear los plataforma y meterlos en el grupo
@@ -260,15 +256,28 @@ __path_game: str
 
     def __game_view(self):
         bg_image = SceneGame.load_out_img("backgroundGame.png", (self.__scene_size_X, self.__scene_size_Y))
-        run = True
-        while run:
+
+        while self.running:
             self.__screen.blit(bg_image, [0, 0])
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
+                    self.running = False
 
+                if event.type == pygame.KEYDOWN:
+                    self.keydown(event.key)
+
+                if event.type == pygame.KEYUP:
+                    self.keydown(event.key)
+
+            dt = self.__time_pygame.tick(60)
+            self.__all_sprite_group.draw(self.__screen)
             pygame.display.flip()
+
+    def keydown(self, event_key):
+        pass
+
+    def keyup(self, event_key):
+        pass
 
     @staticmethod
     def get_path_game() -> str:
