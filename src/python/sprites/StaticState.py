@@ -1,6 +1,6 @@
 import pygame
 
-from src.python.sprites.EntitySate import EntityState
+from python.sprites.EntitySate import EntityState
 
 
 class StaticState(EntityState):

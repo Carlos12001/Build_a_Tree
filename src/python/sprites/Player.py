@@ -26,7 +26,6 @@ class PLayer(pygame.sprite.Sprite):
 
         self.__states_dict[self.__walking_right_state.get_name()] = self.__walking_right_state
 
-        se
 
     def set_current_state(self, key):
         self.__current_state = self.__states_dict[key]

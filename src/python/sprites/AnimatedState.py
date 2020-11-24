@@ -21,11 +21,8 @@ class AnimatedState(EntityState):
         self.__is_loop = True
         self.__current_delta = 0
 
-    def update(self, dt: int):
-        """
+    def update(self, dt: int = None):
 
-        :type dt: int
-        """
         self.__current_delta = self.__current_delta + dt
         if self.__current_delta > self.__speed:
             if self.__is_loop:
