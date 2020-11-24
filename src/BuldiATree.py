@@ -1,6 +1,3 @@
-
-
-
 from python.screen.SceneGame import SceneGame
 
 

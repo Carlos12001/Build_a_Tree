@@ -22,7 +22,3 @@ class Socket(object):
         self.client.close()
         print('Server says: ', from_serverSrt)
 
-
-# socket = Socket('0.0.0.0', 8080)
-
-# socket.sendM()

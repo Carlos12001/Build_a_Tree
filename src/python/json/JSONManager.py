@@ -32,5 +32,3 @@ class JSONManager(object):
         return jsonStr
 
 
-#manager = JSONManager("e", '{"name": "Bob", "languages": "English"}')
-#manager.selectAction()

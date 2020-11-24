@@ -1,5 +1,4 @@
-from collections import namedtuple
-from src.python.main.JSON.JSONManager import JSONManager as JManager
+from python.json.JSONManager import JSONManager
 
 
 class UpdateInfo(object):
@@ -10,7 +9,7 @@ class UpdateInfo(object):
         self.playersGameOver = []
         self.treeB = ""
         self.treeBST = ""
-        self.treAVL = ""
+        self.treeAVL = ""
         self.treeSplay = ""
 
         # Data that's gonna be received from the server
@@ -25,14 +24,14 @@ class UpdateInfo(object):
         self.setTreeBST(treeBST)
         self.setTreeAVL(treeAVL)
         self.setTreeSplay(treeSplay)
-        dictionary = self.asdict()
+        dictionary = self.createDict()
         return dictionary
 
-    def asdict(self):
+    def createDict(self):
         return {"playersName": self.playersName, "playersGameOver": self.playersGameOver, "treeB": self.treeB,
                 "treeBST": self.treeBST, "treeAVL": self.treeAVL, "treeSplay": self.treeSplay}
 
-    def unwrapper(self, dictio):
+    def unWrapper(self, dictio):
         self.setTime(dictio['time'])
         self.setTokenSend(dictio['tokenSend'])
         self.setChallenge(dictio['challenge'])
@@ -65,7 +64,7 @@ class UpdateInfo(object):
         return self.treeBST
 
     def setTreeAVL(self, treeAVL):
-        self.treeAVL = treeAVL
+        pass
 
     def getTreeAVL(self):
         return self.treeAVL
@@ -93,24 +92,3 @@ class UpdateInfo(object):
 
     def getChallenge(self):
         return self.challenge
-
-
-# chamuco = UpdateInfo()
-# print(chamuco.updateWrapper(["LOLA", "LOLO"], [False, False], "", "treeBST@24", "", ""))
-
-# ["LOLA", "LOLO"], [false, false], "", "treeBST@24", "", ""
-
-#cogollo = UpdateInfo()
-#cogollo.unwrapper(
-#    {"playerName": [], "playerGameOver": [], "treeB": "", "treeBST": "", "treeAVL": "", "treeSplay": "", "time": 44,
-#     "tokenSend": "treeAVL@88", "challenge": ["treeB", "treeAVL"]})
-
-#Ramon = JManager().selectAction('{"playerName": [], "playerGameOver": [], "treeB": "", "treeBST": "", "treeAVL": "", "treeSplay": "", "time": "44","tokenSend": "treeAVL@88", "challenge": ["treeB", "treeAVL"]}')
-#print(Ramon)
-#desensablar = UpdateInfo()
-
-#desensablar.unwrapper(Ramon)
-
-la = UpdateInfo()
-print (la.updateWrapper(["LOLA", "LOLO"], [False, False], "", "treeBST@24", "", ""))
-lo = JManager().selectAction(la.updateWrapper(["LOLA", "LOLO"], [False, False], "", "treeBST@24", "", ""))

@@ -27,6 +27,7 @@ __path_game: str
 
    """
 
+
     __path_game: str = os.getcwd()[0:len(os.getcwd())]
     __colors: dict = {"black": (0, 0, 0),
                       "cyan": (14, 190, 187),
@@ -36,10 +37,7 @@ __path_game: str
                       "white": (255, 255, 255)}
 
     def __init__(self) -> None:
-        """
 
-        :rtype: None
-        """
 
         pygame.init()
         self.__scene_size_X: int = 1000
@@ -254,7 +252,7 @@ __path_game: str
 
         self.__game_view()
 
-    def __game_view(self):
+    def __game_view(self) ->None:
         bg_image = SceneGame.load_out_img("backgroundGame.png", (self.__scene_size_X, self.__scene_size_Y))
 
         while self.running:
@@ -273,10 +271,10 @@ __path_game: str
             self.__all_sprite_group.draw(self.__screen)
             pygame.display.flip()
 
-    def keydown(self, event_key):
+    def keydown(self, event_key) -> None:
         pass
 
-    def keyup(self, event_key):
+    def keyup(self, event_key) -> None:
         pass
 
     @staticmethod
@@ -295,7 +293,8 @@ __path_game: str
         """
         :rtype: Pygame image
         """
-        image: pygame.Surface = pygame.image.load(os.path.join(SceneGame.__path_game + "\images", resource))
+        image: pygame.Surface = pygame.image.load(
+            os.path.join(SceneGame.__path_game + "\images", resource))
         if scale is None:
             return image
         else:
