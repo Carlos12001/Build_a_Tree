@@ -25,9 +25,15 @@ public class JacksonEncoder {
         encodeMessage(new Message("action",null, true));
         encodeMessage(new Message("action",true,16,null,100,100));*/
 
+        String[] lol = new String[]{"treeB","","treeAVL"};
+
+        String strInfo = new JacksonEncoder().EncodeInfo(new UpdateInfo("5000", "treeAVL@42", lol));
+
+        System.out.println(strInfo);
+
     }
 
-    public String encodeMessage(UpdateInfo message) throws JsonProcessingException{
+    public String EncodeInfo(UpdateInfo message) throws JsonProcessingException{
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT); //solo para printear bien

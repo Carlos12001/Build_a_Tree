@@ -1,9 +1,7 @@
 package javathings.conection;
 
 import java.io.*;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.SocketException;
+import java.net.*;
 
 /**
  *
@@ -104,6 +102,37 @@ public class ServerConnection {
             e.printStackTrace();
         }
     }
+
+    public void SendingSocket(String ip, int serverPort, String message) {
+        System.out.println("Establishing connection. Please wait ...");
+        try //InetAddress serverName//client = new Sockets.ChatClient(InetAddress.getLocalHost(), i, message);
+        {
+            if (ip == "") {
+                InetAddress serverName = InetAddress.getLocalHost();
+                socketClient = new Socket(serverName, serverPort);
+                System.out.println("Connected: " + socketClient);
+                //start();
+            } else {
+                socketClient = new Socket(ip, serverPort);
+                System.out.println("Connected: " + socketClient);
+                //start();
+            }
+        } catch (UnknownHostException uhe) {
+            System.out.println("Host unknown: " + uhe.getMessage());
+        } catch (IOException ioe) {
+            System.out.println("Unexpected exception: " + ioe.getMessage());
+        }
+        try {
+            serverOutD.writeUTF(message);
+            serverOutD.flush();
+        } catch (IOException ioe) {
+            System.out.println("Sending error: " + ioe.getMessage());
+        }
+
+        System.out.println("message sent...connection finished");
+        //stop();
+    }
+
 
 //    /**
 //     *
