@@ -11,10 +11,15 @@ public class UpdateInfo {
     private String tokenSend;
     private String[] challenge;
 
+    private void Settle(){
+    }
+
     /**
      *
      */
-    public UpdateInfo(){}
+    public UpdateInfo(){
+
+    }
 
     /**
      * Sets new challenge.
