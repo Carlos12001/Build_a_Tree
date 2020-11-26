@@ -13,11 +13,11 @@ class Socket(object):
         self.client.connect((socket.gethostname(), server_port))
         self.client.send(b"Im a new client")
 
-        from_server = self.client.recv(4096)
-        from_server_srt = from_server.decode("utf-8")
+        # from_server = self.client.recv(4096)
+        # from_server_srt = from_server.decode("utf-8")
 
         self.client.close()
-        print('Server says: ', from_server_srt)
+        # print('Server says: ', from_server_srt)
 
         # self.client.close()
 

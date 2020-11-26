@@ -79,27 +79,11 @@ public class ServerConnection {
                     socketClient = server.accept();
                     System.out.println("Cliente conectado en el puerto 1024");
 
-                    //PrintWriter out = new PrintWriter(socketClient.getOutputStream(), true);
-                    //out.write("Saludos desde el servidor");
-
-                    //open();
-                    /*LECTURA SECUNDARIA
-                    int bytesLine = serverInD.read();
-                    String line = String.valueOf(bytesLine);
-                    System.out.println("mensaje del cliente: " + line);
-                    clientsPort = socketClient.getLocalPort();
-                    */
-
                     BufferedReader in = new BufferedReader(new InputStreamReader(socketClient.getInputStream()));
                     String message = in.readLine();
 
                     System.out.println("mensaje del cliente: " + message);
 
-                    in.close();
-                    //out.close();
-                    server.close();
-
-                    break;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
