@@ -18,8 +18,8 @@ public class Server {
         new javathings.gui.ServerGUI(server.getPort());
 //        TimeJava tiempo = new TimeJava();
 //        tiempo.timeStart(1);
-        TimeJava timeToken = new TimeJava();
-        timeToken.timeToken(5);
+        //TimeJava timeToken = new TimeJava();
+        //timeToken.timeToken(5);
         //server.writeSocket("soy el server de java");
     }
 

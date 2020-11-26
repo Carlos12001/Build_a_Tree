@@ -40,6 +40,11 @@ public class ServerConnection {
     /**
      *
      */
+    private Integer clientsPort;
+
+    /**
+     *
+     */
     private ServerConnection(){
         boolean alive = true;
 
@@ -57,7 +62,7 @@ public class ServerConnection {
     }
 
     /**
-     * @return serverConnecton new server
+     * @return serverConnection new server
      */
     public static ServerConnection getInstance(){
         ServerConnection newInstance = instance;
@@ -73,13 +78,26 @@ public class ServerConnection {
                 try {
                     socketClient = server.accept();
                     System.out.println("Cliente conectado en el puerto 1024");
+
+                    //PrintWriter out = new PrintWriter(socketClient.getOutputStream(), true);
+                    //out.write("Saludos desde el servidor");
+
+                    //open();
+                    /*LECTURA SECUNDARIA
+                    int bytesLine = serverInD.read();
+                    String line = String.valueOf(bytesLine);
+                    System.out.println("mensaje del cliente: " + line);
+                    clientsPort = socketClient.getLocalPort();
+                    */
+
                     BufferedReader in = new BufferedReader(new InputStreamReader(socketClient.getInputStream()));
-                    PrintWriter out = new PrintWriter(socketClient.getOutputStream(), true);
+                    String message = in.readLine();
 
-                    out.write("Saludos desde el servidor");
+                    System.out.println("mensaje del cliente: " + message);
 
-                    String clientMessage = in.readLine();
-                    System.out.println("mensaje del cliente: " + clientMessage);
+                    in.close();
+                    //out.close();
+                    server.close();
 
                     break;
                 } catch (IOException e) {
@@ -89,6 +107,10 @@ public class ServerConnection {
         });
         thread.setDaemon(true);
         thread.start();
+    }
+
+    public void open() throws IOException
+    {  serverInD = new DataInputStream(new BufferedInputStream(socketClient.getInputStream()));
     }
 
     /**
@@ -103,17 +125,17 @@ public class ServerConnection {
         }
     }
 
-    public void SendingSocket(String ip, int serverPort, String message) {
+    public void SendingSocket(String ip, int clientsPort, String message) {
         System.out.println("Establishing connection. Please wait ...");
         try //InetAddress serverName//client = new Sockets.ChatClient(InetAddress.getLocalHost(), i, message);
         {
             if (ip == "") {
                 InetAddress serverName = InetAddress.getLocalHost();
-                socketClient = new Socket(serverName, serverPort);
+                socketClient = new Socket(serverName, clientsPort);
                 System.out.println("Connected: " + socketClient);
                 //start();
             } else {
-                socketClient = new Socket(ip, serverPort);
+                socketClient = new Socket(ip, clientsPort);
                 System.out.println("Connected: " + socketClient);
                 //start();
             }
