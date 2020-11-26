@@ -7,7 +7,7 @@ import pygame
 from python.basicgui.Button import Button
 from python.basicgui.LabelText import LabelText
 from python.basicgui.CursorRect import CursorRect
-from python.json import UpdateInfo
+from python.json.UpdateInfo import UpdateInfo as UI
 
 
 class SceneGame:
@@ -255,12 +255,13 @@ __path_game: str
 
     def __game_view(self) ->None:
         bg_image = SceneGame.load_out_img("backgroundGame.png", (self.__scene_size_X, self.__scene_size_Y))
+        info = UI()
         serverTime = "Tiempo: "
         label_time = LabelText(str(serverTime), 3, SceneGame.get_color()["black"], self.__screen, (120, 50))
 
         while self.running:
             self.__screen.blit(bg_image, [0, 0])
-            serverTime = "Tiempo: " + str(UpdateInfo().getTime())
+            label_time.set_text("Tiempo: " + str(info.getTime()))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
