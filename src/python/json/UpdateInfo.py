@@ -92,3 +92,7 @@ class UpdateInfo(object):
 
     def getChallenge(self):
         return self.challenge
+
+
+info = UpdateInfo()
+print(info.getTime())

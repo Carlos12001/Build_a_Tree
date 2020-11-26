@@ -11,10 +11,24 @@ public class UpdateInfo {
     private String tokenSend;
     private String[] challenge;
 
+
+
     /**
      *
      */
-    public UpdateInfo(){}
+    public UpdateInfo(){
+
+    }
+
+    public UpdateInfo(String time, String tokenSend, String[] challenge){
+        this.time = time;
+        this.tokenSend = tokenSend;
+        this.challenge = challenge;
+    }
+
+    public void UpdateFile(){
+
+    }
 
     /**
      * Sets new challenge.
