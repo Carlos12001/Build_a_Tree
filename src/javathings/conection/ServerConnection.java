@@ -109,35 +109,7 @@ public class ServerConnection {
         }
     }
 
-    public void SendingSocket(String ip, int clientsPort, String message) {
-        System.out.println("Establishing connection. Please wait ...");
-        try //InetAddress serverName//client = new Sockets.ChatClient(InetAddress.getLocalHost(), i, message);
-        {
-            if (ip == "") {
-                InetAddress serverName = InetAddress.getLocalHost();
-                socketClient = new Socket(serverName, clientsPort);
-                System.out.println("Connected: " + socketClient);
-                //start();
-            } else {
-                socketClient = new Socket(ip, clientsPort);
-                System.out.println("Connected: " + socketClient);
-                //start();
-            }
-        } catch (UnknownHostException uhe) {
-            System.out.println("Host unknown: " + uhe.getMessage());
-        } catch (IOException ioe) {
-            System.out.println("Unexpected exception: " + ioe.getMessage());
-        }
-        try {
-            serverOutD.writeUTF(message);
-            serverOutD.flush();
-        } catch (IOException ioe) {
-            System.out.println("Sending error: " + ioe.getMessage());
-        }
 
-        System.out.println("message sent...connection finished");
-        //stop();
-    }
 
 
 //    /**
