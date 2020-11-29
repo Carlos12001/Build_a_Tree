@@ -2,24 +2,30 @@
 
 import os
 import socket
+import threading
+import time
+
 
 class SocketClientClass(object):
 
-    def __init__(self):
+    def __init__(self, hosting_port, sending_port):
+        threading.Thread.__init__(self)
         self.socket_client_send = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket_client_listen = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.hostname = socket.gethostname()
         self.server_ip = socket.gethostbyname(self.hostname)
+        self.hosting_port = hosting_port
+        self.send_port = sending_port
+        self.hosted = False
+        self.connection = False
 
-    def sending(self, port):
+    def sending(self):
         self.socket_client_send.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        server_port = port
 
-        connection = False
-        while not connection:
+        while not self.connection:
             try:
-                self.socket_client_send.connect((self.server_ip, server_port))
-                connection = True
+                self.socket_client_send.connect((self.server_ip, self.send_port))
+                self.connection = True
             except:
                 print("Error: Connection Refused... trying again")
 
@@ -29,18 +35,15 @@ class SocketClientClass(object):
         self.socket_client_send.close()
         print("Mensaje Enviado")
 
-    def listening(self, port):
+    def listening(self):
         self.socket_client_listen.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        hosting_port = port
 
-        connected = False
-        while not connected:
+        while not self.hosted:
             try:
-                self.socket_client_listen.bind((socket.gethostname(), hosting_port))
-                connected = True
+                self.socket_client_listen.bind((socket.gethostname(), self.hosting_port))
+                self.hosted = True
             except:
                 print("Intentando reconectar...")
-                os.close(self.socket_client_listen.fileno())
 
         self.socket_client_listen.listen(5)
         print("EL cliente está escuchando...")
@@ -58,5 +61,9 @@ class SocketClientClass(object):
         self.socket_client_listen.detach()
         self.socket_client_listen.close()
 
-
-
+    def start_listen(self):
+        print('started threaded listen')
+        t = threading.Thread(target=self.listening())
+        t.start()
+        # t.join()
+        print('Finishes thread')
