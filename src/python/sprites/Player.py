@@ -23,6 +23,7 @@ class Player(pygame.sprite.Sprite):
 
         self.__jumping: bool = False
         self.__speed: int = 3.5
+        self.__floor = 0
 
         # Images
         from python.screen import SceneGame
@@ -110,8 +111,12 @@ class Player(pygame.sprite.Sprite):
         if self.rect.y + self.rect.height > self.__screen.get_height():
             self.rect.y = self.__screen.get_height() - self.rect.height
             self.__jumping = False
-            self.__dy = 0
+            self.__dy = self.__floor
 
 
         self.__current_state.update(dt=dt)
         self.image = self.__current_state.get_current_sprite()
+
+    def collision(self, power=None, token=None, floor=None):
+        pass
+        
