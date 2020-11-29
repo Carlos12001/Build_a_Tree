@@ -1,4 +1,4 @@
-from python.connection.Client import Socket
+from python.connection.SocketClientClass import Socket
 from python.screen.SceneGame import SceneGame
 
 

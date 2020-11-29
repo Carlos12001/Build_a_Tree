@@ -55,6 +55,7 @@ public class ServerrrrSocket {
         InetAddress serverName = InetAddress.getLocalHost();
         bind = new Socket(serverName,2030);
         printStream = new PrintStream(bind.getOutputStream());
+        System.out.println("Write a message: ");
         input = new Scanner(System.in);
         String strInput = input.nextLine();
         printStream.println(strInput);
@@ -74,8 +75,5 @@ public class ServerrrrSocket {
         SS.Yahoo(SS);
     }
 
-    /*public static void main(String[] args) throws IOException {
-        ServerrrrSocket SS = new ServerrrrSocket("127.0.0.1", 8080);
-        SS.ServerSender();
-    }*/
 }
+
