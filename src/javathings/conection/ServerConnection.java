@@ -83,9 +83,6 @@ public class ServerConnection {
                     String clientMessage = in.readLine();
                     System.out.println("mensaje del cliente: " + clientMessage);
 
-                    //this.serverInD = new DataInputStream(this.socketClient.getInputStream());
-                    //this.serverOutD = new DataOutputStream(this.socketClient.getOutputStream());
-                    //readSocket();
                     break;
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -108,25 +105,25 @@ public class ServerConnection {
         }
     }
 
-    /**
-     *
-     */
-    public void readSocket(){
-        Thread thread = new Thread(()-> {
-            try {
-                String message = this.serverInD.readUTF();
-                System.out.println(message);
-
-                this.socketClient.setKeepAlive(true);
-            } catch (SocketException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        thread.setDaemon(true);
-        thread.start();
-    }
+//    /**
+//     *
+//     */
+//    public void readSocket(){
+//        Thread thread = new Thread(()-> {
+//            try {
+//                String message = this.serverInD.readUTF();
+//                System.out.println(message);
+//
+//                this.socketClient.setKeepAlive(true);
+//            } catch (SocketException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        });
+//        thread.setDaemon(true);
+//        thread.start();
+//    }
 
     /**
      *

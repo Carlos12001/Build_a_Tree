@@ -7,10 +7,14 @@ public class UpdateInfo {
     private String treeBST;
     private String treeAVL;
     private String treeSplay;
-    private int time;
+    private String time;
     private String tokenSend;
     private String[] challenggge;
 
+    /**
+     *
+     */
+    public UpdateInfo(){}
 
     /**
      * Sets new challenge.
@@ -35,7 +39,7 @@ public class UpdateInfo {
      *
      * @return Value of time.
      */
-    public int getTime() {
+    public String getTime() {
         return time;
     }
 
@@ -62,7 +66,7 @@ public class UpdateInfo {
      *
      * @param time New value of time.
      */
-    public void setTime(int time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
