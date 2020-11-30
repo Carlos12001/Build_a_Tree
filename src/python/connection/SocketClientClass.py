@@ -70,11 +70,8 @@ class SocketClientClass(object):
         print('started threaded listen')
         t = threading.Thread(target=self.listening())
         t.start()
-        # t.join()
-        print('Finishes thread')
 
-    def Client_ON(self):
-        t = threading.Thread(target=self.listening())
+    def client_on(self):
+        t = threading.Thread(target=self.sending())
         t.start()
-        print("keeps going")
-        self.sending()
+

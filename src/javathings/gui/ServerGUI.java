@@ -26,20 +26,13 @@ public class ServerGUI extends JFrame {
         portLabel.setForeground(Color.BLACK);
         portLabel.setText("    El puerto del servidor:   " + String.valueOf(port));
         add(portLabel);
-//        // Create and add a panel which contains button and labels
-//        PanelClient containerClient = new PanelClient();
-//        containerClient.add(textArea);
-//        containerClient.add(portLabel);
-//        add(containerClient);
+
 
         setVisible(true);
 
         // Create a thread and starts it
 //
-//        clientThread = new Thread(this);
-//        clientThread.start();
+        clientThread = new Thread(this);
+        clientThread.start();
     }
 }
-
-//class panelServer extends JPanel{
-//}
