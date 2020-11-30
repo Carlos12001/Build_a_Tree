@@ -1,4 +1,4 @@
-package javathings.trees.AbstractTree;
+package javathings.trees.abstracTree;
 
 
 /**
@@ -33,15 +33,16 @@ public abstract class Tree {
         String[] tmp = nodeID.split("@");
 
         if(tmp[0].equals(this.treeID)){
-            appedAux(Integer.parseInt(tmp[1]));
+            appendAux(Integer.parseInt(tmp[1]));
         } else{
             this.current = null;
             this.root = null;
         }
     }
 
-    protected abstract void appedAux(int key);
+    protected abstract void appendAux(int key);
 
     protected abstract void setCurrent(TreeNode current);
 
+    protected abstract String getCurrent();
 }

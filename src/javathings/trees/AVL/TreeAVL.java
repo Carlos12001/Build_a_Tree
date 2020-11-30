@@ -1,7 +1,7 @@
 package javathings.trees.AVL;
 
-import javathings.trees.AbstractTree.Tree;
-import javathings.trees.AbstractTree.TreeNode;
+import javathings.trees.abstracTree.Tree;
+import javathings.trees.abstracTree.TreeNode;
 
 /**
  *
@@ -112,7 +112,7 @@ public class TreeAVL extends Tree {
      * @param key
      */
     @Override
-    protected void appedAux (int key){
+    protected void appendAux(int key){
 
     }
 

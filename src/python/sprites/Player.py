@@ -86,7 +86,7 @@ class Player(pygame.sprite.Sprite):
         # Images
         from python.screen import SceneGame
         walking_image_right: pygame.Surface = (SceneGame.SceneGame.load_out_img("player1Run.png", (500, 80))).convert_alpha()
-        number_of_sprites_walking = 6
+        number_of_sprites_walking: int = 6
 
         self.__walking_right_state = AnimatedState(walking_image_right, number_of_sprites_walking,
                                                    600, "walking_right")
