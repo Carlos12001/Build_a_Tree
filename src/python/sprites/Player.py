@@ -1,8 +1,8 @@
 import pygame
 
-
 from python.sprites.AnimatedState import AnimatedState
 from python.sprites.EntitySate import EntityState
+from python.sprites.Platform import Platform
 from python.sprites.StaticState import StaticState
 
 
@@ -25,10 +25,12 @@ class Player(pygame.sprite.Sprite):
 
         self.__jumping: bool = False
         self.__speed: int = 5.5
-        self.__floor: int = 0
+        self.__floor: int = 1100
+        self.__floor_max: int = 0
+        self.__floor_min: int = 0
         self.__game_over: bool = False
 
-        #Setter images
+        # Setter images
         self.__set_dict_images()
 
         # Set position
@@ -36,13 +38,6 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = px
         self.rect.y = py
-
-    def set_current_state(self, key: int):
-        self.__current_state = self.__states_dict[key]
-
-    def impulse(self, dx, dy) -> None:
-        self.__dx = dx
-        self.__dy = dy
 
     def get_rect_x(self) -> int:
         return self.rect.x
@@ -65,34 +60,34 @@ class Player(pygame.sprite.Sprite):
     def get_game_over(self) -> bool:
         return self.__game_over
 
-    def calculate_gravity(self) -> None:
-        self.__dy = self.__dy + 0.35
+    def set_current_state(self, key: int):
+        self.__current_state = self.__states_dict[key]
 
-    def jump(self, jump_force):
-        self.impulse(self.__dx, -jump_force)
+    def set_floor(self, floor: int):
+        self.__floor = floor
 
     def __set_dict_images(self):
-        if self.__id==0:
+        if self.__id == 0:
             self.__set_dict_player_0()
-        elif self.__id==1:
+        elif self.__id == 1:
             self.__set_dict_player_1()
-        elif self.__id==2:
+        elif self.__id == 2:
             self.__set_dict_player_2()
-        elif self.__id==3:
+        elif self.__id == 3:
             self.__set_dict_player_3()
 
     def __set_dict_player_0(self):
         # Images
         from python.screen import SceneGame
-        self.__walking_image_right: pygame.Surface = SceneGame.SceneGame.load_out_img("player1Run.png",(1800,300))
-        self.__number_of_sprites_walking = 8
+        walking_image_right: pygame.Surface = (SceneGame.SceneGame.load_out_img("player1Run.png", (1600, 80)))
+        number_of_sprites_walking = 8
 
-        self.__walking_right_state = AnimatedState(self.__walking_image_right, self.__number_of_sprites_walking,
+        self.__walking_right_state = AnimatedState(walking_image_right, number_of_sprites_walking,
                                                    800, "walking_right")
 
-        self.__resting_right_state = StaticState(self.__walking_image_right.subsurface(0, 0,
-                                                                                       self.__walking_image_right.get_width() / self.__number_of_sprites_walking,
-                                                                                       self.__walking_image_right.get_height()),
+        self.__resting_right_state = StaticState(walking_image_right.subsurface(0, 0,
+                                                                                walking_image_right.get_width() / number_of_sprites_walking,
+                                                                                walking_image_right.get_height()),
                                                  "resting_right")
 
         self.__states_dict[self.__walking_right_state.get_name()] = self.__walking_right_state
@@ -101,16 +96,17 @@ class Player(pygame.sprite.Sprite):
         self.set_current_state(self.__resting_right_state.get_name())
 
     def __set_dict_player_1(self):
+        # Images
         from python.screen import SceneGame
-        self.__walking_image_right: pygame.Surface = SceneGame.SceneGame.load_out_img("player1Run.png",(1800,300))
-        self.__number_of_sprites_walking = 8
+        walking_image_right: pygame.Surface = (SceneGame.SceneGame.load_out_img("player1Run.png", (1600, 80)))
+        number_of_sprites_walking = 8
 
-        self.__walking_right_state = AnimatedState(self.__walking_image_right, self.__number_of_sprites_walking,
+        self.__walking_right_state = AnimatedState(walking_image_right, number_of_sprites_walking,
                                                    800, "walking_right")
 
-        self.__resting_right_state = StaticState(self.__walking_image_right.subsurface(0, 0,
-                                                                                       self.__walking_image_right.get_width() / self.__number_of_sprites_walking,
-                                                                                       self.__walking_image_right.get_height()),
+        self.__resting_right_state = StaticState(walking_image_right.subsurface(0, 0,
+                                                                                walking_image_right.get_width() / number_of_sprites_walking,
+                                                                                walking_image_right.get_height()),
                                                  "resting_right")
 
         self.__states_dict[self.__walking_right_state.get_name()] = self.__walking_right_state
@@ -119,16 +115,19 @@ class Player(pygame.sprite.Sprite):
         self.set_current_state(self.__resting_right_state.get_name())
 
     def __set_dict_player_2(self):
+        # Images
         from python.screen import SceneGame
-        self.__walking_image_right: pygame.Surface = SceneGame.SceneGame.load_out_img("player1Run.png",(1800,300))
-        self.__number_of_sprites_walking = 8
+        walking_image_right: pygame.Surface = SceneGame.SceneGame.load_out_img("player1Run.png", (1600, 80))
+        number_of_sprites_walking = 8
 
-        self.__walking_right_state = AnimatedState(self.__walking_image_right, self.__number_of_sprites_walking,
+        # Dicts
+
+        self.__walking_right_state = AnimatedState(walking_image_right, number_of_sprites_walking,
                                                    800, "walking_right")
 
-        self.__resting_right_state = StaticState(self.__walking_image_right.subsurface(0, 0,
-                                                                                       self.__walking_image_right.get_width() / self.__number_of_sprites_walking,
-                                                                                       self.__walking_image_right.get_height()),
+        self.__resting_right_state = StaticState(walking_image_right.subsurface(0, 0,
+                                                                                walking_image_right.get_width() / number_of_sprites_walking,
+                                                                                walking_image_right.get_height()),
                                                  "resting_right")
 
         self.__states_dict[self.__walking_right_state.get_name()] = self.__walking_right_state
@@ -137,16 +136,17 @@ class Player(pygame.sprite.Sprite):
         self.set_current_state(self.__resting_right_state.get_name())
 
     def __set_dict_player_3(self):
+        # Images
         from python.screen import SceneGame
-        self.__walking_image_right: pygame.Surface = SceneGame.SceneGame.load_out_img("player1Run.png",(1800,300))
-        self.__number_of_sprites_walking = 8
+        walking_image_right: pygame.Surface = SceneGame.SceneGame.load_out_img("player1Run.png", (1600, 80))
+        number_of_sprites_walking = 8
 
-        self.__walking_right_state = AnimatedState(self.__walking_image_right, self.__number_of_sprites_walking,
+        self.__walking_right_state = AnimatedState(walking_image_right, number_of_sprites_walking,
                                                    800, "walking_right")
 
-        self.__resting_right_state = StaticState(self.__walking_image_right.subsurface(0, 0,
-                                                                                       self.__walking_image_right.get_width() / self.__number_of_sprites_walking,
-                                                                                       self.__walking_image_right.get_height()),
+        self.__resting_right_state = StaticState(walking_image_right.subsurface(0, 0,
+                                                                                walking_image_right.get_width() / number_of_sprites_walking,
+                                                                                walking_image_right.get_height()),
                                                  "resting_right")
 
         self.__states_dict[self.__walking_right_state.get_name()] = self.__walking_right_state
@@ -154,38 +154,50 @@ class Player(pygame.sprite.Sprite):
 
         self.set_current_state(self.__resting_right_state.get_name())
 
+    def impulse(self, dx, dy) -> None:
+        self.__dx = dx
+        self.__dy = dy
 
+    def calculate_gravity(self) -> None:
+        self.__dy = self.__dy + 0.35
+
+    def jump(self, jump_force):
+        self.impulse(self.__dx, -jump_force)
 
     def key_down(self, key):
-            if self.__id==0:
-                self.__key_down_player_0(key)
-            elif self.__id==1:
-                self.__key_down_player_1(key)
-            elif self.__id==2:
-                self.__key_down_player_2(key)
-            elif self.__id==3:
-                self.__key_down_player_3(key)
+        if self.__id == 0:
+            self.__key_down_player_0(key)
+        elif self.__id == 1:
+            self.__key_down_player_1(key)
+        elif self.__id == 2:
+            self.__key_down_player_2(key)
+        elif self.__id == 3:
+            self.__key_down_player_3(key)
 
     def __key_down_player_0(self, key):
         if key == pygame.K_w:
             if not self.__jumping:
                 self.jump(10)
                 self.__jumping = True
+                self.__floor = self.__screen.get_height()
         if key == pygame.K_s:
             pass
         if key == pygame.K_d:
             self.__dx = self.__speed
             self.set_current_state(self.__walking_right_state.get_name())
+            self.__floor = self.__screen.get_height()
         if key == pygame.K_a:
             self.__dx = -self.__speed
             # Aqui seria left
             self.set_current_state(self.__walking_right_state.get_name())
+            self.__floor = self.__screen.get_height()
 
     def __key_down_player_1(self, key):
         if key == pygame.K_UP:
             if not self.__jumping:
                 self.jump(10)
                 self.__jumping = True
+                self.__floor = self.__screen.get_height()
         if key == pygame.K_DOWN:
             pass
         if key == pygame.K_RIGHT:
@@ -201,6 +213,8 @@ class Player(pygame.sprite.Sprite):
             if not self.__jumping:
                 self.jump(10)
                 self.__jumping = True
+                self.__floor = self.__screen.get_height()
+
         if key == pygame.K_k:
             pass
         if key == pygame.K_l:
@@ -216,6 +230,7 @@ class Player(pygame.sprite.Sprite):
             if not self.__jumping:
                 self.jump(10)
                 self.__jumping = True
+                self.__floor = self.__screen.get_height()
         if key == pygame.K_b:
             pass
         if key == pygame.K_n:
@@ -226,15 +241,14 @@ class Player(pygame.sprite.Sprite):
             # Aqui seria left
             self.set_current_state(self.__walking_right_state.get_name())
 
-
     def key_up(self, key):
-        if self.__id==0:
+        if self.__id == 0:
             self.__key_up_player_0(key)
-        elif self.__id==1:
+        elif self.__id == 1:
             self.__key_up_player_1(key)
-        elif self.__id==2:
+        elif self.__id == 2:
             self.__key_up_player_2(key)
-        elif self.__id==3:
+        elif self.__id == 3:
             self.__key_up_player_3(key)
 
     def __key_up_player_0(self, key):
@@ -304,19 +318,31 @@ class Player(pygame.sprite.Sprite):
         self.rect.x += self.__dx
         self.rect.y += self.__dy
 
-        if self.rect.y + self.rect.height > self.__screen.get_height():
-            self.rect.y = self.__screen.get_height() - self.rect.height
+        if self.rect.y + self.rect.height > self.__floor:
+            self.rect.y = self.__floor - self.rect.height
             self.__jumping = False
-            self.__dy = self.__floor
+            self.__dy = 0
 
+        if self.__floor_max <= self.rect.x:
+            self.__floor = 1000
+
+        if self.__floor_min > self.rect.x:
+            self.__floor = 1000
+
+        # if self.rect.y + self.rect.height > self.__screen.get_height():
+        #     self.kill()
 
         self.__current_state.update(dt=dt)
         self.image = self.__current_state.get_current_sprite()
 
-    def collision(self, power=None, token=None, floor=None):
+    def collision(self, power=None, token=None, floor=None, player=None):
         if not floor is None:
-            pass
+            self.set_floor(floor[0])
+            self.__floor_min = floor[1]
+            self.__floor_max = floor[2]
         if not power is None:
             pass
         if not token is None:
+            pass
+        if not player is None:
             pass

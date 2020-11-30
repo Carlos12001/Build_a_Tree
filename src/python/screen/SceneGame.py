@@ -6,6 +6,7 @@ import pygame, random
 from python.basicgui.Button import Button
 from python.basicgui.LabelText import LabelText
 from python.basicgui.CursorRect import CursorRect
+from python.sprites.Platform import Platform
 from python.sprites.Player import Player
 from python.json.UpdateInfo import UpdateInfo as UI
 
@@ -241,13 +242,14 @@ __path_game: str
         for i in names:
             num = 50 * random.choice([-1, 1]) * j
             if i != "":
-                print(num)
                 player = Player(self.__screen, i, self.__scene_size_X / 2 + num, 0, j)
                 self.__players_group.add(player)
                 self.__all_sprite_group.add(player)
                 j += 1
 
-        # crear los plataforma y meterlos en el grupo
+        platform = Platform(self.__screen, 150, 700)
+        self.__platforms_group.add(platform)
+        self.__all_sprite_group.add(platform)
 
         # crear  los vacíos arboles y meterlos en el grupo
 
@@ -257,7 +259,7 @@ __path_game: str
         bg_image = SceneGame.load_out_img("backgroundGame.png", (self.__scene_size_X, self.__scene_size_Y))
         info = UI()
         serverTime = "Tiempo: "
-        label_time = LabelText(str(serverTime), 3, SceneGame.get_color()["black"], self.__screen, (120, 50))
+        label_time = LabelText(str(serverTime), 3, SceneGame.get_color()["black"], self.__screen, (120, 10))
         while self.running:
             self.__screen.blit(bg_image, [0, 0])
             label_time.set_text("Tiempo: " + str(self.__time_pygame.get_time()))
@@ -268,6 +270,7 @@ __path_game: str
                     sys.exit()
 
                 if event.type == pygame.KEYDOWN:
+
                     self.__key_down(event.key)
 
                 if event.type == pygame.KEYUP:
@@ -278,6 +281,7 @@ __path_game: str
             self.__update_players(dt)
             label_time.draw_me()
 
+            self.__collisions()
             pygame.display.flip()
 
     def __key_down(self, event_key) -> None:
@@ -287,6 +291,17 @@ __path_game: str
     def __key_up(self, event_key) -> None:
         for i in self.__players_group:
             i.key_up(event_key)
+
+    def __collisions(self):
+        collide_platform = pygame.sprite.groupcollide(self.__players_group, self.__platforms_group, False, False)
+        if collide_platform != {}:
+            crasher: Platform = list(collide_platform.values())[0][0]
+            victim: Player = list(collide_platform.keys())[0]
+            if victim.rect.y <= crasher.get_rect_y():
+                victim.collision(floor=[crasher.get_rect_y(), crasher.get_rect_x()+30, crasher.get_rect_x() + crasher.get_width()-30])
+
+
+
 
     def get_Y(self) -> int:
         return self.__scene_size_Y
