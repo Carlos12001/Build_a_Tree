@@ -13,6 +13,7 @@ public class TreeAVL extends Tree {
      */
     public TreeAVL() {
         super();
+        setTreeID("treeAVL");
 
     }
 
@@ -122,5 +123,10 @@ public class TreeAVL extends Tree {
     @Override
     protected void setCurrent (TreeNode current){
 
+    }
+
+    @Override
+    protected String getCurrent() {
+        return null;
     }
 }

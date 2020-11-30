@@ -45,4 +45,22 @@ public abstract class Tree {
     protected abstract void setCurrent(TreeNode current);
 
     protected abstract String getCurrent();
+
+    /**
+     * Sets new treeID.
+     *
+     * @param treeID New value of treeID.
+     */
+    public void setTreeID(String treeID) {
+        this.treeID = treeID;
+    }
+
+    /**
+     * Gets treeID.
+     *
+     * @return Value of treeID.
+     */
+    public String getTreeID() {
+        return treeID;
+    }
 }
