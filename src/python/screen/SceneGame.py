@@ -294,12 +294,26 @@ __path_game: str
 
     def __collisions(self):
         collide_platform = pygame.sprite.groupcollide(self.__players_group, self.__platforms_group, False, False)
+
         if collide_platform != {}:
             crasher: Platform = list(collide_platform.values())[0][0]
             victim: Player = list(collide_platform.keys())[0]
             if victim.rect.y <= crasher.get_rect_y():
-                victim.collision(floor=[crasher.get_rect_y(), crasher.get_rect_x()+30, crasher.get_rect_x() + crasher.get_width()-30])
+                victim.collision(floor=[crasher.get_rect_y(), crasher.get_rect_x()+50, crasher.get_rect_x() + crasher.get_width()-50])
 
+        for i in self.__players_group:
+            current = self.__players_group.copy()
+            current.remove(i)
+            collide_player = pygame.sprite.spritecollide(i, current, False, False)
+            if collide_player != []:
+                victim: Player = i
+                if abs(victim.get_rect_x() -collide_player[0].get_rect_x())==5:
+                    if victim.get_rect_x()>collide_player[0].get_rect_x():
+                        victim.set_rect_x(75)
+                        collide_player[0].set_rect_x(-75)
+                    else:
+                        victim.set_rect_x(-75)
+                        collide_player[0].set_rect_x(75)
 
 
 

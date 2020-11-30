@@ -66,6 +66,12 @@ class Player(pygame.sprite.Sprite):
     def set_floor(self, floor: int):
         self.__floor = floor
 
+    def set_rect_x(self, rectx: int) -> None:
+        self.rect.x += rectx
+
+    def set_rect_y(self, recty: int) -> None:
+        self.rect.y += recty
+
     def __set_dict_images(self):
         if self.__id == 0:
             self.__set_dict_player_0()
@@ -79,11 +85,11 @@ class Player(pygame.sprite.Sprite):
     def __set_dict_player_0(self):
         # Images
         from python.screen import SceneGame
-        walking_image_right: pygame.Surface = (SceneGame.SceneGame.load_out_img("player1Run.png", (1600, 80)))
-        number_of_sprites_walking = 8
+        walking_image_right: pygame.Surface = (SceneGame.SceneGame.load_out_img("player1Run.png", (500, 80))).convert_alpha()
+        number_of_sprites_walking = 6
 
         self.__walking_right_state = AnimatedState(walking_image_right, number_of_sprites_walking,
-                                                   800, "walking_right")
+                                                   600, "walking_right")
 
         self.__resting_right_state = StaticState(walking_image_right.subsurface(0, 0,
                                                                                 walking_image_right.get_width() / number_of_sprites_walking,
@@ -98,11 +104,11 @@ class Player(pygame.sprite.Sprite):
     def __set_dict_player_1(self):
         # Images
         from python.screen import SceneGame
-        walking_image_right: pygame.Surface = (SceneGame.SceneGame.load_out_img("player1Run.png", (1600, 80)))
-        number_of_sprites_walking = 8
+        walking_image_right: pygame.Surface = (SceneGame.SceneGame.load_out_img("player1Run.png", (500, 80)))
+        number_of_sprites_walking = 6
 
         self.__walking_right_state = AnimatedState(walking_image_right, number_of_sprites_walking,
-                                                   800, "walking_right")
+                                                   600, "walking_right")
 
         self.__resting_right_state = StaticState(walking_image_right.subsurface(0, 0,
                                                                                 walking_image_right.get_width() / number_of_sprites_walking,
@@ -117,13 +123,13 @@ class Player(pygame.sprite.Sprite):
     def __set_dict_player_2(self):
         # Images
         from python.screen import SceneGame
-        walking_image_right: pygame.Surface = SceneGame.SceneGame.load_out_img("player1Run.png", (1600, 80))
-        number_of_sprites_walking = 8
+        walking_image_right: pygame.Surface = SceneGame.SceneGame.load_out_img("player1Run.png", (500, 80))
+        number_of_sprites_walking = 6
 
         # Dicts
 
         self.__walking_right_state = AnimatedState(walking_image_right, number_of_sprites_walking,
-                                                   800, "walking_right")
+                                                   600, "walking_right")
 
         self.__resting_right_state = StaticState(walking_image_right.subsurface(0, 0,
                                                                                 walking_image_right.get_width() / number_of_sprites_walking,
@@ -138,11 +144,11 @@ class Player(pygame.sprite.Sprite):
     def __set_dict_player_3(self):
         # Images
         from python.screen import SceneGame
-        walking_image_right: pygame.Surface = SceneGame.SceneGame.load_out_img("player1Run.png", (1600, 80))
-        number_of_sprites_walking = 8
+        walking_image_right: pygame.Surface = SceneGame.SceneGame.load_out_img("player1Run.png", (500, 80))
+        number_of_sprites_walking = 6
 
         self.__walking_right_state = AnimatedState(walking_image_right, number_of_sprites_walking,
-                                                   800, "walking_right")
+                                                   600, "walking_right")
 
         self.__resting_right_state = StaticState(walking_image_right.subsurface(0, 0,
                                                                                 walking_image_right.get_width() / number_of_sprites_walking,
