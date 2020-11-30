@@ -9,7 +9,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class ServerrrrSocket {
+public class ServerSocketClass implements Runnable{
     ServerSocket serverInstance;
     Socket incomingClient;
     Socket bind;
@@ -21,11 +21,17 @@ public class ServerrrrSocket {
     int port = 0;
     boolean game = true;
 
-    public ServerrrrSocket(String ip, int port) {
+    Thread t;
+
+
+    public ServerSocketClass(String ip, int port) {
         this.ip = ip;
         this.port = port;
+        t = new Thread(this, "Thread");
+        System.out.println("Child thread: " + t);
+        t.start();
     }
-    public void run() throws IOException {
+    public void ServerListener() throws IOException {
 
         this.serverInstance = new ServerSocket(this.port);
         System.out.println("Server is listening");
@@ -51,6 +57,16 @@ public class ServerrrrSocket {
         //printStream.println("Message received");
     }
 
+    public void run() {
+        try {
+            System.out.println("Child Thread");
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            System.out.println("The child thread is interrupted.");
+        }
+        System.out.println("Exiting the child thread");
+    }
+
     public void ServerSender() throws IOException {
         InetAddress serverName = InetAddress.getLocalHost();
         bind = new Socket(serverName,2030);
@@ -63,16 +79,26 @@ public class ServerrrrSocket {
         printStream.close();
     }
 
-    public void Yahoo(ServerrrrSocket SS) throws IOException {
+    public void Yahoo(ServerSocketClass SS) throws IOException {
         while(this.game){
-            SS.run();
+            SS.ServerListener();
             SS.ServerSender();
+            SS.run();
         }
     }
 
     public static void main(String[] args) throws IOException {
-        ServerrrrSocket SS = new ServerrrrSocket("127.0.0.1", 8080);
-        SS.Yahoo(SS);
+        //ServerSocketClass SS = new ServerSocketClass("127.0.0.1", 8080);
+        //SS.Yahoo(SS);
+
+        new ServerSocketClass("127.0.0.1", 8080);
+        try {
+            System.out.println("Main Thread");
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            System.out.println("The Main thread is interrupted");
+        }
+        System.out.println("Exiting the Main thread");
     }
 
 }

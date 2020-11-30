@@ -45,19 +45,24 @@ class SocketClientClass(object):
             except:
                 print("Intentando reconectar...")
 
-        self.socket_client_listen.listen(5)
-        print("EL cliente está escuchando...")
+        while self.hosted:
+            self.socket_client_listen.listen(5)
+            print("EL cliente está escuchando...")
 
-        server_conn, addr = self.socket_client_listen.accept()
-        print(f"Connection to {addr} established")
+            server_conn, addr = self.socket_client_listen.accept()
+            print(f"Connection to {addr} established")
 
-        message = server_conn.recv(1401)
-        str = message.decode("utf-8")
-        print("Message says: " + str)
+            message = server_conn.recv(1401)
+            str_message = message.decode("utf-8")
+            print("Message says: " + str_message)
 
-        server_conn.shutdown(socket.SHUT_RDWR)
-        server_conn.close()
-        self.socket_client_listen.shutdown(socket.SHUT_RDWR)
+            server_conn.shutdown(socket.SHUT_RDWR)
+            server_conn.close()
+            self.socket_client_listen.shutdown(socket.SHUT_RDWR)
+
+            if str_message == "CLOSE_PATROL":
+                self.hosted = False
+
         self.socket_client_listen.detach()
         self.socket_client_listen.close()
 
@@ -67,3 +72,9 @@ class SocketClientClass(object):
         t.start()
         # t.join()
         print('Finishes thread')
+
+    def Client_ON(self):
+        t = threading.Thread(target=self.listening())
+        t.start()
+        print("keeps going")
+        self.sending()
