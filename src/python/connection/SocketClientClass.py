@@ -83,6 +83,7 @@ class SocketClientClass(object):
         self.socket_client_listen.close()
 
     def start_listen(self):
+<<<<<<< HEAD
 
         pass
 
@@ -101,4 +102,13 @@ class SocketClientClass(object):
     def Client_ON(self):
         self.hilo1()
         self.hilo2()
+=======
+        print('started threaded listen')
+        t = threading.Thread(target=self.listening())
+        t.start()
+
+    def client_on(self):
+        t = threading.Thread(target=self.sending())
+        t.start()
+>>>>>>> Version1.2.4_FixConnection
 
