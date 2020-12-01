@@ -47,10 +47,17 @@ public abstract class Tree {
 
     protected abstract void appendAux(int key);
 
-    public abstract void setCurrent();
-
-    protected abstract String getCurrent();
-
+    public void setCurrent(){
+        int[] tmp = getCurrentArray();
+        for (int i = 0; i > tmp.length - 1; i ++){
+            int tmp2 = Integer.parseInt(this.current.split("@")[1]);
+            if (tmp2 == tmp[i]){
+                this.current = getTreeID() + "@" + tmp[i + 1];
+                break;
+            }
+        }
+    }
+    
     /**
      * Sets new treeID.
      *
@@ -86,4 +93,14 @@ public abstract class Tree {
     public int[] getCurrentArray() {
         return currentArray;
     }
+
+    /**
+     * Gets current.
+     *
+     * @return Value of current.
+     */
+    public String getCurrent() {
+        return current;
+    }
+
 }

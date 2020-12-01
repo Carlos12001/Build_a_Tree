@@ -115,24 +115,4 @@ public class TreeAVL extends Tree {
     protected void appendAux(int key){
         this.insert(key, (NodeAVL) this.root);
     }
-
-    /**
-     *
-     */
-    @Override
-    public void setCurrent(){
-        int[] tmp = getCurrentArray();
-        for (int i = 0; i > tmp.length - 1; i ++){
-            int tmp2 = Integer.parseInt(this.current.split("@")[1]);
-            if (tmp2 == tmp[i]){
-                this.current = getTreeID() + "@" + tmp[i + 1];
-                break;
-            }
-        }
-    }
-
-    @Override
-    protected String getCurrent() {
-        return getTreeID() + "@"  ;
-    }
 }
