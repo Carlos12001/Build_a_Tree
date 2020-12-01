@@ -12,16 +12,17 @@ public class TreeB extends Tree {
     // Constructor (Initializes tree as empty)
     TreeB(int t) {
         super();
+        this.setCurrentArray(new int[]{47, 38, 22, 59, 75, -1});
         this.t = t;
     }
 
-    // function to traverse the tree
+
     public void traverse() {
         if (this.root != null)
             this.root.traverse();
     }
 
-    // function to search a key in this tree
+
     public NodeB search(int k) {
         if (this.root == null)
             return null;
@@ -30,9 +31,42 @@ public class TreeB extends Tree {
     }
 
     @Override
-    protected void appendAux(int key) {
+    protected void appendAux(int k) {
 
+
+        if (this.root == null)
+        {
+
+            this.root = new NodeB(this.t, true);
+            this.root.getKeys()[0] = k;
+            this.root.setCountKeys(1);
+        }
+        //Nodo lleno
+        else if (this.root.getCountKeys() == 2*t-1) {
+                //Crea el nuevo nodo
+                NodeB s = new NodeB(this.t, false);
+                NodeB [] tmp =  s.getChildNodes();
+
+                //Asigna los hijos del nodo
+                tmp[0]= this.root;
+                s.setChildNodes(tmp);
+                s.splitChild(0, this.root);
+                int i = 0;
+                if (s.getKeys()[0] < k)
+                    i++;
+                s.getChildNodes()[i].insertNonFull(k);
+                root = s;
+            } else //Nodo con espacio
+                root.insertNonFull(k);
     }
 
-
+//    public static void main(String[] args) {
+//        TreeB treeB = new TreeB(3);
+//        treeB.appendAux(47);
+//        treeB.appendAux(38);
+//        treeB.appendAux(22);
+//        treeB.appendAux(59);
+//        treeB.appendAux(75);
+//
+//    }
 }

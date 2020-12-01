@@ -37,6 +37,9 @@ public class TreeNode {
         this.right = right;
     }
 
+    public TreeNode() {
+    }
+
     /**
      * Sets new left.
      *
