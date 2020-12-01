@@ -9,7 +9,7 @@ class NodeB extends TreeNode {
     private int t; // Minimum degree (defines the range for number of keys)
     private NodeB[] childNodes; // An array of child pointers
     private int countKeys; // Current number of keys
-    private boolean leaf; // Is true when node is leaf. Otherwise false
+    private boolean leaf; //
 
     // Constructor
     public NodeB(int maxCount, boolean leaf) {
@@ -28,7 +28,6 @@ class NodeB extends TreeNode {
         // and first n children
         int i = 0;
         for (i = 0; i < this.countKeys; i++) {
-
             // If this is not leaf, then before printing key[i],
             // traverse the subtree rooted with child C[i].
             if (!this.leaf) {

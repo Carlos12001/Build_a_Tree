@@ -19,7 +19,6 @@ public class TreeB extends Tree {
     public void traverse() {
         if (this.root != null)
             this.root.traverse();
-        System.out.println();
     }
 
     // function to search a key in this tree
@@ -35,13 +34,5 @@ public class TreeB extends Tree {
 
     }
 
-    @Override
-    protected void setCurrent(TreeNode current) {
 
-    }
-
-    @Override
-    protected String getCurrent() {
-        return null;
-    }
 }
