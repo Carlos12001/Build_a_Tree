@@ -32,17 +32,4 @@ public class TreeBST extends Tree {
     protected void appendAux(int key) {
         this.insert(key, this.root);
     }
-
-    @Override
-    public void setCurrent() {
-
-    }
-    
-
-    @Override
-    protected String getCurrent() {
-        return null;
-    }
-
-
 }
