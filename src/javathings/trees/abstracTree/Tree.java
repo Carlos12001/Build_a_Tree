@@ -25,39 +25,64 @@ public abstract class Tree {
      */
     protected int[] currentArray;
 
+    /**
+     *
+     */
     public Tree() {
         this.root = null;
         this.current = null;
     }
 
+    /**
+     * @return
+     */
     public boolean isEmpty(){
         return this.root == null;
     }
 
+    /**
+     * @param nodeID
+     */
     public void append(String nodeID){
         String[] tmp = nodeID.split("@");
 
         if(tmp[0].equals(this.treeID)){
             appendAux(Integer.parseInt(tmp[1]));
         } else{
-            this.current = null;
-            this.root = null;
+            defaultTree();
         }
     }
 
+    /**
+     *
+     */
+    public void defaultTree(){
+        this.root = null;
+        this.current = getTreeID() + "@" + getCurrentArray()[0];
+    }
+
+    /**
+     * @param key
+     */
     protected abstract void appendAux(int key);
 
+    /**
+     *
+     */
     public void setCurrent(){
         int[] tmp = getCurrentArray();
-        for (int i = 0; i > tmp.length - 1; i ++){
+        for (int i = 0; i > tmp.length; i ++){
             int tmp2 = Integer.parseInt(this.current.split("@")[1]);
-            if (tmp2 == tmp[i]){
+            if (tmp2 == -1){
+                this.current = getTreeID() + "@" + -1;
+                break;
+            } else if (tmp2 == tmp[i]){
                 this.current = getTreeID() + "@" + tmp[i + 1];
                 break;
             }
         }
     }
-    
+
     /**
      * Sets new treeID.
      *
