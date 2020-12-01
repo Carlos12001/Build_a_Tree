@@ -47,6 +47,7 @@ public abstract class Tree {
         String[] tmp = nodeID.split("@");
 
         if(tmp[0].equals(this.treeID)){
+            setCurrent();
             appendAux(Integer.parseInt(tmp[1]));
         } else{
             defaultTree();
