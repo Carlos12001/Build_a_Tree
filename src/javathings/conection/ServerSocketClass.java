@@ -27,9 +27,9 @@ public class ServerSocketClass implements Runnable{
     public ServerSocketClass(String ip, int port) {
         this.ip = ip;
         this.port = port;
-        t = new Thread(this, "Thread");
-        System.out.println("Child thread: " + t);
-        t.start();
+        //t = new Thread(this, "Thread");
+        //System.out.println("Child thread: " + t);
+        //t.start();
     }
     public void ServerListener() throws IOException {
 
@@ -69,7 +69,7 @@ public class ServerSocketClass implements Runnable{
 
     public void ServerSender() throws IOException {
         InetAddress serverName = InetAddress.getLocalHost();
-        bind = new Socket(serverName,2030);
+        bind = new Socket(serverName,2040);
         printStream = new PrintStream(bind.getOutputStream());
         System.out.println("Write a message: ");
         input = new Scanner(System.in);
@@ -83,14 +83,14 @@ public class ServerSocketClass implements Runnable{
         while(this.game){
             SS.ServerListener();
             SS.ServerSender();
-            SS.run();
+            //SS.run();
         }
     }
 
     public static void main(String[] args) throws IOException {
-        //ServerSocketClass SS = new ServerSocketClass("127.0.0.1", 8080);
-        //SS.Yahoo(SS);
-
+        ServerSocketClass SS = new ServerSocketClass("127.0.0.1", 8080);
+        SS.Yahoo(SS);
+        /*
         new ServerSocketClass("127.0.0.1", 8080);
         try {
             System.out.println("Main Thread");
@@ -98,7 +98,7 @@ public class ServerSocketClass implements Runnable{
         } catch (InterruptedException e) {
             System.out.println("The Main thread is interrupted");
         }
-        System.out.println("Exiting the Main thread");
+        System.out.println("Exiting the Main thread");*/
     }
 
 }

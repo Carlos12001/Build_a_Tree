@@ -9,7 +9,8 @@ import time
 class SocketClientClass(object):
 
     def __init__(self, hosting_port, sending_port):
-        threading.Thread.__init__(self)
+        self.s = threading.Thread.__init__(self)
+        self.t = threading.Thread.__init__(self)
         self.socket_client_send = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket_client_listen = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.hostname = socket.gethostname()
@@ -40,7 +41,7 @@ class SocketClientClass(object):
 
         while not self.hosted:
             try:
-                self.socket_client_listen.bind((socket.gethostname(), self.hosting_port))
+                self.socket_client_listen.bind((self.server_ip, self.hosting_port))
                 self.hosted = True
             except:
                 print("Intentando reconectar...")
@@ -67,14 +68,19 @@ class SocketClientClass(object):
         self.socket_client_listen.close()
 
     def start_listen(self):
-        print('started threaded listen')
-        t = threading.Thread(target=self.listening())
-        t.start()
-        # t.join()
-        print('Finishes thread')
+
+        pass
+
+    def hilo1 (self):
+        self.s = threading.Thread(target=self.listening())
+        #self.s.start()
+
+    def hilo2 (self):
+        self.t = threading.Thread(target=self.sending())
+        #self.t.start()
 
     def Client_ON(self):
-        t = threading.Thread(target=self.listening())
-        t.start()
-        print("keeps going")
-        self.sending()
+        self.s = threading.Thread(target=self.listening, args=())
+        self.t = threading.Thread(target=self.sending, args=())
+        self.s.start()
+        self.t.start()
