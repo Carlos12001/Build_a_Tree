@@ -1,7 +1,6 @@
 package javathings.trees.AVL;
 
 import javathings.trees.abstracTree.Tree;
-import javathings.trees.abstracTree.TreeNode;
 
 /**
  *
@@ -14,7 +13,7 @@ public class TreeAVL extends Tree {
     public TreeAVL() {
         super();
         setTreeID("treeAVL");
-
+        this.currentArray = new int[]{5, 8, 23, 76, 90};
     }
 
     /**
@@ -114,19 +113,26 @@ public class TreeAVL extends Tree {
      */
     @Override
     protected void appendAux(int key){
-
+        this.insert(key, (NodeAVL) this.root);
     }
 
     /**
-     * @param current 
+     *
      */
     @Override
-    protected void setCurrent (TreeNode current){
-
+    public void setCurrent(){
+        int[] tmp = getCurrentArray();
+        for (int i = 0; i > tmp.length - 1; i ++){
+            int tmp2 = Integer.parseInt(this.current.split("@")[1]);
+            if (tmp2 == tmp[i]){
+                this.current = getTreeID() + "@" + tmp[i + 1];
+                break;
+            }
+        }
     }
 
     @Override
     protected String getCurrent() {
-        return null;
+        return getTreeID() + "@"  ;
     }
 }

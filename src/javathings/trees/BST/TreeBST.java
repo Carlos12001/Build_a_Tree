@@ -30,13 +30,14 @@ public class TreeBST extends Tree {
 
     @Override
     protected void appendAux(int key) {
-
+        this.insert(key, this.root);
     }
 
     @Override
-    protected void setCurrent(TreeNode current) {
+    public void setCurrent() {
 
     }
+    
 
     @Override
     protected String getCurrent() {

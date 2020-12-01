@@ -9,7 +9,7 @@ public abstract class Tree {
     /**
      *
      */
-    private TreeNode root;
+    protected TreeNode root;
     /**
      *
      */
@@ -18,7 +18,12 @@ public abstract class Tree {
     /**
      *
      */
-    private TreeNode current;
+    protected String current;
+
+    /**
+     *
+     */
+    protected int[] currentArray;
 
     public Tree() {
         this.root = null;
@@ -42,7 +47,7 @@ public abstract class Tree {
 
     protected abstract void appendAux(int key);
 
-    protected abstract void setCurrent(TreeNode current);
+    public abstract void setCurrent();
 
     protected abstract String getCurrent();
 
@@ -62,5 +67,23 @@ public abstract class Tree {
      */
     public String getTreeID() {
         return treeID;
+    }
+
+    /**
+     * Sets new currentArray.
+     *
+     * @param currentArray New value of currentArray.
+     */
+    public void setCurrentArray(int[] currentArray) {
+        this.currentArray = currentArray;
+    }
+
+    /**
+     * Gets currentArray.
+     *
+     * @return Value of currentArray.
+     */
+    public int[] getCurrentArray() {
+        return currentArray;
     }
 }
