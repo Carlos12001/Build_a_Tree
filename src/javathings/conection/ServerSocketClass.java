@@ -69,7 +69,7 @@ public class ServerSocketClass implements Runnable{
 
     public void ServerSender() throws IOException {
         InetAddress serverName = InetAddress.getLocalHost();
-        bind = new Socket(serverName,2040);
+        bind = new Socket(serverName,2050);
         printStream = new PrintStream(bind.getOutputStream());
         System.out.println("Write a message: ");
         input = new Scanner(System.in);
@@ -88,7 +88,7 @@ public class ServerSocketClass implements Runnable{
     }
 
     public static void main(String[] args) throws IOException {
-        ServerSocketClass SS = new ServerSocketClass("127.0.0.1", 8080);
+        ServerSocketClass SS = new ServerSocketClass("127.0.0.1", 8050);
         SS.Yahoo(SS);
         /*
         new ServerSocketClass("127.0.0.1", 8080);

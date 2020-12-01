@@ -21,7 +21,7 @@ class SocketClientClass(object):
         self.connection = False
 
     def sending(self):
-        self.socket_client_send.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        # self.socket_client_send.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
         while not self.connection:
             try:
@@ -30,11 +30,24 @@ class SocketClientClass(object):
             except:
                 print("Error: Connection Refused... trying again")
 
-        console_input = str(input("Write a message: "))
-        self.socket_client_send.send(bytes(console_input, 'utf-8'))
 
-        self.socket_client_send.close()
+        info_to_send = "Hello Server"
+
+        self.socket_client_send.send(bytes(info_to_send, 'utf-8'))
+
+        self.socket_client_send.shutdown(socket.SHUT_RDWR)
+        self.socket_client_send.detach()
+
         print("Mensaje Enviado")
+        self.socket_client_send.close()
+        self.connection = False
+        time.sleep(10)
+
+
+        #time.sleep(10)
+        #self.connection = False
+        #self.socket_client_send.close()
+
 
     def listening(self):
         self.socket_client_listen.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -59,11 +72,13 @@ class SocketClientClass(object):
 
             server_conn.shutdown(socket.SHUT_RDWR)
             server_conn.close()
-            self.socket_client_listen.shutdown(socket.SHUT_RDWR)
 
             if str_message == "CLOSE_PATROL":
                 self.hosted = False
+            print("Rebooting Listening"
+                  "...")
 
+        self.socket_client_listen.shutdown(socket.SHUT_RDWR)
         self.socket_client_listen.detach()
         self.socket_client_listen.close()
 
@@ -71,16 +86,19 @@ class SocketClientClass(object):
 
         pass
 
-    def hilo1 (self):
-        self.s = threading.Thread(target=self.listening())
-        #self.s.start()
+    def hilo1(self):
+        self.s = threading.Thread(target=self.listening)
+        self.s.start()
 
-    def hilo2 (self):
+    def hilo2(self):
         self.t = threading.Thread(target=self.sending())
-        #self.t.start()
+        self.t.start()
+        while not self.t.is_alive():
+            print("its alive!")
+            self.hilo2()
+        #self.t.stop()
 
     def Client_ON(self):
-        self.s = threading.Thread(target=self.listening, args=())
-        self.t = threading.Thread(target=self.sending, args=())
-        self.s.start()
-        self.t.start()
+        self.hilo1()
+        self.hilo2()
+
