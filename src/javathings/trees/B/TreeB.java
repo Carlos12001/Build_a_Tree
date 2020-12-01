@@ -35,13 +35,4 @@ public class TreeB extends Tree {
 
     }
 
-    @Override
-    protected void setCurrent(TreeNode current) {
-
-    }
-
-    @Override
-    protected String getCurrent() {
-        return null;
-    }
 }

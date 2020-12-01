@@ -1,12 +1,23 @@
 package javathings.trees.AVL;
 
+import javathings.trees.BST.NodeBST;
 import javathings.trees.abstracTree.Tree;
+import org.w3c.dom.Node;
 
 /**
  *
  */
 public class TreeAVL extends Tree {
 
+    public static void main(String[] args) {
+    TreeAVL arbol = new TreeAVL();
+    arbol.insert(3);
+    arbol.insert(5);
+//    arbol.insert(1);
+//    arbol.insert(34);
+//    arbol.insert(0);
+//    System.out.println(arbol.contains(34));
+    }
     /**
      *
      */
@@ -14,6 +25,27 @@ public class TreeAVL extends Tree {
         super();
         setTreeID("treeAVL");
         this.currentArray = new int[]{5, 8, 23, 76, 90};
+    }
+
+    public boolean contains(int element) {
+        return this.contains(element, (NodeBST) this.root);
+    }
+
+    private boolean contains(int element, NodeBST node) {
+        if (node == null) {
+            return false;
+        } else {
+            if (element < node.getToken())
+                return contains(element, (NodeBST) node.getLeft());
+            else if (element > node.getToken())
+                return contains(element, (NodeBST) node.getRight());
+            else
+                return true;
+        }
+    }
+
+    public void insert(int key){
+        this.root = insert(key, (NodeAVL) this.root);
     }
 
     /**
@@ -28,7 +60,11 @@ public class TreeAVL extends Tree {
             tree.setLeft(insert(key, (NodeAVL) tree.getLeft()));
         } else if (key > tree.getToken()) {
             tree.setRight(insert(key, (NodeAVL) tree.getRight()));
+        } else {
+            return tree;
         }
+        tree.setHeight(1 + Math.max(height((NodeAVL) tree.getLeft()), height((NodeAVL) tree.getRight())));
+
         return balance(tree);
     }
 
@@ -41,13 +77,13 @@ public class TreeAVL extends Tree {
             return tree;
         } else if (height((NodeAVL) tree.getLeft()) - height((NodeAVL) tree.getRight()) > 1) { // 1 es la diferencia permitida
             if (height((NodeAVL) tree.getLeft().getLeft()) >= height((NodeAVL) tree.getLeft().getRight()))
-                tree = rotateLeftChild(tree);
+                tree = rotateLeft(tree);
             else
                 tree = doubleLeftChild(tree);
         } else {
             if (height((NodeAVL) tree.getRight()) - height((NodeAVL) tree.getLeft()) > 1) {
                 if (height((NodeAVL) tree.getRight().getRight()) >= height((NodeAVL) tree.getRight().getLeft()))
-                    tree = rotateRightChild(tree);
+                    tree = rotateRight(tree);
             } else {
                     tree = doubleRightChild(tree);
                 }
@@ -57,29 +93,36 @@ public class TreeAVL extends Tree {
     }
 
     /**
-     * @param child2
+     * @param root
      * @return
      */
-    private NodeAVL rotateLeftChild(NodeAVL child2) {
-        NodeAVL child1 = (NodeAVL) child2.getLeft();
-        child2.setLeft(child1.getRight());
-        child1.setRight(child2);
-        child2.setHeight(Math.max(height((NodeAVL) child2.getLeft()), height((NodeAVL) child2.getRight())) + 1);
-        child1.setHeight(Math.max(height((NodeAVL) child1.getLeft()), child2.getHeight()) + 1);
-        return child1;
+    private NodeAVL rotateLeft(NodeAVL root) {
+        NodeAVL x = (NodeAVL) root.getRight();
+        NodeAVL T2 = (NodeAVL) x.getLeft();
+
+        x.setLeft(root);
+        root.setRight(T2);
+
+        root.setHeight(Math.max(height((NodeAVL) root.getLeft()), height((NodeAVL) root.getRight())) + 1);
+        x.setHeight(Math.max(height((NodeAVL) x.getLeft()), height((NodeAVL) x.getRight())) + 1);
+
+        return root;
     }
 
     /**
-     * @param child2
+     * @param root
      * @return
      */
-    private NodeAVL rotateRightChild(NodeAVL child2) {
-        NodeAVL child1 = (NodeAVL) child2.getLeft();
-        child2.setLeft(child1.getRight());
-        child1.setRight(child2);
-        child2.setHeight(Math.max(height((NodeAVL) child2.getLeft()), height((NodeAVL) child2.getRight())) + 1);
-        child1.setHeight(Math.max(height((NodeAVL) child1.getLeft()), child2.getHeight()) + 1);
-        return child1;
+    private NodeAVL rotateRight(NodeAVL root) {
+        NodeAVL x = (NodeAVL) root.getLeft();
+        NodeAVL T2 = (NodeAVL) x.getRight();
+
+        x.setRight(root);
+        root.setLeft(T2);
+
+        root.setHeight(Math.max(height((NodeAVL) root.getLeft()), height((NodeAVL) root.getRight())) + 1);
+        x.setHeight(Math.max(height((NodeAVL) x.getLeft()), x.getHeight()) + 1);
+        return x;
     }
 
     /**
@@ -87,8 +130,8 @@ public class TreeAVL extends Tree {
      * @return
      */
     private NodeAVL doubleLeftChild(NodeAVL child) {
-        child.setLeft(rotateRightChild((NodeAVL) child.getLeft()));
-        return rotateLeftChild(child);
+        child.setLeft(rotateRight((NodeAVL) child.getLeft()));
+        return rotateLeft(child);
     }
 
     /**
@@ -96,8 +139,8 @@ public class TreeAVL extends Tree {
      * @return
      */
     private NodeAVL doubleRightChild(NodeAVL child) {
-        child.setLeft(rotateRightChild((NodeAVL) child.getLeft()));
-        return rotateLeftChild(child);
+        child.setLeft(rotateRight((NodeAVL) child.getLeft()));
+        return rotateLeft(child);
     }
 
     /**
