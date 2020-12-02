@@ -40,7 +40,7 @@ __path_game: str
     def __init__(self) -> None:
 
         pygame.init()
-        self.__scene_size_X: int = 1500
+        self.__scene_size_X: int = 1600
         self.__scene_size_Y: int = 1000
         self.__screen: pygame.Surface = pygame.display.set_mode((self.__scene_size_X, self.__scene_size_Y))
 
@@ -247,7 +247,8 @@ __path_game: str
                 self.__all_sprite_group.add(player)
                 j += 1
 
-        platform = Platform(self.__screen, 150, 700)
+        platform = Platform(self.__screen, 50, 700)
+        print()
         self.__platforms_group.add(platform)
         self.__all_sprite_group.add(platform)
 
@@ -307,7 +308,7 @@ __path_game: str
             collide_player = pygame.sprite.spritecollide(i, current, False, False)
             if collide_player != []:
                 victim: Player = i
-                if abs(victim.get_rect_x() -collide_player[0].get_rect_x())==5:
+                if abs(victim.get_rect_x() -collide_player[0].get_rect_x())==10:
                     if victim.get_rect_x()>collide_player[0].get_rect_x():
                         victim.set_rect_x(75)
                         collide_player[0].set_rect_x(-75)
