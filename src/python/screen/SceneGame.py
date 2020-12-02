@@ -9,6 +9,7 @@ from python.basicgui.CursorRect import CursorRect
 from python.sprites.Platform import Platform
 from python.sprites.Player import Player
 from python.json.UpdateInfo import UpdateInfo as UI
+from python.sprites.Token import Token
 
 
 class SceneGame:
@@ -261,6 +262,10 @@ __path_game: str
         info = UI()
         serverTime = "Tiempo: "
         label_time = LabelText(str(serverTime), 3, SceneGame.get_color()["black"], self.__screen, (120, 10))
+
+        token = Token(self.__screen, "treeSplay@23", 50, 0)
+        self.__tokens_group.add(token)
+        self.__all_sprite_group.add(token)
         while self.running:
             self.__screen.blit(bg_image, [0, 0])
             label_time.set_text("Tiempo: " + str(self.__time_pygame.get_time()))
@@ -277,10 +282,18 @@ __path_game: str
                 if event.type == pygame.KEYUP:
                     self.__key_up(event.key)
 
+
+
             self.__all_sprite_group.draw(self.__screen)
             dt = self.__time_pygame.tick(60)
             self.__update_players(dt)
             label_time.draw_me()
+            if self.__is_time_challenge():
+                self.__update_tokens(dt)
+            else:
+                self.__tokens_group.empty()
+                self.__add_point_to_player()
+
 
             self.__collisions()
             pygame.display.flip()
@@ -294,27 +307,38 @@ __path_game: str
             i.key_up(event_key)
 
     def __collisions(self):
-        collide_platform = pygame.sprite.groupcollide(self.__players_group, self.__platforms_group, False, False)
+        collide_platform_PY = pygame.sprite.groupcollide(self.__players_group, self.__platforms_group, False, False)
 
-        if collide_platform != {}:
-            crasher: Platform = list(collide_platform.values())[0][0]
-            victim: Player = list(collide_platform.keys())[0]
+        if collide_platform_PY != {}:
+            crasher: Platform = list(collide_platform_PY.values())[0][0]
+            victim: Player = list(collide_platform_PY.keys())[0]
             if victim.rect.y <= crasher.get_rect_y():
                 victim.collision(floor=[crasher.get_rect_y(), crasher.get_rect_x()+50, crasher.get_rect_x() + crasher.get_width()-50])
 
         for i in self.__players_group:
             current = self.__players_group.copy()
             current.remove(i)
-            collide_player = pygame.sprite.spritecollide(i, current, False, False)
-            if collide_player != []:
+            collide_player_PY = pygame.sprite.spritecollide(i, current, False, False)
+            if collide_player_PY != []:
                 victim: Player = i
-                if abs(victim.get_rect_x() -collide_player[0].get_rect_x())==10:
-                    if victim.get_rect_x()>collide_player[0].get_rect_x():
+                if abs(victim.get_rect_x() -collide_player_PY[0].get_rect_x())==10:
+                    if victim.get_rect_x()>collide_player_PY[0].get_rect_x():
                         victim.set_rect_x(75)
-                        collide_player[0].set_rect_x(-75)
+                        collide_player_PY[0].set_rect_x(-75)
                     else:
                         victim.set_rect_x(-75)
-                        collide_player[0].set_rect_x(75)
+                        collide_player_PY[0].set_rect_x(75)
+
+        collide_platform_TK =  pygame.sprite.groupcollide(self.__tokens_group, self.__platforms_group, False, False)
+
+        if collide_platform_TK != {}:
+            crasher: Platform = list(collide_platform_TK.values())[0][0]
+            victim: Player = list(collide_platform_TK.keys())[0]
+            if victim.rect.y <= crasher.get_rect_y():
+                victim.collision(floor=[crasher.get_rect_y(), crasher.get_rect_x()+50, crasher.get_rect_x() + crasher.get_width()-50])
+
+
+
 
 
 
@@ -324,9 +348,52 @@ __path_game: str
     def get_X(self) -> int:
         return self.__scene_size_X
 
-    def __update_players(self, dt):
+    def __update_players(self, dt) -> None:
         for i in self.__players_group:
             i.update(dt)
+
+    def __is_time_challenge(self) -> bool:
+        result = True
+        # if (self.__trees_group==[]):
+        #     for i in self.__update_info.get_challenges():
+        #         self.__trees_group.add(i)
+        #
+        # for i in self.__update_info.get_challenges():
+        #     if i=="":
+        #         result = False
+        #         break
+        #     else:
+        #         result = True
+        #         if py.get_tree()=="":
+        #             for py in self.__players_group:
+        #                 py.set_tree(i)
+        #         else:
+        #             pass
+        #         break
+        # self.__trees_group.empty() #borra los sprites de los arboles
+        return result
+
+
+    def __update_tokens(self, dt):
+        for i in self.__tokens_group:
+            i.update(dt)
+
+    def __add_point_to_player(self) -> None:
+        # tree: TreeSprite
+        # num_max_token_take_it = 0 # numero en la posicion mayor de sprites
+        # for tree in self.__trees_group:
+        #     num2 =  tree.get_position_image()
+        #     #logica para saber cual es el mayor
+        # #     tree = mayor position image
+        #
+        #
+        # for py in self.__players_group:
+        #     if py.get_tree()==tree.get_id():
+        #         py.set_points(num_max_token_take_it*100)
+        #
+        # VOLVER RECETEAR
+        pass
+
 
     @staticmethod
     def get_path_game() -> str:
