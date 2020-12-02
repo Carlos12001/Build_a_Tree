@@ -8,19 +8,15 @@ import java.io.IOException;
 import java.nio.file.Paths;
 
 public class JacksonDecoder {
-    public static void main(String[] args) throws IOException {
-        // NO borrar porque ocupamos obtener el path de otra manera
-        File data = Paths.get("/home/mauro/Documents/GitKrakenClones/Build_a_Tree/src/data/data.json").toFile();
+    public String jsonString;
 
-        UpdateInfo info = new JacksonDecoder().DecodeFile(data);
-
-        System.out.println(info.getTime());
-
+    public JacksonDecoder(String jsonString){
+        this.jsonString = jsonString;
     }
 
-    public UpdateInfo Decode(String json) throws JsonProcessingException {
+    public UpdateInfo Decode() throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        UpdateInfo newInfo = mapper.readValue(json, UpdateInfo.class);
+        UpdateInfo newInfo = mapper.readValue(this.jsonString, UpdateInfo.class);
         return newInfo;
     }
 
@@ -29,5 +25,6 @@ public class JacksonDecoder {
         UpdateInfo newInfo = mapper.readValue(json, UpdateInfo.class);
         return newInfo;
     }
+
 
 }

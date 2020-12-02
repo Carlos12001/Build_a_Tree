@@ -25,11 +25,11 @@ public class JacksonEncoder {
         encodeMessage(new Message("action",null, true));
         encodeMessage(new Message("action",true,16,null,100,100));*/
 
-        String[] lol = new String[]{"treeB","","treeAVL"};
+        //String[] lol = new String[]{"treeB","","treeAVL"};
 
-        String strInfo = new JacksonEncoder().EncodeInfo(new UpdateInfo("5000", "treeAVL@42", lol));
+        //String strInfo = new JacksonEncoder().EncodeInfo(new UpdateInfo("5000", "treeAVL@42", lol));
 
-        System.out.println(strInfo);
+        //System.out.println(strInfo);
 
     }
 

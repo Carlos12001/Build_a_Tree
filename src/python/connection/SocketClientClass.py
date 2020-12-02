@@ -52,10 +52,11 @@ class SocketClientClass(object):
                     print('Connected in server by', addr)
                     while True:
                         data = conn.recv(1024)
-                        self.data_received = data
+
+                        self.data_received = data.decode("utf-8")
                         if not data:
                             break
-                        print("This is the data ", data)
+                        print("This is the data ", self.data_received)
 
     def start_listen(self):
         t1 = threading.Thread(target=self.send)

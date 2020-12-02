@@ -4,10 +4,13 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-class  SocketRecibir implements Runnable{
-    SocketRecibir(){
+class  ServerSocketClass implements Runnable{
+    UpdateInfo serverInfo;
 
+    ServerSocketClass(String time){
+        serverInfo = new UpdateInfo(time);
     }
+
     public void iniciarEscuchar(){
         Thread miHilo= new Thread(this);
         miHilo.start();
@@ -35,7 +38,12 @@ class  SocketRecibir implements Runnable{
                 BufferedReader flujo_entrada=new BufferedReader(new InputStreamReader(misocket.getInputStream()));
                 String mensaje_texto= flujo_entrada.readLine();
                 /* Aquí procesamos la información */
-                this.enviar("Respuesta X");
+                UpdateInfo infoToUpdate = new JacksonDecoder(mensaje_texto).Decode();
+                System.out.println("Info received: " + infoToUpdate);
+
+                String answerJsonStr = new JacksonEncoder().EncodeInfo(this.serverInfo);
+
+                this.enviar(answerJsonStr);
                 System.out.println(mensaje_texto);
                 flujo_entrada.close();
                 servidor.close();
@@ -53,7 +61,7 @@ class  SocketRecibir implements Runnable{
         // write your code here
         System.out.println("Hola desde Servidor");
 
-        SocketRecibir hilito= new SocketRecibir();
+        ServerSocketClass hilito= new ServerSocketClass("6000");
 
         hilito.iniciarEscuchar();
 

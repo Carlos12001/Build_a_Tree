@@ -20,10 +20,8 @@ public class UpdateInfo {
 
     }
 
-    public UpdateInfo(String time, String tokenSend, String[] challenge){
+    public UpdateInfo(String time){
         this.time = time;
-        this.tokenSend = tokenSend;
-        this.challenge = challenge;
     }
 
     public void UpdateFile(){
