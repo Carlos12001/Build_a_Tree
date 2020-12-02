@@ -11,6 +11,7 @@ class TreeSprite(pygame.sprite.Sprite):
         self.image: pygame.Surface = None
 
         self.__id: str = id
+        self.__currentKey: str = "0"
         # Setter images
         self.__set_dict_images()
 
@@ -158,6 +159,10 @@ class TreeSprite(pygame.sprite.Sprite):
 
     def set_current_state(self, key: str):
         self.__current_state = self.__states_dict[key]
+
+    def setNext(self):
+        tmp = int(self.__currentKey) + 1
+        self.__current_state = self.__states_dict[tmp]
 
     def defeault(self):
         self.set_current_state("0")
