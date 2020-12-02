@@ -3,19 +3,22 @@
 
 class UpdateInfo(object):
 
-    def __init__(self):
-        # Data that's gonna be sent to the server
-        self.playersName = []
-        self.playersGameOver = []
-        self.treeB = ""
-        self.treeBST = ""
-        self.treeAVL = ""
-        self.treeSplay = ""
+    class __UpdateInfoInstance:
+        __instance = None
 
-        # Data that's gonna be received from the server
-        self.time = 0
-        self.tokenSend = ""
-        self.challenge = []
+        def __init__(self):
+            # Data that's gonna be sent to the server
+            self.playersName = []
+            self.playersGameOver = []
+            self.treeB = ""
+            self.treeBST = ""
+            self.treeAVL = ""
+            self.treeSplay = ""
+
+            # Data that's gonna be received from the server
+            self.time = 0
+            self.tokenSend = ""
+            self.challenge = []
 
     def updateWrapper(self, playersName, playersGameOver, treeB, treeBST, treeAVL, treeSplay):
         self.setPlayersName(playersName)

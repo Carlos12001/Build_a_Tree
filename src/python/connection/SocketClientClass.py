@@ -6,7 +6,7 @@ import threading
 import socket
 import time
 import json
-
+import python.connection.UpdateInfo
 
 # The port used by the server
 
@@ -15,7 +15,7 @@ class SocketClientClass(object):
     def __init__(self, send_port, listen_port):
         self.listen_port = listen_port
         self.send_port = send_port
-        self.ip = '192.168.100.11'
+        self.ip = '127.0.0.1'
         self.data_received = ""
         self.name_list = ["Nacho", "Carlos"]
         self.info_managed = {}
@@ -23,7 +23,7 @@ class SocketClientClass(object):
     def send(self):
         first_conn = True
         while (True):
-            self.ip = '192.168.100.11'  # The server's hostname or IP address
+            self.ip = '127.0.0.1'  # The server's hostname or IP address
             self.send_port = 9999
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             s.connect((self.ip, self.send_port))
@@ -41,7 +41,7 @@ class SocketClientClass(object):
             time.sleep(1)
 
     def listen(self):
-        self.ip = '192.168.100.11'  # Standard loopback interface address (localhost)
+        self.ip = '127.0.0.1'  # Standard loopback interface address (localhost)
         self.listen_port = 9998  # Port to listen on (non-privileged ports are > 1023)
         while True:
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -54,6 +54,7 @@ class SocketClientClass(object):
                         data = conn.recv(1024)
 
                         self.data_received = data.decode("utf-8")
+
                         if not data:
                             break
                         print("This is the data ", self.data_received)

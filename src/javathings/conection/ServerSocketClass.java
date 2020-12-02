@@ -1,5 +1,7 @@
 package javathings.conection;
 
+import javathings.Time.TimeJava;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -7,8 +9,8 @@ import java.net.Socket;
 class  ServerSocketClass implements Runnable{
     UpdateInfo serverInfo;
 
-    ServerSocketClass(String time){
-        serverInfo = new UpdateInfo(time);
+    ServerSocketClass(){
+        serverInfo = UpdateInfo.getUpdateInfo();
     }
 
     public void iniciarEscuchar(){
@@ -19,7 +21,7 @@ class  ServerSocketClass implements Runnable{
 
     public void enviar(String mensaje){
         try {
-            Socket misocket = new Socket("192.168.100.11",9998);
+            Socket misocket = new Socket("127.0.0.1",9998);
             BufferedOutputStream flujo_salida=new BufferedOutputStream(misocket.getOutputStream());
             flujo_salida.write(mensaje.getBytes());
             flujo_salida.close();
@@ -38,7 +40,10 @@ class  ServerSocketClass implements Runnable{
                 BufferedReader flujo_entrada=new BufferedReader(new InputStreamReader(misocket.getInputStream()));
                 String mensaje_texto= flujo_entrada.readLine();
                 /* Aquí procesamos la información */
+
                 UpdateInfo infoToUpdate = new JacksonDecoder(mensaje_texto).Decode();
+                serverInfo.UpdateFile(infoToUpdate);
+
                 System.out.println("Info received: " + infoToUpdate);
 
                 String answerJsonStr = new JacksonEncoder().EncodeInfo(this.serverInfo);
@@ -61,8 +66,10 @@ class  ServerSocketClass implements Runnable{
         // write your code here
         System.out.println("Hola desde Servidor");
 
-        ServerSocketClass hilito= new ServerSocketClass("6000");
+        ServerSocketClass hilito= new ServerSocketClass();
 
+        TimeJava newTime = new TimeJava();
+        newTime.timeStart(1);
         hilito.iniciarEscuchar();
 
     }

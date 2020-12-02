@@ -38,13 +38,11 @@ public class TimeJava {
         Thread thread = new Thread(() -> {
             for (minutes = 0; minutes < minMax; minutes++){
                 for (seg = 0; seg < 60; seg ++){
-                    UpdateInfo newTime = new UpdateInfo();
-                    newTime.setTime(minutes + ":" + seg);
+                    UpdateInfo.getUpdateInfo().setTime(minutes + ":" + seg);
                     delaySeg();
                 }
             }
-            UpdateInfo newTime = new UpdateInfo();
-            newTime.setTime(minMax + ":00");
+            UpdateInfo.getUpdateInfo().setTime(minMax + ":00");
         });
         thread.setDaemon(true);
         thread.start();
@@ -58,8 +56,8 @@ public class TimeJava {
             for (seg = 0; seg < segMax; seg++){
                 delaySeg();
             }
-            UpdateInfo newToken = new UpdateInfo();
-            newToken.setTokenSend("treeAVL@12");  // Aqui se pone un metodo que tome tokens de manera aleatoria
+//            UpdateInfo newToken = new UpdateInfo();
+//            newToken.setTokenSend("treeAVL@12");  // Aqui se pone un metodo que tome tokens de manera aleatoria
         });
         thread.setDaemon(true);
         thread.start();

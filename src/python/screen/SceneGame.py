@@ -339,9 +339,6 @@ __path_game: str
 
 
 
-
-
-
     def get_Y(self) -> int:
         return self.__scene_size_Y
 

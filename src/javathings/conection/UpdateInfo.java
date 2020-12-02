@@ -1,6 +1,7 @@
 package javathings.conection;
 
 public class UpdateInfo {
+    private static UpdateInfo instance;
     private String[] playersName;
     private boolean[] playersGameOver;
     private String treeB;
@@ -16,16 +17,28 @@ public class UpdateInfo {
     /**
      *
      */
-    public UpdateInfo(){
+    private UpdateInfo(){
 
+    }
+
+    public static UpdateInfo getUpdateInfo(){
+        if (instance == null){
+            instance = new UpdateInfo();
+        }
+        return instance;
     }
 
     public UpdateInfo(String time){
         this.time = time;
     }
 
-    public void UpdateFile(){
-
+    public void UpdateFile(UpdateInfo newInfo){
+        this.playersName = newInfo.getPlayersName();
+        this.playersGameOver = newInfo.getPlayersGameOver();
+        this.treeB = newInfo.getTreeB();
+        this.treeBST = newInfo.getTreeBST();
+        this.treeAVL = newInfo.getTreeAVL();
+        this.treeSplay = newInfo.getTreeSplay();
     }
 
     /**
