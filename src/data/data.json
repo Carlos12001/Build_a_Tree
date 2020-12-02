@@ -6,8 +6,6 @@
   "treeAVL": "treeAVL@16",
   "treeSplay": "treeSplay@1",
 
-
-
   "time": 5000,
   "tokenSend": "treeAVL@16",
   "challenge": ["treeB", "", "treeAVL", ""]
