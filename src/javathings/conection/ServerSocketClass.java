@@ -1,104 +1,65 @@
 package javathings.conection;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
-import java.net.InetAddress;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
 
-public class ServerSocketClass implements Runnable{
-    ServerSocket serverInstance;
-    Socket incomingClient;
-    Socket bind;
-    InputStreamReader inputStreamReader;
-    BufferedReader bufferedReader;
-    PrintStream printStream ;
-    Scanner input;
-    String ip = "";
-    int port = 0;
-    boolean game = true;
+class  SocketRecibir implements Runnable{
+    SocketRecibir(){
 
-    Thread t;
-
-
-    public ServerSocketClass(String ip, int port) {
-        this.ip = ip;
-        this.port = port;
-        //t = new Thread(this, "Thread");
-        //System.out.println("Child thread: " + t);
-        //t.start();
     }
-    public void ServerListener() throws IOException {
+    public void iniciarEscuchar(){
+        Thread miHilo= new Thread(this);
+        miHilo.start();
 
-        this.serverInstance = new ServerSocket(this.port);
-        System.out.println("Server is listening");
-        this.incomingClient = serverInstance.accept();
+    }
 
-        this.inputStreamReader = new InputStreamReader(incomingClient.getInputStream());
-        this.bufferedReader = new BufferedReader(inputStreamReader);
-
-        String message = bufferedReader.readLine();
-        System.out.println("Client says: " + message);
-
-        if(message.equals("bye")){
-            this.game = false;
-            System.out.println("Closing Server");
+    public void enviar(String mensaje){
+        try {
+            Socket misocket = new Socket("192.168.100.11",9998);
+            BufferedOutputStream flujo_salida=new BufferedOutputStream(misocket.getOutputStream());
+            flujo_salida.write(mensaje.getBytes());
+            flujo_salida.close();
+            misocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        serverInstance.close();
-        incomingClient.close();
-        inputStreamReader.close();
-        bufferedReader.close();
-
-        //this.printStream = new PrintStream(incomingClient.getOutputStream());
-        //printStream.println("Message received");
     }
 
+    @Override
     public void run() {
-        try {
-            System.out.println("Child Thread");
-            Thread.sleep(50);
-        } catch (InterruptedException e) {
-            System.out.println("The child thread is interrupted.");
+        while(true){
+            try {
+                ServerSocket servidor = new ServerSocket(9999);
+                Socket misocket= servidor.accept();
+                BufferedReader flujo_entrada=new BufferedReader(new InputStreamReader(misocket.getInputStream()));
+                String mensaje_texto= flujo_entrada.readLine();
+                /* Aquí procesamos la información */
+                this.enviar("Respuesta X");
+                System.out.println(mensaje_texto);
+                flujo_entrada.close();
+                servidor.close();
+                misocket.close();
+
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
-    public void ServerSender() throws IOException {
-        InetAddress serverName = InetAddress.getLocalHost();
-        bind = new Socket(serverName,2050);
-        printStream = new PrintStream(bind.getOutputStream());
-        System.out.println("Write a message: ");
-        input = new Scanner(System.in);
-        String strInput = input.nextLine();
-        printStream.println(strInput);
+    public static void main(String[] args) {
+        // write your code here
+        System.out.println("Hola desde Servidor");
 
-        printStream.close();
+        SocketRecibir hilito= new SocketRecibir();
+
+        hilito.iniciarEscuchar();
+
     }
-
-    public void Yahoo(ServerSocketClass SS) throws IOException {
-        while(this.game){
-            SS.ServerListener();
-            SS.ServerSender();
-            //SS.run();
-        }
-    }
-
-    public static void main(String[] args) throws IOException {
-        ServerSocketClass SS = new ServerSocketClass("127.0.0.1", 8050);
-        SS.Yahoo(SS);
-        /*
-        new ServerSocketClass("127.0.0.1", 8080);
-        try {
-            System.out.println("Main Thread");
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            System.out.println("The Main thread is interrupted");
-        }
-        System.out.println("Exiting the Main thread");*/
-    }
-
 }
+
+
+
 

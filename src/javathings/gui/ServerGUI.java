@@ -32,7 +32,7 @@ public class ServerGUI extends JFrame {
 
         // Create a thread and starts it
 //
-        clientThread = new Thread(this);
-        clientThread.start();
+        //clientThread = new Thread(this);
+        //clientThread.start();
     }
 }
