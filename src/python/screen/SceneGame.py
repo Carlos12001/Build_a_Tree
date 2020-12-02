@@ -10,6 +10,7 @@ from python.sprites.Platform import Platform
 from python.sprites.Player import Player
 from python.json.UpdateInfo import UpdateInfo as UI
 from python.sprites.Token import Token
+from python.sprites.TreeSprite import TreeSprite
 
 
 class SceneGame:
@@ -241,15 +242,36 @@ __path_game: str
 
         j: int = 0
         for i in names:
-            num = 50 * random.choice([-1, 1]) * j
             if i != "":
-                player = Player(self.__screen, i, self.__scene_size_X / 2 + num, 0, j)
+                player = Player(self.__screen, i, random.randrange(100, 700, 25), 0, j)
                 self.__players_group.add(player)
                 self.__all_sprite_group.add(player)
                 j += 1
 
-        platform = Platform(self.__screen, 50, 700)
-        print()
+        platform = Platform(self.__screen, 150, 700, (1050, 100))
+
+        self.__platforms_group.add(platform)
+        self.__all_sprite_group.add(platform)
+
+        platform = Platform(self.__screen, 250, 550, (500, 5))
+
+        self.__platforms_group.add(platform)
+        self.__all_sprite_group.add(platform)
+
+        platform = Platform(self.__screen, 650, 400, (100, 5))
+
+        self.__platforms_group.add(platform)
+        self.__all_sprite_group.add(platform)
+
+
+        platform = Platform(self.__screen, 850, 250, (100, 5))
+
+        self.__platforms_group.add(platform)
+        self.__all_sprite_group.add(platform)
+
+
+        platform = Platform(self.__screen, 450, 100, (200, 5))
+
         self.__platforms_group.add(platform)
         self.__all_sprite_group.add(platform)
 
@@ -263,9 +285,21 @@ __path_game: str
         serverTime = "Tiempo: "
         label_time = LabelText(str(serverTime), 3, SceneGame.get_color()["black"], self.__screen, (120, 10))
 
-        token = Token(self.__screen, "treeSplay@23", 50, 0)
+
+
+        #PRUEBAS
+        token = Token(self.__screen, "treeSplay@23", random.randrange(100, 700, 25), 0)
         self.__tokens_group.add(token)
         self.__all_sprite_group.add(token)
+        num = 0
+        for i in  self.__players_group:
+            if num == 0:
+                i.set_tree("treeSplay")
+            else:
+                i.set_tree("treeB")
+            num += 1
+
+
         while self.running:
             self.__screen.blit(bg_image, [0, 0])
             label_time.set_text("Tiempo: " + str(self.__time_pygame.get_time()))
@@ -321,7 +355,7 @@ __path_game: str
             collide_player_PY = pygame.sprite.spritecollide(i, current, False, False)
             if collide_player_PY != []:
                 victim: Player = i
-                if abs(victim.get_rect_x() -collide_player_PY[0].get_rect_x())==10:
+                if abs(victim.get_rect_x() -collide_player_PY[0].get_rect_x())<=10:
                     if victim.get_rect_x()>collide_player_PY[0].get_rect_x():
                         victim.set_rect_x(75)
                         collide_player_PY[0].set_rect_x(-75)
@@ -329,17 +363,36 @@ __path_game: str
                         victim.set_rect_x(-75)
                         collide_player_PY[0].set_rect_x(75)
 
-        collide_platform_TK =  pygame.sprite.groupcollide(self.__tokens_group, self.__platforms_group, False, False)
+
+
+        collide_platform_TK = pygame.sprite.groupcollide(self.__tokens_group, self.__platforms_group, False, False)
 
         if collide_platform_TK != {}:
             crasher: Platform = list(collide_platform_TK.values())[0][0]
-            victim: Player = list(collide_platform_TK.keys())[0]
+            victim: Token = list(collide_platform_TK.keys())[0]
             if victim.rect.y <= crasher.get_rect_y():
                 victim.collision(floor=[crasher.get_rect_y(), crasher.get_rect_x()+50, crasher.get_rect_x() + crasher.get_width()-50])
 
+        collide_token_PY = pygame.sprite.groupcollide(self.__players_group, self.__tokens_group, False, False)
+        if collide_token_PY != {}:
+            crasher: Token = list(collide_token_PY.values())[0][0]
+            victim: Player = list(collide_token_PY.keys())[0]
 
 
+            tmp_tree: TreeSprite
+            for tree in self.__trees_group:
+                if victim.get_tree()=="treeSplay":
+                    tmp_tree = tree
+                    break
 
+            if (victim.get_tree()== crasher.get_name().split("@")[0]):
+                # tmp_tree.set_next()
+                crasher.kill()
+            else:
+                # tmp_tree.set_default()
+                crasher.set_rect_y(0)
+            #SETEAR INFO EN UPDATE INFO
+            #ENVIAR INFO
 
 
     def get_Y(self) -> int:
@@ -376,7 +429,8 @@ __path_game: str
 
     def __update_tokens(self, dt):
         for i in self.__tokens_group:
-            i.update(dt)
+            if not i.get_dont_work():
+                i.update(dt)
 
     def __add_point_to_player(self) -> None:
         # tree: TreeSprite

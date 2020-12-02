@@ -29,8 +29,8 @@ class TreeSprite(pygame.sprite.Sprite):
     def get_rect_x(self) -> int:
         return self.rect.x
 
-    def get_id():
-        pass
+    def get_id(self):
+        return ""
 
     def get_rect_y(self) -> int:
         return self.rect.y
