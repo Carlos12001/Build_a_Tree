@@ -20,6 +20,7 @@ public class TreeBST extends Tree {
     public TreeBST(){
        super();
        setTreeID("treeBST");
+       this.setCurrentArray(new int[]{300, 8, 232, 78, 1, -1});
     }
 
     public void insert(int key){

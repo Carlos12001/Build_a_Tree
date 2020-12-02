@@ -20,7 +20,8 @@ public class TreeSplay extends Tree {
     TreeSplay() {
         super();
         this.root = null;
-        this.setCurrentArray(new int[]{});
+        setTreeID("treeSplay");
+        this.setCurrentArray(new int[]{57, 34, 4, 90, 13, -1});
     }
 
     private static NodeSplay rightRotate(NodeSplay x) {
