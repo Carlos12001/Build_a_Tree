@@ -1,4 +1,4 @@
-from python.json.JSONManager import JSONManager
+#from python.json.JSONManager import JSONManager
 
 
 class UpdateInfo(object):

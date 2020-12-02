@@ -7,6 +7,7 @@ import socket
 import time
 import json
 
+
 # The port used by the server
 
 class SocketClientClass(object):
@@ -16,30 +17,32 @@ class SocketClientClass(object):
         self.send_port = send_port
         self.ip = '192.168.100.11'
         self.data_received = ""
+        self.name_list = ["Nacho", "Carlos"]
+        self.info_managed = {}
 
     def send(self):
+        first_conn = True
         while (True):
             self.ip = '192.168.100.11'  # The server's hostname or IP address
             self.send_port = 9999
-            s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             s.connect((self.ip, self.send_port))
-            x = {
-                "name": "John",
-                "age": 30,
-                "city": "New York"
-            }
-            y = json.dumps(x)
 
-            s.sendall(bytes(y,encoding="utf-8"))
+            if first_conn :
+                self.info_managed.setPlayersName(self.name_list)
+                self.info_managed.setPlayersGameOver([True, True])
+                first_conn = False
+            new_dict = self.info_managed.createDict()
+            y = json.dumps(new_dict)
+
+            s.sendall(bytes(y, encoding="utf-8"))
             print("Hola como estas")
             s.close()
             time.sleep(1)
 
-
-
     def listen(self):
         self.ip = '192.168.100.11'  # Standard loopback interface address (localhost)
-        self.listen_port = 9998        # Port to listen on (non-privileged ports are > 1023)
+        self.listen_port = 9998  # Port to listen on (non-privileged ports are > 1023)
         while True:
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 s.bind((self.ip, self.listen_port))
@@ -52,7 +55,7 @@ class SocketClientClass(object):
                         self.data_received = data
                         if not data:
                             break
-                        print("This is the data ",data)
+                        print("This is the data ", data)
 
     def start_listen(self):
         t1 = threading.Thread(target=self.send)
@@ -65,7 +68,6 @@ class SocketClientClass(object):
         t2.start()
 
 
-new_client = Client(9999,9998)
-new_client.start_listen()
-new_client.start_sending()
-
+# new_client = SocketClientClass(9999, 9998)
+# new_client.start_listen()
+# new_client.start_sending()
