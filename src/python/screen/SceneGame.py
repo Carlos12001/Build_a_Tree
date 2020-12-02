@@ -9,6 +9,7 @@ from python.basicgui.CursorRect import CursorRect
 from python.sprites.Platform import Platform
 from python.sprites.Player import Player
 from python.json.UpdateInfo import UpdateInfo as UI
+from python.sprites.Power import Power
 from python.sprites.Token import Token
 from python.sprites.TreeSprite import TreeSprite
 
@@ -69,39 +70,43 @@ __path_game: str
         cursorRect = CursorRect()
 
         label_text_title: LabelText = LabelText("Build a Tree", 0, SceneGame.get_color()["black"], self.__screen,
-                                                (self.__scene_size_X/2, 50))
+                                                (self.__scene_size_X / 2, 50))
 
         active_text_field_1 = False
-        text_field_1 = pygame.Rect(self.__scene_size_X/2-200, 150, 400, 50)
-        label_text_indication_1 = LabelText("Player 1", 2, SceneGame.get_color()["black"], self.__screen, (self.__scene_size_X/2, 125))
+        text_field_1 = pygame.Rect(self.__scene_size_X / 2 - 200, 150, 400, 50)
+        label_text_indication_1 = LabelText("Player 1", 2, SceneGame.get_color()["black"], self.__screen,
+                                            (self.__scene_size_X / 2, 125))
         user_name_1 = ""
         label_text_text_field_1 = LabelText(user_name_1, 1, SceneGame.get_color()["white"], self.__screen,
                                             (text_field_1.x + 200, text_field_1.y + 25))
 
         active_text_field_2 = False
-        text_field_2 = pygame.Rect(self.__scene_size_X/2-200, 250, 400, 50)
-        label_text_indication_2 = LabelText("Player 2", 2, SceneGame.get_color()["black"], self.__screen, (self.__scene_size_X/2, 225))
+        text_field_2 = pygame.Rect(self.__scene_size_X / 2 - 200, 250, 400, 50)
+        label_text_indication_2 = LabelText("Player 2", 2, SceneGame.get_color()["black"], self.__screen,
+                                            (self.__scene_size_X / 2, 225))
         user_name_2 = ""
         label_text_text_field_2 = LabelText(user_name_2, 1, SceneGame.get_color()["white"], self.__screen,
                                             (text_field_2.x + 200, text_field_2.y + 25))
 
         active_text_field_3 = False
-        text_field_3 = pygame.Rect(self.__scene_size_X/2-200, 350, 400, 50)
-        label_text_indication_3 = LabelText("Player 3", 2, SceneGame.get_color()["black"], self.__screen, (self.__scene_size_X/2, 325))
+        text_field_3 = pygame.Rect(self.__scene_size_X / 2 - 200, 350, 400, 50)
+        label_text_indication_3 = LabelText("Player 3", 2, SceneGame.get_color()["black"], self.__screen,
+                                            (self.__scene_size_X / 2, 325))
         user_name_3 = ""
         label_text_text_field_3 = LabelText(user_name_3, 1, SceneGame.get_color()["white"], self.__screen,
                                             (text_field_3.x + 200, text_field_3.y + 25))
 
         active_text_field_4 = False
-        text_field_4 = pygame.Rect(self.__scene_size_X/2-200, 450, 400, 50)
-        label_text_indication_4 = LabelText("Player 4", 2, SceneGame.get_color()["black"], self.__screen, (self.__scene_size_X/2, 425))
+        text_field_4 = pygame.Rect(self.__scene_size_X / 2 - 200, 450, 400, 50)
+        label_text_indication_4 = LabelText("Player 4", 2, SceneGame.get_color()["black"], self.__screen,
+                                            (self.__scene_size_X / 2, 425))
         user_name_4 = ""
         label_text_text_field_4 = LabelText(user_name_4, 1, SceneGame.get_color()["white"], self.__screen,
                                             (text_field_4.x + 200, text_field_4.y + 25))
 
         button_start = Button(SceneGame.load_out_img("buttonStartNormal.png", (150, 100)),
                               SceneGame.load_out_img("buttonStartSelection.png", (150, 100)),
-                              (self.__scene_size_X/2, 600), self.__screen)
+                              (self.__scene_size_X / 2, 600), self.__screen)
 
         run: bool = True
         while run:
@@ -263,16 +268,21 @@ __path_game: str
         self.__platforms_group.add(platform)
         self.__all_sprite_group.add(platform)
 
-
         platform = Platform(self.__screen, 850, 250, (100, 5))
 
         self.__platforms_group.add(platform)
         self.__all_sprite_group.add(platform)
 
-
         platform = Platform(self.__screen, 450, 100, (200, 5))
 
         self.__platforms_group.add(platform)
+        self.__all_sprite_group.add(platform)
+
+
+
+        self.__base = Platform(self.__screen, -150, 1500, (1900, 400))
+
+
         self.__all_sprite_group.add(platform)
 
         # crear  los vacíos arboles y meterlos en el grupo
@@ -283,26 +293,38 @@ __path_game: str
         bg_image = SceneGame.load_out_img("backgroundGame.png", (self.__scene_size_X, self.__scene_size_Y))
         info = UI()
         serverTime = "Tiempo: "
-        label_time = LabelText(str(serverTime), 3, SceneGame.get_color()["black"], self.__screen, (120, 10))
+        label_time = LabelText(str(serverTime), 0, SceneGame.get_color()["black"], self.__screen, (120, 30))
 
 
 
-        #PRUEBAS
-        token = Token(self.__screen, "treeSplay@23", random.randrange(100, 700, 25), 0)
+
+        # PRUEBAS TOKEN
+        token = Token(self.__screen, "treeSplay@23",random.randrange(200, 700, 25), 0)
         self.__tokens_group.add(token)
         self.__all_sprite_group.add(token)
+
         num = 0
-        for i in  self.__players_group:
+        for i in self.__players_group:
             if num == 0:
                 i.set_tree("treeSplay")
             else:
                 i.set_tree("treeB")
             num += 1
 
+        # PRUEBAS POWERS
+
+        power = Power(self.__screen, random.randrange(200, 700, 25), 0)
+
+        self.__powers_group.add(power)
+        self.__all_sprite_group.add(power)
 
         while self.running:
             self.__screen.blit(bg_image, [0, 0])
             label_time.set_text("Tiempo: " + str(self.__time_pygame.get_time()))
+
+
+
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
@@ -310,17 +332,14 @@ __path_game: str
                     sys.exit()
 
                 if event.type == pygame.KEYDOWN:
-
                     self.__key_down(event.key)
 
                 if event.type == pygame.KEYUP:
                     self.__key_up(event.key)
 
-
-
             self.__all_sprite_group.draw(self.__screen)
             dt = self.__time_pygame.tick(60)
-            self.__update_players(dt)
+            self.__update_players_and_powers(dt)
             label_time.draw_me()
             if self.__is_time_challenge():
                 self.__update_tokens(dt)
@@ -329,7 +348,25 @@ __path_game: str
                 self.__add_point_to_player()
 
 
+
             self.__collisions()
+
+            x = 1
+            for n in self.__players_group:
+                img = n.get_image()
+                label_name = LabelText(n.get_name(), 3, SceneGame.get_color()["black"], self.__screen, (x*150, 900))
+                label_points = LabelText(str(n.get_points()), 3, SceneGame.get_color()["black"], self.__screen, (x*150, 925))
+                label_tree = LabelText(n.get_tree(), 3, SceneGame.get_color()["black"], self.__screen, (x*150, 950))
+                label_power = LabelText(n.get_power(), 3, SceneGame.get_color()["black"], self.__screen, (x*150, 975))
+
+                self.__screen.blit(img, [x*150-25, 800])
+                label_name.draw_me()
+                label_points.draw_me()
+                label_tree.draw_me()
+                label_power.draw_me()
+
+                x+=1
+
             pygame.display.flip()
 
     def __key_down(self, event_key) -> None:
@@ -347,7 +384,8 @@ __path_game: str
             crasher: Platform = list(collide_platform_PY.values())[0][0]
             victim: Player = list(collide_platform_PY.keys())[0]
             if victim.rect.y <= crasher.get_rect_y():
-                victim.collision(floor=[crasher.get_rect_y(), crasher.get_rect_x()+50, crasher.get_rect_x() + crasher.get_width()-50])
+                victim.collision(floor=[crasher.get_rect_y(), crasher.get_rect_x() + 50,
+                                        crasher.get_rect_x() + crasher.get_width() - 50])
 
         for i in self.__players_group:
             current = self.__players_group.copy()
@@ -355,44 +393,75 @@ __path_game: str
             collide_player_PY = pygame.sprite.spritecollide(i, current, False, False)
             if collide_player_PY != []:
                 victim: Player = i
-                if abs(victim.get_rect_x() -collide_player_PY[0].get_rect_x())<=10:
-                    if victim.get_rect_x()>collide_player_PY[0].get_rect_x():
-                        victim.set_rect_x(75)
-                        collide_player_PY[0].set_rect_x(-75)
+                if abs(victim.get_rect_x() - collide_player_PY[0].get_rect_x()) <= 10:
+
+                    push = 150
+                    v_s = victim.get_shield()
+                    v_p = victim.get_push()
+
+                    c_s = collide_player_PY[0].get_shield()
+                    c_p = collide_player_PY[0].get_push()
+                    if v_s !=0:
+                        v_s = push + c_p
+
+                    if c_s !=0:
+                        v_s = push + v_p
+
+                    if victim.get_rect_x() > collide_player_PY[0].get_rect_x():
+                        victim.set_rect_x(push-v_s+c_p)
+                        collide_player_PY[0].set_rect_x(-push+c_s-v_p)
                     else:
-                        victim.set_rect_x(-75)
-                        collide_player_PY[0].set_rect_x(75)
-
-
+                        victim.set_rect_x(-push-(-v_s+c_p))
+                        collide_player_PY[0].set_rect_x(push-(c_s-v_p))
 
         collide_platform_TK = pygame.sprite.groupcollide(self.__tokens_group, self.__platforms_group, False, False)
-
         if collide_platform_TK != {}:
             crasher: Platform = list(collide_platform_TK.values())[0][0]
             victim: Token = list(collide_platform_TK.keys())[0]
             if victim.rect.y <= crasher.get_rect_y():
-                victim.collision(floor=[crasher.get_rect_y(), crasher.get_rect_x()+50, crasher.get_rect_x() + crasher.get_width()-50])
+                victim.collision(floor=[crasher.get_rect_y(), crasher.get_rect_x() + 50,
+                                        crasher.get_rect_x() + crasher.get_width() - 50])
 
         collide_token_PY = pygame.sprite.groupcollide(self.__players_group, self.__tokens_group, False, False)
         if collide_token_PY != {}:
             crasher: Token = list(collide_token_PY.values())[0][0]
             victim: Player = list(collide_token_PY.keys())[0]
 
-
             tmp_tree: TreeSprite
             for tree in self.__trees_group:
-                if victim.get_tree()=="treeSplay":
+                if victim.get_tree() == "treeSplay":
                     tmp_tree = tree
                     break
 
-            if (victim.get_tree()== crasher.get_name().split("@")[0]):
+            if victim.get_tree() == crasher.get_name().split("@")[0]:
                 # tmp_tree.set_next()
                 crasher.kill()
             else:
                 # tmp_tree.set_default()
                 crasher.set_rect_y(0)
-            #SETEAR INFO EN UPDATE INFO
-            #ENVIAR INFO
+            # SETEAR INFO EN UPDATE INFO
+            # ENVIAR INFO
+
+        collide_token_PY = pygame.sprite.groupcollide(self.__players_group, self.__powers_group, False, False)
+        if collide_token_PY != {}:
+            crasher: Power = list(collide_token_PY.values())[0][0]
+            victim: Player = list(collide_token_PY.keys())[0]
+
+            victim.collision(power=crasher.get_name())
+            crasher.kill()
+
+        collide_platform_PW = pygame.sprite.groupcollide(self.__powers_group, self.__platforms_group, False, False)
+        if collide_platform_PW != {}:
+            crasher: Platform = list(collide_platform_PW.values())[0][0]
+            victim: Token = list(collide_platform_PW.keys())[0]
+            if victim.rect.y <= crasher.get_rect_y():
+                victim.collision(floor=[crasher.get_rect_y(), crasher.get_rect_x() + 50,
+                                        crasher.get_rect_x() + crasher.get_width() - 50])
+
+
+        collide_game_over = pygame.sprite.spritecollide(self.__base, self.__players_group, False, False)
+        if collide_game_over != []:
+            collide_game_over[0].kill()
 
 
     def get_Y(self) -> int:
@@ -401,8 +470,11 @@ __path_game: str
     def get_X(self) -> int:
         return self.__scene_size_X
 
-    def __update_players(self, dt) -> None:
+    def __update_players_and_powers(self, dt) -> None:
         for i in self.__players_group:
+            i.update(dt)
+
+        for i in self.__powers_group:
             i.update(dt)
 
     def __is_time_challenge(self) -> bool:
@@ -426,7 +498,6 @@ __path_game: str
         # self.__trees_group.empty() #borra los sprites de los arboles
         return result
 
-
     def __update_tokens(self, dt):
         for i in self.__tokens_group:
             if not i.get_dont_work():
@@ -447,7 +518,6 @@ __path_game: str
         #
         # VOLVER RECETEAR
         pass
-
 
     @staticmethod
     def get_path_game() -> str:

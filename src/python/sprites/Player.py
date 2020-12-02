@@ -23,9 +23,13 @@ class Player(pygame.sprite.Sprite):
         self.__id: int = id
         self.__tree: str = ""
 
+        self.__shield = 0
+        self.__push =  0
+        self.__jumping_more = 0
+
         self.__jumping: bool = False
-        self.__speed: int = 5.5
-        self.__floor: int = 1100
+        self.__speed: int = 4.9
+        self.__floor: int = 2000
         self.__floor_max: int = 0
         self.__floor_min: int = 0
         self.__game_over: bool = False
@@ -56,6 +60,30 @@ class Player(pygame.sprite.Sprite):
 
     def get_points(self) -> int:
         return self.point
+
+    def get_power(self) -> str:
+        result: str = ""
+
+        if self.__jumping_more != 0 :
+            result += "JUMP, "
+        if self.__shield != 0 :
+            result += "SHIELD, "
+        if self.__push != 0:
+            result += "PUSH  "
+        return result
+
+    def get_shield(self) -> int:
+        tmp = self.__shield
+        self.__shield = 0
+        return tmp
+
+    def get_push(self) -> int:
+        tmp = self.__push
+        self.__push = 0
+        return tmp
+
+    def get_image(self):
+        return self.image
 
     def set_current_state(self, key: str):
         self.__current_state = self.__states_dict[key]
@@ -186,69 +214,99 @@ class Player(pygame.sprite.Sprite):
     def __key_down_player_0(self, key):
         if key == pygame.K_w:
             if not self.__jumping:
+                self.jump(9)
+                self.__jumping = True
+                self.__floor = 2000
+
+            elif self.__jumping_more != 0:
                 self.jump(10)
                 self.__jumping = True
-                self.__floor = self.__screen.get_height()
+                self.__jumping_more -= 1
+                self.__floor = 2000
         if key == pygame.K_s:
             pass
-        if key == pygame.K_d and 1300  > self.rect.x + self.__speed:
+        if key == pygame.K_d and 1400  > self.rect.x + self.__speed:
             self.__dx = self.__speed
             self.set_current_state(self.__walking_right_state.get_name())
-            self.__floor = self.__screen.get_height()
+            self.__floor = 2000
         if key == pygame.K_a and 0 < self.rect.x - self.__speed:
             self.__dx = -self.__speed
             # Aqui seria left
             self.set_current_state(self.__walking_right_state.get_name())
-            self.__floor = self.__screen.get_height()
+            self.__floor = 2000
 
     def __key_down_player_1(self, key):
         if key == pygame.K_UP:
             if not self.__jumping:
+                self.jump(9)
+                self.__jumping = True
+                self.__floor = 2000
+
+            elif self.__jumping_more != 0:
                 self.jump(10)
                 self.__jumping = True
-                self.__floor = self.__screen.get_height()
+                self.__jumping_more -= 1
+                self.__floor = 2000
         if key == pygame.K_DOWN:
             pass
-        if key == pygame.K_RIGHT:
+        if key == pygame.K_RIGHT and 1400  > self.rect.x + self.__speed:
             self.__dx = self.__speed
             self.set_current_state(self.__walking_right_state.get_name())
-        if key == pygame.K_LEFT:
+            self.__floor = 2000
+        if key == pygame.K_LEFT and 0 < self.rect.x - self.__speed:
             self.__dx = -self.__speed
             # Aqui seria left
             self.set_current_state(self.__walking_right_state.get_name())
+            self.__floor = 2000
 
     def __key_down_player_2(self, key):
         if key == pygame.K_i:
             if not self.__jumping:
+                self.jump(9)
+                self.__jumping = True
+                self.__floor = 2000
+
+            elif self.__jumping_more != 0:
                 self.jump(10)
                 self.__jumping = True
-                self.__floor = self.__screen.get_height()
+                self.__jumping_more -= 1
+                self.__floor = 2000
 
         if key == pygame.K_k:
             pass
-        if key == pygame.K_l:
+        if key == pygame.K_l  and 1400  > self.rect.x + self.__speed:
             self.__dx = self.__speed
             self.set_current_state(self.__walking_right_state.get_name())
-        if key == pygame.K_j:
+            self.__floor = 2000
+        if key == pygame.K_j and 0 < self.rect.x - self.__speed:
             self.__dx = -self.__speed
             # Aqui seria left
             self.set_current_state(self.__walking_right_state.get_name())
+            self.__floor = 2000
 
     def __key_down_player_3(self, key):
         if key == pygame.K_g:
             if not self.__jumping:
+                self.jump(9)
+                self.__jumping = True
+                self.__floor = 2000
+
+            elif self.__jumping_more != 0:
                 self.jump(10)
                 self.__jumping = True
-                self.__floor = self.__screen.get_height()
+                self.__jumping_more -= 1
+                self.__floor = 2000
         if key == pygame.K_b:
             pass
-        if key == pygame.K_n:
+        if key == pygame.K_n  and 1400  > self.rect.x + self.__speed:
             self.__dx = self.__speed
             self.set_current_state(self.__walking_right_state.get_name())
-        if key == pygame.K_v:
+            self.__floor = 2000
+        if key == pygame.K_v and 0 < self.rect.x - self.__speed:
             self.__dx = -self.__speed
             # Aqui seria left
             self.set_current_state(self.__walking_right_state.get_name())
+            self.__floor = 2000
 
     def key_up(self, key):
         if self.__id == 0:
@@ -333,21 +391,28 @@ class Player(pygame.sprite.Sprite):
             self.__dy = 0
 
         if self.__floor_max <= self.rect.x:
-            self.__floor = 1000
+            self.__floor = 2000
 
         if self.__floor_min > self.rect.x:
-            self.__floor = 1000
+            self.__floor = 2000
 
 
 
         self.__current_state.update(dt=dt)
         self.image = self.__current_state.get_current_sprite()
 
-    def collision(self, power=None, floor=None):
-        if not floor is None:
+    def collision(self, power: str=None, floor: list=None):
+        if floor is not None:
             self.set_floor(floor[0])
             self.__floor_min = floor[1]
             self.__floor_max = floor[2]
-        if not power is None:
-            pass
+        if power is not None:
+
+            if power == "jumper":
+                self.__jumping_more = 4
+            elif power == "shield":
+                self.__shield = 150
+            elif power == "push":
+                self.__push = 300
+
 

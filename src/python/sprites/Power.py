@@ -1,7 +1,6 @@
 import pygame, random
 
-from python.screen.SceneGame import SceneGame
-from python.sprites.StaticState import StaticState
+
 
 
 class Power(pygame.sprite.Sprite):
@@ -21,7 +20,9 @@ class Power(pygame.sprite.Sprite):
         self.__floor = 1000
         self.__floor_max = 0
         self.__floor_min = 0
-        self.__name: str = random.choice(["jumper", "shield", "push"])
+        self.__name: str = "jumper"#random.choice(["jumper", "shield", "push"])
+
+
 
         # Setter images
         self.__set_dict_images()
@@ -45,25 +46,23 @@ class Power(pygame.sprite.Sprite):
         from python.screen.SceneGame import SceneGame
         from python.sprites.StaticState import StaticState
         image: pygame.Surface = None
-        if self.__name == "jump":
+
+        print(self.__name)
+        if self.__name == "jumper":
 
             image = (SceneGame.load_out_img("jump.png", (50, 50)))
             self.__image_state = StaticState(image, "image")
+            print(self.__image_state, image, self.__name)
 
-            self.__states_dict[self.__image_state.get_name()] = self.__image_state
         elif self.__name == "shield":
             image = (SceneGame.load_out_img("escudo.png", (50, 50)))
             self.__image_state = StaticState(image, "image")
 
-            self.__states_dict[self.__image_state.get_name()] = self.__image_state
         elif self.__name == "push":
             image = (SceneGame.load_out_img("push.png", (50, 50)))
             self.__image_state = StaticState(image, "image")
 
-            self.__states_dict[self.__image_state.get_name()] = self.__image_state
-
-
-
+        self.__states_dict[self.__image_state.get_name()] = self.__image_state
 
         self.set_current_state(self.__image_state.get_name())
 
@@ -73,11 +72,11 @@ class Power(pygame.sprite.Sprite):
     def set_floor(self, floor: int):
         self.__floor = floor
 
-    def set_rect_x(self, rectx: int) -> None:
-        self.rect.x = rectx
+    def set_rect_x(self, directx: int) -> None:
+        self.rect.x = directx
 
-    def set_rect_y(self, recty: int) -> None:
-        self.rect.y = recty
+    def set_rect_y(self, rect: int) -> None:
+        self.rect.y = rect
 
     def impulse(self, dx, dy) -> None:
         self.__dx = dx
@@ -111,7 +110,7 @@ class Power(pygame.sprite.Sprite):
         self.image = self.__current_state.get_current_sprite()
 
     def collision(self, floor=None):
-        if not floor is None:
+        if floor is not None:
             self.set_floor(floor[0])
             self.__floor_min = floor[1]
             self.__floor_max = floor[2]
