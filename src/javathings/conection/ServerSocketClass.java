@@ -64,7 +64,6 @@ public class ServerSocketClass implements Runnable{
         } catch (InterruptedException e) {
             System.out.println("The child thread is interrupted.");
         }
-        System.out.println("Exiting the child thread");
     }
 
     public void ServerSender() throws IOException {
