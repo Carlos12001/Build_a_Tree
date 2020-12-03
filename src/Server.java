@@ -1,5 +1,3 @@
-package javathings;
-
 import javathings.conection.CreateConnection;
 
 /**
