@@ -10,7 +10,7 @@ class  ServerSocketClass implements Runnable{
     UpdateInfo serverInfo;
     Boolean inChallenge = false;
     Boolean waitingChallenge = false;
-    int timeTillChallenge = 0;
+    int timeTillChallenge = 8;
     int timeTillToken = 4;
     int ChallengeCounter = 0;
 
@@ -52,6 +52,7 @@ class  ServerSocketClass implements Runnable{
                 System.out.println("Info received: " + infoToUpdate);
 
                 this.ChallengeCounter++;
+                System.out.println("Challenge Counter: " + this.ChallengeCounter);
                 ChallengeManager();
 
                 String answerJsonStr = new JacksonEncoder().EncodeInfo(this.serverInfo);
@@ -70,6 +71,24 @@ class  ServerSocketClass implements Runnable{
 
     }
 
+    public String[] ChallengeAssigner(){
+        String[] names = serverInfo.getPlayersName();
+        boolean[] states = serverInfo.getPlayersGameOver();
+        String[] challengeList = {"TreeAVL","TreeSplay","TreeB","TreeBST"};
+        String[] challenges = {"","","",""};
+
+        for(int n=0; n < names.length; n++) {
+            if (states[n]) {
+                challenges[n] = challengeList[n];
+            }
+            else {
+                challenges[n] = "";
+            }
+        }
+        return challenges;
+
+    }
+
     public void ChallengeManager(){
         if(timeTillChallenge == 0){
             pickChallengeTime();
@@ -80,6 +99,8 @@ class  ServerSocketClass implements Runnable{
                 if (this.ChallengeCounter == this.timeTillChallenge){
                     this.ChallengeCounter = 0;
                     this.inChallenge = true;
+                    String[] challengeUpdate = ChallengeAssigner();
+                    serverInfo.setChallenge(challengeUpdate);
                 }
             }
         }
@@ -93,7 +114,8 @@ class  ServerSocketClass implements Runnable{
     public void pickChallengeTime(){
         int minSecs = 40;
         int maxSecs = 95;
-        this.timeTillChallenge = (int)(Math.random() * (maxSecs - minSecs + 1) + minSecs);
+        //this.timeTillChallenge = (int)(Math.random() * (maxSecs - minSecs + 1) + minSecs);
+        //System.out.println("time till ch: " + this.timeTillChallenge);
     }
 
     public static void main(String[] args) {
