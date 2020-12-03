@@ -89,7 +89,7 @@ public class TimeJava {
             for (seg = 0; seg < segMax; seg++){
                 delaySeg();
             }
-        }
+        });
     }
     /**
      *
