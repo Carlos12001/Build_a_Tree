@@ -5,16 +5,6 @@ import javathings.trees.abstracTree.TreeNode;
 
 public class TreeBST extends Tree {
 
-//    public static void main(String[] args) {
-//        TreeBST arbol = new TreeBST();
-//        arbol.insert(3);
-//        arbol.insert(5);
-//        arbol.insert(1);
-//        arbol.insert(34);
-//        arbol.insert(0);
-//        System.out.println(arbol.contains(0));
-//    }
-
     private NodeBST root;
 
     public TreeBST(){
@@ -23,9 +13,9 @@ public class TreeBST extends Tree {
        this.setCurrentArray(new int[]{300, 8, 232, 78, 1, -1});
     }
 
-    public void insert(int key){
-        this.root = insertAux(key, this.root);
-    }
+//    public void insert(int key){
+//        this.root = insertAux(key, this.root);
+//    }
 
     private NodeBST insertAux(int key, NodeBST tree){
         if (tree == null){
@@ -39,25 +29,25 @@ public class TreeBST extends Tree {
         return tree;
     }
 
-    public boolean contains(int element) {
-        return this.contains(element, this.root);
-    }
-
-    private boolean contains(int element, NodeBST node) {
-        if (node == null) {
-            return false;
-        } else {
-            if (element < node.getToken())
-                return contains(element, (NodeBST) node.getLeft());
-            else if (element > node.getToken())
-                return contains(element, (NodeBST) node.getRight());
-            else
-                return true;
-        }
-    }
+//    public boolean contains(int element) {
+//        return this.contains(element, this.root);
+//    }
+//
+//    private boolean contains(int element, NodeBST node) {
+//        if (node == null) {
+//            return false;
+//        } else {
+//            if (element < node.getToken())
+//                return contains(element, (NodeBST) node.getLeft());
+//            else if (element > node.getToken())
+//                return contains(element, (NodeBST) node.getRight());
+//            else
+//                return true;
+//        }
+//    }
 
     @Override
     protected void appendAux(int key) {
-        this.insert(key);
+        this.root = insertAux(key, this.root);
     }
 }

@@ -9,15 +9,6 @@ import javathings.trees.abstracTree.Tree;
  */
 public class TreeAVL extends Tree {
 
-//    public static void main(String[] args) {
-//    TreeAVL arbol = new TreeAVL();
-//    arbol.insert(3);
-//    arbol.insert(5);
-//    arbol.insert(1);
-//    arbol.insert(34);
-//    arbol.insert(0);
-//    System.out.println(arbol.contains(34));
-//    }
 
     /**
      *
@@ -28,29 +19,22 @@ public class TreeAVL extends Tree {
         this.currentArray = new int[]{5, 8, 23, 76, 90, -1};
     }
 
-    public boolean contains(int element) {
-        return this.contains(element, (NodeAVL) this.root);
-    }
-
-    private boolean contains(int element, NodeAVL node) {
-        if (node == null) {
-            return false;
-        } else {
-            if (element < node.getToken())
-                return contains(element, (NodeAVL) node.getLeft());
-            else if (element > node.getToken())
-                return contains(element, (NodeAVL) node.getRight());
-            else
-                return true;
-        }
-    }
-
-    /**
-     * @param key
-     */
-    public void insert(int key){
-        this.root = insert(key, (NodeAVL) this.root);
-    }
+//    public boolean contains(int element) {
+//        return this.contains(element, (NodeAVL) this.root);
+//    }
+//
+//    private boolean contains(int element, NodeAVL node) {
+//        if (node == null) {
+//            return false;
+//        } else {
+//            if (element < node.getToken())
+//                return contains(element, (NodeAVL) node.getLeft());
+//            else if (element > node.getToken())
+//                return contains(element, (NodeAVL) node.getRight());
+//            else
+//                return true;
+//        }
+//    }
 
     /**
      * @param key
@@ -92,23 +76,22 @@ public class TreeAVL extends Tree {
         if (balance > 1 && key < tree.getLeft().getToken())
             return rotateRight(tree);
 
-        // Right Right Case
+        // Right Right
         if (balance < -1 && key > tree.getRight().getToken())
             return rotateLeft(tree);
 
-        // Left Right Case
+        // Left Right
         if (balance > 1 && key > tree.getLeft().getToken()) {
             tree.setLeft(rotateLeft((NodeAVL) tree.getLeft()));
             return rotateRight(tree);
         }
 
-        // Right Left Case
+        // Right Left
         if (balance < -1 && key < tree.getRight().getToken()) {
             tree.setRight(rotateRight((NodeAVL) tree.getRight()));
             return rotateLeft(tree);
         }
 
-        /* return the (unchanged) node pointer */
         return tree;
     }
 
@@ -158,6 +141,6 @@ public class TreeAVL extends Tree {
      */
     @Override
     protected void appendAux(int key){
-        this.insert(key, (NodeAVL) this.root);
+        this.root = insert(key, (NodeAVL) this.root);
     }
 }
