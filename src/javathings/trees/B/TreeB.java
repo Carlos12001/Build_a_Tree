@@ -1,7 +1,6 @@
 package javathings.trees.B;
 
-import javathings.trees.abstracTree.Tree;
-import javathings.trees.abstracTree.TreeNode;
+import javathings.trees.Abstract.Tree;
 
 // A BTree
 public class TreeB extends Tree {
@@ -16,20 +15,6 @@ public class TreeB extends Tree {
         this.t = t;
         setTreeID("treeB");
         this.defaultTree();
-    }
-
-
-    public void traverse() {
-        if (this.root != null)
-            this.root.traverse();
-    }
-
-
-    public NodeB search(int k) {
-        if (this.root == null)
-            return null;
-        else
-            return this.root.search(k);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package javathings.trees.AVL;
 
-import javathings.trees.BST.NodeBST;
-import javathings.trees.abstracTree.Tree;
+import javathings.trees.Abstract.Tree;
 
 
 /**

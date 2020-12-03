@@ -1,4 +1,4 @@
-package javathings.trees.abstracTree;
+package javathings.trees.Abstract;
 
 /**
  *

@@ -1,4 +1,4 @@
-package javathings.main;
+package javathings;
 
 import javathings.conection.CreateConnection;
 

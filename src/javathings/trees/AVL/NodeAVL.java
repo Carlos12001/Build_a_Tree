@@ -1,6 +1,6 @@
 package javathings.trees.AVL;
 
-import javathings.trees.abstracTree.TreeNode;
+import javathings.trees.Abstract.TreeNode;
 
 public class NodeAVL extends TreeNode {
 

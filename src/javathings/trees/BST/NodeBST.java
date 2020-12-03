@@ -1,7 +1,7 @@
 package javathings.trees.BST;
 
 
-import javathings.trees.abstracTree.TreeNode;
+import javathings.trees.Abstract.TreeNode;
 
 public class NodeBST extends TreeNode {
 

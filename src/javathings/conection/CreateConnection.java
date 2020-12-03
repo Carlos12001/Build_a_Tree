@@ -5,7 +5,7 @@ import javathings.trees.AVL.TreeAVL;
 import javathings.trees.B.TreeB;
 import javathings.trees.BST.TreeBST;
 import javathings.trees.Splay.TreeSplay;
-import javathings.trees.abstracTree.Tree;
+import javathings.trees.Abstract.Tree;
 
 
 import java.io.*;

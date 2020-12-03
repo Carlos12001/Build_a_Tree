@@ -2,7 +2,7 @@ package javathings.time;
 
 import javathings.conection.CreateConnection;
 import javathings.conection.UpdateInfo;
-import javathings.trees.abstracTree.Tree;
+import javathings.trees.Abstract.Tree;
 import java.util.Random;
 
 /**
