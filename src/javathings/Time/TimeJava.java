@@ -103,13 +103,13 @@ public class TimeJava {
     /**
      * @param segMax
      */
-    public void timeChallenge(int segMax){
+   /* public void timeChallenge(int segMax){
         Thread thread = new Thread(()->{
             for (seg = 0; seg < segMax; seg++){
                 delaySeg();
             }
         });
-    }
+    }*/
     /**
      *
      */

@@ -20,6 +20,11 @@ public class CreateConnection implements Runnable{
     public static boolean challengeComplete = false;
     public static boolean tokenComplete = false;
     public int challengeCounter;
+    Boolean inChallenge = false;
+    Boolean waitingChallenge = false;
+    int timeTillChallenge = 8;
+    int timeTillToken = 4;
+    int ChallengeCounter = 0;
 
 
     public CreateConnection(){
@@ -59,6 +64,10 @@ public class CreateConnection implements Runnable{
 
                 System.out.println("Info received: " + infoToUpdate);
 
+                this.ChallengeCounter++;
+                System.out.println("Challenge Counter: " + this.ChallengeCounter);
+                ChallengeManager();
+
                 String answerJsonStr = new JacksonEncoder().EncodeInfo(this.serverInfo);
 
                 this.enviar(answerJsonStr);
@@ -75,10 +84,51 @@ public class CreateConnection implements Runnable{
 
     }
 
+    public String[] ChallengeAssigner(){
+        String[] names = serverInfo.getPlayersName();
+        boolean[] states = serverInfo.getPlayersGameOver();
+        String[] challengeList = {"TreeAVL","TreeSplay","TreeB","TreeBST"};
+        String[] challenges = {"","","",""};
+
+        for(int n=0; n < names.length; n++) {
+            if (states[n]) {
+                challenges[n] = challengeList[n];
+            }
+            else {
+                challenges[n] = "";
+            }
+        }
+        return challenges;
+
+    }
+
+    public void ChallengeManager(){
+        if(timeTillChallenge == 0){
+            pickChallengeTime();
+        }
+
+        else{
+            if (!this.inChallenge){
+                if (this.ChallengeCounter == this.timeTillChallenge){
+                    this.ChallengeCounter = 0;
+                    this.inChallenge = true;
+                    String[] challengeUpdate = ChallengeAssigner();
+                    serverInfo.setChallenge(challengeUpdate);
+                }
+            }
+        }
+        if(this.inChallenge){
+            if (this.ChallengeCounter == this.timeTillToken){
+                this.ChallengeCounter = 0;
+            }
+        }
+    }
+
     public void pickChallengeTime(){
         int minSecs = 40;
         int maxSecs = 95;
-        this.challengeCounter = (int)(Math.random() * (maxSecs - minSecs + 1) + minSecs);
+        //this.timeTillChallenge = (int)(Math.random() * (maxSecs - minSecs + 1) + minSecs);
+        //System.out.println("time till ch: " + this.timeTillChallenge);
     }
 
     public static void main(String[] args) {
