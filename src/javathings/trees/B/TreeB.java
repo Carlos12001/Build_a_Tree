@@ -10,7 +10,7 @@ public class TreeB extends Tree {
     private String [] nodeComing;
 
     // Constructor (Initializes tree as empty)
-    TreeB(int t) {
+    public TreeB(int t) {
         super();
         this.setCurrentArray(new int[]{47, 38, 22, 59, 75, -1});
         this.t = t;

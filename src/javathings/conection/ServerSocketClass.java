@@ -1,15 +1,26 @@
 package javathings.conection;
 
 import javathings.Time.TimeJava;
+import javathings.trees.AVL.TreeAVL;
+import javathings.trees.B.TreeB;
+import javathings.trees.BST.TreeBST;
+import javathings.trees.Splay.TreeSplay;
+import javathings.trees.abstracTree.Tree;
+
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-class  ServerSocketClass implements Runnable{
-    UpdateInfo serverInfo;
+public class  ServerSocketClass implements Runnable{
+    private UpdateInfo serverInfo;
 
-    ServerSocketClass(){
+    public static Tree[] treeArray = { new TreeB(3), new TreeBST(), new TreeAVL(), new TreeSplay()};
+    public static boolean challengeComplete = false;
+    public static boolean tokenComplete = false;
+
+
+    public ServerSocketClass(){
         serverInfo = UpdateInfo.getUpdateInfo();
     }
 

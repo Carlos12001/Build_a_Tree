@@ -1,12 +1,10 @@
 package javathings.Time;
 
+import javathings.conection.ServerConnection;
+import javathings.conection.ServerSocketClass;
 import javathings.conection.UpdateInfo;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.sql.SQLOutput;
+import javathings.trees.abstracTree.Tree;
+import java.util.Random;
 
 /**
  *
@@ -22,6 +20,7 @@ public class TimeJava {
      *
      */
     private int seg;
+
 
     /**
      *
@@ -52,17 +51,46 @@ public class TimeJava {
      * @param segMax
      */
     public void timeToken(int segMax){
-        Thread thread = new Thread(()->{
-            for (seg = 0; seg < segMax; seg++){
+        Thread thread = new Thread(()-> {
+            for (seg = 0; seg < segMax; seg++) {
                 delaySeg();
             }
-//            UpdateInfo newToken = new UpdateInfo();
-//            newToken.setTokenSend("treeAVL@12");  // Aqui se pone un metodo que tome tokens de manera aleatoria
+            Tree[] tmp = ServerSocketClass.treeArray;
+            boolean complete = false;
+
+            Tree current2 = null;
+
+            for (Tree current : tmp) {
+                if (current.getCurrent().split("@")[1].equals("-1")) {
+                    complete = true;
+                    current2 = current;
+                    break;
+                }
+            }
+
+            if (!complete) {
+                java.util.Random Random = new Random();
+                Tree treeTmp = tmp[Random.nextInt(tmp.length)];
+                UpdateInfo.getUpdateInfo().setTokenSend(treeTmp.getCurrent());
+            } else {
+                UpdateInfo.getUpdateInfo().setTokenSend(current2.getCurrent());
+            }
+
         });
         thread.setDaemon(true);
         thread.start();
     }
 
+    /**
+     * @param segMax
+     */
+    public void timeChallenge(int segMax){
+        Thread thread = new Thread(()->{
+            for (seg = 0; seg < segMax; seg++){
+                delaySeg();
+            }
+        }
+    }
     /**
      *
      */
