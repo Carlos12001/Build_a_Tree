@@ -6,21 +6,27 @@ import threading
 import socket
 import time
 import json
-import python.connection.UpdateInfo
+import python.connection.UpdateInfo as UP
+
+
 
 # The port used by the server
 
+
 class SocketClientClass(object):
+
 
     def __init__(self, send_port, listen_port):
         self.listen_port = listen_port
         self.send_port = send_port
         self.ip = '127.0.0.1'
         self.data_received = ""
-        self.name_list = ["Nacho", "Carlos"]
+        self.name_list = ["", "", "", ""]
         self.info_managed = {}
+        #self.UpdateInstance = UP.UpdateInfo()
 
     def send(self):
+        from BuldiATree import newInfo
         first_conn = True
         while (True):
             self.ip = '127.0.0.1'  # The server's hostname or IP address
@@ -28,19 +34,22 @@ class SocketClientClass(object):
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             s.connect((self.ip, self.send_port))
 
-            if first_conn :
+            if first_conn:
                 self.info_managed.setPlayersName(self.name_list)
-                self.info_managed.setPlayersGameOver([True, True])
+                self.info_managed.setPlayersGameOver([True, True, True, True])
                 first_conn = False
-            new_dict = self.info_managed.createDict()
+                new_dict = self.info_managed.createDict()
+            else:
+                new_dict = newInfo.createDict()
+
             y = json.dumps(new_dict)
 
             s.sendall(bytes(y, encoding="utf-8"))
-            print("Hola como estas")
             s.close()
             time.sleep(1)
 
     def listen(self):
+        from BuldiATree import newInfo
         self.ip = '127.0.0.1'  # Standard loopback interface address (localhost)
         self.listen_port = 9998  # Port to listen on (non-privileged ports are > 1023)
         while True:
@@ -49,7 +58,7 @@ class SocketClientClass(object):
                 s.listen()
                 conn, addr = s.accept()
                 with conn:
-                    print('Connected in server by', addr)
+
                     while True:
                         data = conn.recv(1024)
 
@@ -57,7 +66,9 @@ class SocketClientClass(object):
 
                         if not data:
                             break
-                        print("This is the data ", self.data_received)
+
+                        newInfo.unWrapper(json.loads(self.data_received))
+
 
     def start_listen(self):
         t1 = threading.Thread(target=self.send)
@@ -69,6 +80,8 @@ class SocketClientClass(object):
         # starting thread 1
         t2.start()
 
+    def getInstance(self):
+        return self.UpdateInstance
 
 # new_client = SocketClientClass(9999, 9998)
 # new_client.start_listen()

@@ -8,10 +8,11 @@ from python.basicgui.LabelText import LabelText
 from python.basicgui.CursorRect import CursorRect
 from python.sprites.Platform import Platform
 from python.sprites.Player import Player
-from python.json.UpdateInfo import UpdateInfo as UI
+import python.json.UpdateInfo as UI
 from python.sprites.Power import Power
 from python.sprites.Token import Token
 from python.sprites.TreeSprite import TreeSprite
+import python.connection.SocketClientClass as cl
 
 
 class SceneGame:
@@ -244,14 +245,22 @@ __path_game: str
             pygame.display.flip()
 
     def __transition_game(self, names: list) -> None:
+        from BuldiATree import newInfo
 
+        tmp = ["", "", "", ""]
+        tmp2 = [False, False, False, False]
         j: int = 0
         for i in names:
             if i != "":
                 player = Player(self.__screen, i, random.randrange(100, 700, 25), 0, j)
                 self.__players_group.add(player)
                 self.__all_sprite_group.add(player)
+                tmp[j] = i
+                tmp2[j] = True
                 j += 1
+
+        newInfo.setPlayersName(tmp)
+        newInfo.setPlayersGameOver(tmp2)
 
         platform = Platform(self.__screen, 150, 700, (1050, 100))
 
@@ -278,6 +287,25 @@ __path_game: str
         self.__platforms_group.add(platform)
         self.__all_sprite_group.add(platform)
 
+        treeB = TreeSprite(self.__screen, "treeB", 1350, 0)
+
+        self.__trees_group.add(treeB)
+        self.__all_sprite_group.add(treeB)
+
+        treeBST = TreeSprite(self.__screen, "treeBST", 1350, 250)
+
+        self.__trees_group.add(treeBST)
+        self.__all_sprite_group.add(treeBST)
+
+        treeAVL= TreeSprite(self.__screen, "treeAVL", 1350, 500)
+
+        self.__trees_group.add(treeAVL)
+        self.__all_sprite_group.add(treeAVL)
+
+        treeSPLAY = TreeSprite(self.__screen, "treeSplay", 1350, 750)
+
+        self.__trees_group.add(treeSPLAY)
+        self.__all_sprite_group.add(treeSPLAY)
 
 
         self.__base = Platform(self.__screen, -150, 1500, (1900, 400))
@@ -290,13 +318,12 @@ __path_game: str
         self.__game_view()
 
     def __game_view(self) -> None:
+        from BuldiATree import newInfo
+
         bg_image = SceneGame.load_out_img("backgroundGame.png", (self.__scene_size_X, self.__scene_size_Y))
-        info = UI()
+
         serverTime = "Tiempo: "
-        label_time = LabelText(str(serverTime), 0, SceneGame.get_color()["black"], self.__screen, (120, 30))
-
-
-
+        label_time = LabelText(str(serverTime), 0, SceneGame.get_color()["black"], self.__screen, (200, 30))
 
         # PRUEBAS TOKEN
         token = Token(self.__screen, "treeSplay@23",random.randrange(200, 700, 25), 0)
@@ -320,8 +347,7 @@ __path_game: str
 
         while self.running:
             self.__screen.blit(bg_image, [0, 0])
-            label_time.set_text("Tiempo: " + str(self.__time_pygame.get_time()))
-
+            label_time.set_text("Tiempo: " + str(newInfo.getTime()))
 
 
 
