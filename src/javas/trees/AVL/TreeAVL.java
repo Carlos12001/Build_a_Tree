@@ -1,6 +1,6 @@
-package javathings.trees.AVL;
+package javas.trees.AVL;
 
-import javathings.trees.Abstract.Tree;
+import javas.trees.Abstract.Tree;
 
 
 /**
@@ -18,15 +18,7 @@ public class TreeAVL extends Tree {
         this.currentArray = new int[]{5, 8, 23, 76, 90, -1};
         this.defaultTree();
     }
-
-
-    /**
-     * @param key
-     */
-    public void insert(int key){
-        this.root = insert(key, (NodeAVL) this.root);
-    }
-
+    
     /**
      * @param key
      * @param tree

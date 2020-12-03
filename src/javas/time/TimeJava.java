@@ -1,8 +1,8 @@
-package javathings.time;
+package javas.time;
 
-import javathings.conection.CreateConnection;
-import javathings.conection.UpdateInfo;
-import javathings.trees.Abstract.Tree;
+import javas.conection.CreateConnection;
+import javas.conection.UpdateInfo;
+import javas.trees.Abstract.Tree;
 import java.util.Random;
 
 /**

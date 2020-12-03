@@ -1,4 +1,4 @@
-package javathings.trees.Abstract;
+package javas.trees.Abstract;
 
 
 /**

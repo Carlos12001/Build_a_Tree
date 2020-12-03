@@ -1,7 +1,7 @@
-package javathings.trees.Splay;
+package javas.trees.Splay;
 
-import javathings.trees.Abstract.Tree;
-import javathings.trees.Abstract.TreeNode;
+import javas.trees.Abstract.Tree;
+import javas.trees.Abstract.TreeNode;
 
 public class TreeSplay extends Tree {
 

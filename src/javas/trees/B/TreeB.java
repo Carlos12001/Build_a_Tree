@@ -1,6 +1,6 @@
-package javathings.trees.B;
+package javas.trees.B;
 
-import javathings.trees.Abstract.Tree;
+import javas.trees.Abstract.Tree;
 
 // A BTree
 public class TreeB extends Tree {

@@ -1,7 +1,7 @@
-package javathings.trees.B;
+package javas.trees.B;
 
 
-import javathings.trees.Abstract.TreeNode;
+import javas.trees.Abstract.TreeNode;
 
 // A BTree node 
 class NodeB extends TreeNode {

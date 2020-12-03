@@ -1,4 +1,4 @@
-import javathings.conection.CreateConnection;
+import javas.conection.CreateConnection;
 
 /**
  *

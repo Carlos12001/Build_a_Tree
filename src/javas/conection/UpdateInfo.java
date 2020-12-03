@@ -1,4 +1,4 @@
-package javathings.conection;
+package javas.conection;
 
 public class UpdateInfo {
     private static UpdateInfo instance;

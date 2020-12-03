@@ -1,11 +1,11 @@
-package javathings.conection;
+package javas.conection;
 
-import javathings.time.TimeJava;
-import javathings.trees.AVL.TreeAVL;
-import javathings.trees.B.TreeB;
-import javathings.trees.BST.TreeBST;
-import javathings.trees.Splay.TreeSplay;
-import javathings.trees.Abstract.Tree;
+import javas.time.TimeJava;
+import javas.trees.AVL.TreeAVL;
+import javas.trees.B.TreeB;
+import javas.trees.BST.TreeBST;
+import javas.trees.Splay.TreeSplay;
+import javas.trees.Abstract.Tree;
 
 
 import java.io.*;
