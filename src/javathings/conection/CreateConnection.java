@@ -102,6 +102,20 @@ public class CreateConnection implements Runnable{
 
     }
 
+    public String SelectToken(){ // Necesito saber porque retorna Null, los árboles empiezan en null ?
+        //String[] TreeList = {"TreeAVL","TreeSplay","TreeB","TreeBST"};
+
+        int randomPos = (int)((Math.random() * (5-1) + 1)-1);
+        System.out.println("randomPos: " + randomPos);
+
+        return treeArray[randomPos].getCurrent();
+    }
+
+    public void AnalyzeReceivedData(){ // Analiza la información recién llagada para ve si ya alguien ganó, de ser así, qué se envía?
+    }
+
+
+
     public void ChallengeManager(){
         if(timeTillChallenge == 0){
             pickChallengeTime();
@@ -118,8 +132,12 @@ public class CreateConnection implements Runnable{
             }
         }
         if(this.inChallenge){
+            AnalyzeReceivedData();
+
             if (this.ChallengeCounter == this.timeTillToken){
                 this.ChallengeCounter = 0;
+                String token =SelectToken();
+                serverInfo.setTokenSend(token);
             }
         }
     }
