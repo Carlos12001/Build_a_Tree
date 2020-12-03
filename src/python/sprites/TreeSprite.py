@@ -160,7 +160,7 @@ class TreeSprite(pygame.sprite.Sprite):
         if tmp < 6:
             self.__current_state = self.__states_dict[str(tmp)]
 
-    def defeault(self):
+    def default(self):
         self.set_current_state("0")
 
     def update(self):

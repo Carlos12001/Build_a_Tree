@@ -22,8 +22,6 @@ class Power(pygame.sprite.Sprite):
         self.__floor_min = 0
         self.__name: str = random.choice(["jumper", "shield", "push"])
 
-
-
         # Setter images
         self.__set_dict_images()
 
