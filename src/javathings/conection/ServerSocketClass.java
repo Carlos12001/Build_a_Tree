@@ -8,7 +8,11 @@ import java.net.Socket;
 
 class  ServerSocketClass implements Runnable{
     UpdateInfo serverInfo;
-    int challengeTimer;
+    Boolean inChallenge = false;
+    Boolean waitingChallenge = false;
+    int timeTillChallenge = 0;
+    int timeTillToken = 4;
+    int ChallengeCounter = 0;
 
     ServerSocketClass(){
         serverInfo = UpdateInfo.getUpdateInfo();
@@ -47,6 +51,9 @@ class  ServerSocketClass implements Runnable{
 
                 System.out.println("Info received: " + infoToUpdate);
 
+                this.ChallengeCounter++;
+                ChallengeManager();
+
                 String answerJsonStr = new JacksonEncoder().EncodeInfo(this.serverInfo);
 
                 this.enviar(answerJsonStr);
@@ -63,10 +70,30 @@ class  ServerSocketClass implements Runnable{
 
     }
 
+    public void ChallengeManager(){
+        if(timeTillChallenge == 0){
+            pickChallengeTime();
+        }
+
+        else{
+            if (!this.inChallenge){
+                if (this.ChallengeCounter == this.timeTillChallenge){
+                    this.ChallengeCounter = 0;
+                    this.inChallenge = true;
+                }
+            }
+        }
+        if(this.inChallenge){
+            if (this.ChallengeCounter == this.timeTillToken){
+                this.ChallengeCounter = 0;
+            }
+        }
+    }
+
     public void pickChallengeTime(){
         int minSecs = 40;
         int maxSecs = 95;
-        this.challengeCounter = (int)(Math.random() * (maxSecs - minSecs + 1) + minSecs);
+        this.timeTillChallenge = (int)(Math.random() * (maxSecs - minSecs + 1) + minSecs);
     }
 
     public static void main(String[] args) {

@@ -2,6 +2,7 @@ package javathings.Time;
 
 import javathings.conection.UpdateInfo;
 
+import javax.imageio.plugins.tiff.TIFFImageReadParam;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -46,6 +47,26 @@ public class TimeJava {
         });
         thread.setDaemon(true);
         thread.start();
+    }
+
+    /**
+     * @param segMax
+     */
+    public boolean timeChallenge(int segMax){
+        Thread thread = new Thread(()->{
+            for (seg = 0; seg < segMax; seg++){
+                delaySeg();
+                System.out.println(seg);
+            }
+            System.out.println("fin de timeChallege");
+
+//            UpdateInfo newToken = new UpdateInfo();
+//            newToken.setTokenSend("treeAVL@12");  // Aqui se pone un metodo que tome tokens de manera aleatoria
+        });
+        thread.setDaemon(true);
+        thread.start();
+
+        return true;
     }
 
     /**
