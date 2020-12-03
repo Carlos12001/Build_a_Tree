@@ -3,13 +3,6 @@
 
 class UpdateInfo(object):
 
-    __instance = None
-
-    def __new__(cls):
-        if UpdateInfo.__instance is None:
-            UpdateInfo.__instance = object.__new__(cls)
-        return  UpdateInfo.__instance
-
     def __init__(self):
         # Data that's gonna be sent to the server
         self.playersName = []
