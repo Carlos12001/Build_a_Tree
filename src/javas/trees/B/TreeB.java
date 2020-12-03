@@ -47,13 +47,5 @@ public class TreeB extends Tree {
                 root.insertNonFull(k);
     }
 
-//    public static void main(String[] args) {
-//        TreeB treeB = new TreeB(3);
-//        treeB.appendAux(47);
-//        treeB.appendAux(38);
-//        treeB.appendAux(22);
-//        treeB.appendAux(59);
-//        treeB.appendAux(75);
-//
-//    }
+
 }

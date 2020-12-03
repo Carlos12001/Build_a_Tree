@@ -56,15 +56,10 @@ public class CreateConnection implements Runnable{
 
                 UpdateInfo infoToUpdate = new JacksonDecoder(mensaje_texto).Decode();
 
-                System.out.println(this.newTime + "              " + this.serverInfo);
-                if (this.newTime==null && this.serverInfo.getPlayersName()[0].equals("")){
-                    this.newTime = new TimeJava();
-                    newTime.timeStart(2000000000);
-                }
-
-
 
                 serverInfo.UpdateFile(infoToUpdate);
+
+//                System.out.println(mensaje_texto);
 
 
 

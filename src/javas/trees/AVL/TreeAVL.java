@@ -18,7 +18,7 @@ public class TreeAVL extends Tree {
         this.currentArray = new int[]{5, 8, 23, 76, 90, -1};
         this.defaultTree();
     }
-    
+
     /**
      * @param key
      * @param tree
