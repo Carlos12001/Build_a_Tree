@@ -1,4 +1,4 @@
-package javathings.Time;
+package javathings.time;
 
 import javathings.conection.CreateConnection;
 import javathings.conection.UpdateInfo;

@@ -1,6 +1,5 @@
 package javathings.main;
 
-import javathings.Time.TimeJava;
 import javathings.conection.CreateConnection;
 
 /**

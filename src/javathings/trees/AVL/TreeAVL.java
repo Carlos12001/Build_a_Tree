@@ -9,16 +9,6 @@ import javathings.trees.abstracTree.Tree;
  */
 public class TreeAVL extends Tree {
 
-//    public static void main(String[] args) {
-//    TreeAVL arbol = new TreeAVL();
-//    arbol.insert(3);
-//    arbol.insert(5);
-//    arbol.insert(1);
-//    arbol.insert(34);
-//    arbol.insert(0);
-//    System.out.println(arbol.contains(34));
-//    }
-
     /**
      *
      */
@@ -26,6 +16,7 @@ public class TreeAVL extends Tree {
         super();
         setTreeID("treeAVL");
         this.currentArray = new int[]{5, 8, 23, 76, 90, -1};
+        this.defaultTree();
     }
 
     public boolean contains(int element) {

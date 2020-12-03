@@ -72,7 +72,7 @@ public abstract class Tree {
      */
     public void setCurrent(){
         int[] tmp = getCurrentArray();
-        for (int i = 0; i > tmp.length; i ++){
+        for (int i = 0; i < tmp.length; i ++){
             int tmp2 = Integer.parseInt(this.current.split("@")[1]);
             if (tmp2 == -1){
                 this.current = getTreeID() + "@" + -1;

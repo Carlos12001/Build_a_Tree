@@ -1,6 +1,6 @@
 package javathings.conection;
 
-import javathings.Time.TimeJava;
+import javathings.time.TimeJava;
 import javathings.trees.AVL.TreeAVL;
 import javathings.trees.B.TreeB;
 import javathings.trees.BST.TreeBST;
