@@ -18,7 +18,7 @@ public class  ServerSocketClass implements Runnable{
     public static Tree[] treeArray = { new TreeB(3), new TreeBST(), new TreeAVL(), new TreeSplay()};
     public static boolean challengeComplete = false;
     public static boolean tokenComplete = false;
-    public int challenge Timer;
+    public int challengeCounter;
 
 
     public ServerSocketClass(){
