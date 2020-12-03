@@ -17,6 +17,7 @@ public class TreeAVL extends Tree {
         super();
         setTreeID("treeAVL");
         this.currentArray = new int[]{5, 8, 23, 76, 90, -1};
+        this.defaultTree();
     }
 
 //    public boolean contains(int element) {

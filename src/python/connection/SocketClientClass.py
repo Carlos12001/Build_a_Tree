@@ -16,14 +16,13 @@ import python.connection.UpdateInfo as UP
 class SocketClientClass(object):
 
 
-    def __init__(self, send_port, listen_port):
+    def __init__(self, send_port:int, listen_port:int):
         self.listen_port = listen_port
         self.send_port = send_port
         self.ip = '127.0.0.1'
         self.data_received = ""
         self.name_list = ["", "", "", ""]
         self.info_managed = {}
-        #self.UpdateInstance = UP.UpdateInfo()
 
     def send(self):
         from BuldiATree import newInfo
@@ -80,9 +79,3 @@ class SocketClientClass(object):
         # starting thread 1
         t2.start()
 
-    def getInstance(self):
-        return self.UpdateInstance
-
-# new_client = SocketClientClass(9999, 9998)
-# new_client.start_listen()
-# new_client.start_sending()

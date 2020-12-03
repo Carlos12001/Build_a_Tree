@@ -22,6 +22,7 @@ public class TreeSplay extends Tree {
         this.root = null;
         setTreeID("treeSplay");
         this.setCurrentArray(new int[]{57, 34, 4, 90, 13, -1});
+        this.defaultTree();
     }
 
     private static NodeSplay rightRotate(NodeSplay x) {
@@ -111,11 +112,6 @@ public class TreeSplay extends Tree {
     @Override
     protected void appendAux(int key) {
         this.root = this.appendAux2(this.root, key);
-        System.out.println(this.root);
-    }
-
-    public NodeSplay search(int key){
-        return TreeSplay.splay(this.root, key);
     }
 
 

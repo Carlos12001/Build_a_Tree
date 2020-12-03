@@ -1,6 +1,6 @@
 package javathings.conection;
 
-import javathings.Time.TimeJava;
+import javathings.time.TimeJava;
 import javathings.trees.AVL.TreeAVL;
 import javathings.trees.B.TreeB;
 import javathings.trees.BST.TreeBST;
@@ -12,16 +12,17 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class  ServerSocketClass implements Runnable{
+public class CreateConnection implements Runnable{
+
     private UpdateInfo serverInfo;
 
     public static Tree[] treeArray = { new TreeB(3), new TreeBST(), new TreeAVL(), new TreeSplay()};
-    public static boolean challengeComplete = false;
-    public static boolean tokenComplete = false;
+
+    TimeJava newTime = null;
     public int challengeCounter;
 
 
-    public ServerSocketClass(){
+    public CreateConnection(){
         serverInfo = UpdateInfo.getUpdateInfo();
     }
 
@@ -54,14 +55,23 @@ public class  ServerSocketClass implements Runnable{
                 /* Aquí procesamos la información */
 
                 UpdateInfo infoToUpdate = new JacksonDecoder(mensaje_texto).Decode();
+
+                System.out.println(this.newTime + "              " + this.serverInfo);
+                if (this.newTime==null && this.serverInfo.getPlayersName()[0].equals("")){
+                    this.newTime = new TimeJava();
+                    newTime.timeStart(2000000000);
+                }
+
+
+
                 serverInfo.UpdateFile(infoToUpdate);
 
-                System.out.println("Info received: " + infoToUpdate);
+
 
                 String answerJsonStr = new JacksonEncoder().EncodeInfo(this.serverInfo);
 
                 this.enviar(answerJsonStr);
-                System.out.println(mensaje_texto);
+
                 flujo_entrada.close();
                 servidor.close();
                 misocket.close();
@@ -82,9 +92,8 @@ public class  ServerSocketClass implements Runnable{
 
     public static void main(String[] args) {
         // write your code here
-        System.out.println("Hola desde Servidor");
 
-        ServerSocketClass hilito= new ServerSocketClass();
+        CreateConnection hilito= new CreateConnection();
 
         TimeJava newTime = new TimeJava();
         newTime.timeStart(1);

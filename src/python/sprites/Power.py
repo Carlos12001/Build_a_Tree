@@ -20,7 +20,7 @@ class Power(pygame.sprite.Sprite):
         self.__floor = 1000
         self.__floor_max = 0
         self.__floor_min = 0
-        self.__name: str = "jumper"#random.choice(["jumper", "shield", "push"])
+        self.__name: str = random.choice(["jumper", "shield", "push"])
 
 
 
@@ -47,12 +47,12 @@ class Power(pygame.sprite.Sprite):
         from python.sprites.StaticState import StaticState
         image: pygame.Surface = None
 
-        print(self.__name)
+
         if self.__name == "jumper":
 
             image = (SceneGame.load_out_img("jump.png", (50, 50)))
             self.__image_state = StaticState(image, "image")
-            print(self.__image_state, image, self.__name)
+
 
         elif self.__name == "shield":
             image = (SceneGame.load_out_img("escudo.png", (50, 50)))
