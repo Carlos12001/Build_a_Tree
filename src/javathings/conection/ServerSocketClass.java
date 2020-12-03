@@ -8,6 +8,7 @@ import java.net.Socket;
 
 class  ServerSocketClass implements Runnable{
     UpdateInfo serverInfo;
+    int challengeTimer;
 
     ServerSocketClass(){
         serverInfo = UpdateInfo.getUpdateInfo();
@@ -60,6 +61,12 @@ class  ServerSocketClass implements Runnable{
             }
         }
 
+    }
+
+    public void pickChallengeTime(){
+        int minSecs = 40;
+        int maxSecs = 95;
+        this.challengeCounter = (int)(Math.random() * (maxSecs - minSecs + 1) + minSecs);
     }
 
     public static void main(String[] args) {
