@@ -60,6 +60,11 @@ __path_game: str
 
         self.running: bool = True
 
+        from BuldiATree import newInfo
+
+        self.UI = newInfo
+
+
         pygame.display.set_caption("Build a Tree")
         pygame.display.set_icon(SceneGame.load_out_img("iconGame.png"))
 
@@ -318,7 +323,7 @@ __path_game: str
         self.__game_view()
 
     def __game_view(self) -> None:
-        from BuldiATree import newInfo
+
 
         bg_image = SceneGame.load_out_img("backgroundGame.png", (self.__scene_size_X, self.__scene_size_Y))
 
@@ -347,7 +352,7 @@ __path_game: str
 
         while self.running:
             self.__screen.blit(bg_image, [0, 0])
-            label_time.set_text("Tiempo: " + str(newInfo.getTime()))
+            label_time.set_text("Tiempo: " + str(self.UI.getTime()))
 
 
 
