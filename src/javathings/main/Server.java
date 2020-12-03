@@ -1,8 +1,7 @@
 package javathings.main;
 
 import javathings.Time.TimeJava;
-import javathings.conection.ServerSocketClass;
-import javathings.conection.UpdateInfo;
+import javathings.conection.CreateConnection;
 
 /**
  *
@@ -14,18 +13,14 @@ public class Server {
      */
     
     public static void main(String[] args){
-        System.out.println("Hola desde Servidor");
 
-        ServerSocketClass mainThread= new ServerSocketClass();
+        CreateConnection mainThread= new CreateConnection();
 
         TimeJava newTime = new TimeJava();
-        newTime.timeStart(1);
+        newTime.timeStart(2000000000);
         mainThread.iniciarEscuchar();
 
-//        javathings.conection.ServerConnection server = javathings.conection.ServerConnection.getInstance();
-//        server.listenSocket();
-//        new javathings.gui.ServerGUI(server.getPort());
-//        //server.writeSocket("soy el server de java");
+
     }
 
 }

@@ -12,7 +12,8 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class  ServerSocketClass implements Runnable{
+public class CreateConnection implements Runnable{
+
     private UpdateInfo serverInfo;
 
     public static Tree[] treeArray = { new TreeB(3), new TreeBST(), new TreeAVL(), new TreeSplay()};
@@ -21,7 +22,7 @@ public class  ServerSocketClass implements Runnable{
     public int challengeCounter;
 
 
-    public ServerSocketClass(){
+    public CreateConnection(){
         serverInfo = UpdateInfo.getUpdateInfo();
     }
 
@@ -84,7 +85,7 @@ public class  ServerSocketClass implements Runnable{
         // write your code here
         System.out.println("Hola desde Servidor");
 
-        ServerSocketClass hilito= new ServerSocketClass();
+        CreateConnection hilito= new CreateConnection();
 
         TimeJava newTime = new TimeJava();
         newTime.timeStart(1);

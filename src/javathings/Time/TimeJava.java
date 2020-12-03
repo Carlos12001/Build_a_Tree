@@ -1,7 +1,6 @@
 package javathings.Time;
 
-import javathings.conection.ServerConnection;
-import javathings.conection.ServerSocketClass;
+import javathings.conection.CreateConnection;
 import javathings.conection.UpdateInfo;
 import javathings.trees.abstracTree.Tree;
 import java.util.Random;
@@ -55,7 +54,7 @@ public class TimeJava {
             for (seg = 0; seg < segMax; seg++) {
                 delaySeg();
             }
-            Tree[] tmp = ServerSocketClass.treeArray;
+            Tree[] tmp = CreateConnection.treeArray;
             boolean complete = false;
 
             Tree current2 = null;

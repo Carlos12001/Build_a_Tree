@@ -8,30 +8,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 
 public class JacksonEncoder {
-    public static void main(String[] args) throws JsonProcessingException {
-        /*String cardA = encodeCard (new PlayingCard("H","Rumble",40));
-        String cardB = encodeCard (new PlayingCard("A","120",30));
-        String cardC = encodeCard (new PlayingCard("A","100",42));
-        String cardD = encodeCard (new PlayingCard("S","TicTac",15));
-        LinkedLists cardList = new LinkedLists();
-        cardList.insert(cardA);
-        cardList.insert(cardB);
-        cardList.insert(cardC);
-        cardList.insert(cardD);
 
-        //encodeHand(cardList);
-
-        encodeMessage(new Message(".newPlayer","22554"));
-        encodeMessage(new Message("action",null, true));
-        encodeMessage(new Message("action",true,16,null,100,100));*/
-
-        //String[] lol = new String[]{"treeB","","treeAVL"};
-
-        //String strInfo = new JacksonEncoder().EncodeInfo(new UpdateInfo("5000", "treeAVL@42", lol));
-
-        //System.out.println(strInfo);
-
-    }
 
     public String EncodeInfo(UpdateInfo message) throws JsonProcessingException{
 

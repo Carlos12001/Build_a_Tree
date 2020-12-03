@@ -355,3 +355,4 @@ $RECYCLE.BIN/
 *.class
 *.xml
 .idea/misc.xml
+*.xml
