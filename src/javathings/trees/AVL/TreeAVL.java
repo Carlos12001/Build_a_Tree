@@ -8,6 +8,7 @@ import javathings.trees.Abstract.Tree;
  */
 public class TreeAVL extends Tree {
 
+
     /**
      *
      */
@@ -66,23 +67,22 @@ public class TreeAVL extends Tree {
         if (balance > 1 && key < tree.getLeft().getToken())
             return rotateRight(tree);
 
-        // Right Right Case
+        // Right Right
         if (balance < -1 && key > tree.getRight().getToken())
             return rotateLeft(tree);
 
-        // Left Right Case
+        // Left Right
         if (balance > 1 && key > tree.getLeft().getToken()) {
             tree.setLeft(rotateLeft((NodeAVL) tree.getLeft()));
             return rotateRight(tree);
         }
 
-        // Right Left Case
+        // Right Left
         if (balance < -1 && key < tree.getRight().getToken()) {
             tree.setRight(rotateRight((NodeAVL) tree.getRight()));
             return rotateLeft(tree);
         }
 
-        /* return the (unchanged) node pointer */
         return tree;
     }
 
@@ -132,6 +132,6 @@ public class TreeAVL extends Tree {
      */
     @Override
     protected void appendAux(int key){
-        this.insert(key, (NodeAVL) this.root);
+        this.root = insert(key, (NodeAVL) this.root);
     }
 }

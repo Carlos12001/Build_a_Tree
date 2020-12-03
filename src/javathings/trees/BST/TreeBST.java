@@ -4,7 +4,6 @@ import javathings.trees.Abstract.Tree;
 
 public class TreeBST extends Tree {
 
-
     private NodeBST root;
 
     public TreeBST(){
@@ -13,25 +12,25 @@ public class TreeBST extends Tree {
        this.setCurrentArray(new int[]{300, 8, 232, 78, 1, -1});
         this.defaultTree();
     }
+    
 
-    public void insert(int key){
-        this.root = insertAux(key, this.root);
-    }
-
-    private NodeBST insertAux(int key, NodeBST tree){
+    private NodeBST insert(int key, NodeBST tree){
         if (tree == null){
             tree = new NodeBST(key);
             return tree;
         } else if (key < tree.getToken()){
-            tree.setLeft(insertAux(key, (NodeBST) tree.getLeft()));
+            tree.setLeft(insert(key, (NodeBST) tree.getLeft()));
         } else if (key > tree.getToken()){
-            tree.setRight(insertAux(key, (NodeBST) tree.getRight()));
+            tree.setRight(insert(key, (NodeBST) tree.getRight()));
         }
         return tree;
     }
 
+
+
+
     @Override
     protected void appendAux(int key) {
-        this.insert(key);
+        this.root = insert(key, this.root);
     }
 }
