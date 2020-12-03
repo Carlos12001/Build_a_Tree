@@ -18,6 +18,7 @@ public class  ServerSocketClass implements Runnable{
     public static Tree[] treeArray = { new TreeB(3), new TreeBST(), new TreeAVL(), new TreeSplay()};
     public static boolean challengeComplete = false;
     public static boolean tokenComplete = false;
+    public int challenge Timer;
 
 
     public ServerSocketClass(){
@@ -71,6 +72,12 @@ public class  ServerSocketClass implements Runnable{
             }
         }
 
+    }
+
+    public void pickChallengeTime(){
+        int minSecs = 40;
+        int maxSecs = 95;
+        this.challengeCounter = (int)(Math.random() * (maxSecs - minSecs + 1) + minSecs);
     }
 
     public static void main(String[] args) {
