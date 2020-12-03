@@ -11,7 +11,7 @@ class LabelText(pygame.sprite.Sprite):
         pygame.font.SysFont("Times New Roman", 70),
         pygame.font.SysFont("Times New Roman", 20),
         pygame.font.SysFont("Times New Roman", 30),
-        pygame.font.SysFont("Times New Roman", 50)
+        pygame.font.SysFont("arial", 22)
     ]
 
     def __init__(self, text: str, type_font: int, color: Tuple[int], surface: pygame.Surface, position: Tuple[int]):

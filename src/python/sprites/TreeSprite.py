@@ -3,6 +3,7 @@ import pygame
 class TreeSprite(pygame.sprite.Sprite):
 
     def __init__(self, screen: pygame.Surface, id: str, px: int, py: int):
+        super(TreeSprite, self).__init__()
         self.__screen: pygame.Surface = screen
 
         self.__states_dict: dict = {}
@@ -11,7 +12,7 @@ class TreeSprite(pygame.sprite.Sprite):
         self.image: pygame.Surface = None
 
         self.__id: str = id
-        self.__currentKey: str = "0"
+        self.__current_key: str = "0"
         # Setter images
         self.__set_dict_images()
 
@@ -28,24 +29,16 @@ class TreeSprite(pygame.sprite.Sprite):
     def get_rect_y(self) -> int:
         return self.rect.y
 
-    def get_id():
-        pass
+    def get_id(self):
+        return self.__id
 
     def __set_dict_images(self):
         from python.screen.SceneGame import SceneGame
         from python.sprites.StaticState import StaticState
 
-        id_split = self.__id.split("@")
-        tmp = id_split[0]
-        num = id_split[1]
+        tmp = self.__id
 
-        if tmp == "tree" and num != -1:
-
-            image_0 = (SceneGame.load_out_img("tree@0.png", None))
-            self.__image_state_0 = StaticState(image_0, "0")
-            self.__states_dict[self.__image_state_0.get_name()] = self.__image_state_0
-
-        elif tmp == "treeB" and num != -1:
+        if tmp == "treeB":
 
             image_0 = (SceneGame.load_out_img("treeB@0.png", None))
             self.__image_state_0 = StaticState(image_0, "0")
@@ -73,7 +66,7 @@ class TreeSprite(pygame.sprite.Sprite):
             self.__states_dict[self.__image_state_4.get_name()] = self.__image_state_4
             self.__states_dict[self.__image_state_5.get_name()] = self.__image_state_5
 
-        elif tmp == "treeBST" and num != -1:
+        elif tmp == "treeBST":
 
             image_0 = (SceneGame.load_out_img("treeBST@0.png", None))
             self.__image_state_0 = StaticState(image_0, "0")
@@ -101,7 +94,7 @@ class TreeSprite(pygame.sprite.Sprite):
             self.__states_dict[self.__image_state_4.get_name()] = self.__image_state_4
             self.__states_dict[self.__image_state_5.get_name()] = self.__image_state_5
 
-        elif tmp == "treeAVL" and num != -1:
+        elif tmp == "treeAVL":
 
             image_0 = (SceneGame.load_out_img("treeAVL@0.png", None))
             self.__image_state_0 = StaticState(image_0, "0")
@@ -129,7 +122,7 @@ class TreeSprite(pygame.sprite.Sprite):
             self.__states_dict[self.__image_state_4.get_name()] = self.__image_state_4
             self.__states_dict[self.__image_state_5.get_name()] = self.__image_state_5
 
-        elif tmp == "treeSplay" and num != -1:
+        elif tmp == "treeSplay" :
 
             image_0 = (SceneGame.load_out_img("treeSplay@0.png", None))
             self.__image_state_0 = StaticState(image_0, "0")
@@ -157,12 +150,15 @@ class TreeSprite(pygame.sprite.Sprite):
             self.__states_dict[self.__image_state_4.get_name()] = self.__image_state_4
             self.__states_dict[self.__image_state_5.get_name()] = self.__image_state_5
 
+        self.set_current_state("0")
+
     def set_current_state(self, key: str):
         self.__current_state = self.__states_dict[key]
 
     def setNext(self):
-        tmp = int(self.__currentKey) + 1
-        self.__current_state = self.__states_dict[tmp]
+        tmp = int(self.__current_key) + 1
+        if tmp < 6:
+            self.__current_state = self.__states_dict[str(tmp)]
 
     def defeault(self):
         self.set_current_state("0")
@@ -170,3 +166,7 @@ class TreeSprite(pygame.sprite.Sprite):
     def update(self):
         self.__current_state.update(dt=None)
         self.image = self.__current_state.get_current_sprite()
+
+    def is_completed(self):
+        return self.__current_key == "5"
+        

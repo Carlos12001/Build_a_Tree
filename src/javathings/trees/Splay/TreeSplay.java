@@ -17,7 +17,7 @@ public class TreeSplay extends Tree {
 
     private NodeSplay root;
 
-    TreeSplay() {
+    public TreeSplay() {
         super();
         this.root = null;
         setTreeID("treeSplay");

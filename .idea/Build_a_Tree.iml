@@ -13,9 +13,8 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Python 3.8" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="jackson-annotations-2.10.5" level="project" />
-    <orderEntry type="library" name="jar_files1" level="project" />
+    <orderEntry type="library" name="jackson" level="project" />
   </component>
 </module>

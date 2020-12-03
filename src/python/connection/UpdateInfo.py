@@ -3,22 +3,20 @@
 
 class UpdateInfo(object):
 
-    class __UpdateInfoInstance:
-        __instance = None
+    def __init__(self):
+        # Data that's gonna be sent to the server
+        self.playersName = []
+        self.playersGameOver = []
+        self.treeB = ""
+        self.treeBST = ""
+        self.treeAVL = ""
+        self.treeSplay = ""
 
-        def __init__(self):
-            # Data that's gonna be sent to the server
-            self.playersName = []
-            self.playersGameOver = []
-            self.treeB = ""
-            self.treeBST = ""
-            self.treeAVL = ""
-            self.treeSplay = ""
+        # Data that's gonna be received from the server
+        self.time = ""
+        self.tokenSend = ""
+        self.challenge = []
 
-            # Data that's gonna be received from the server
-            self.time = 0
-            self.tokenSend = ""
-            self.challenge = []
 
     def updateWrapper(self, playersName, playersGameOver, treeB, treeBST, treeAVL, treeSplay):
         self.setPlayersName(playersName)
@@ -30,6 +28,11 @@ class UpdateInfo(object):
         dictionary = self.createDict()
         return dictionary
 
+    def UpdateFile(self, newInfo):
+        self.time = newInfo.getTime()
+        self.tokenSend = newInfo.getTokenSend()
+        self.challenge = newInfo.getChallenge()
+
     def createDict(self):
         return {"playersName": self.playersName, "playersGameOver": self.playersGameOver, "treeB": self.treeB,
                 "treeBST": self.treeBST, "treeAVL": self.treeAVL, "treeSplay": self.treeSplay}
@@ -38,9 +41,7 @@ class UpdateInfo(object):
         self.setTime(dictio['time'])
         self.setTokenSend(dictio['tokenSend'])
         self.setChallenge(dictio['challenge'])
-        print(self.time)
-        print(self.tokenSend)
-        print(self.challenge)
+
 
     def setPlayersName(self, playersName):
         self.playersName = playersName
