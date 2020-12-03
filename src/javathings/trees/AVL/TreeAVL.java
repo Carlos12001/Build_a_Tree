@@ -18,22 +18,6 @@ public class TreeAVL extends Tree {
         this.defaultTree();
     }
 
-    public boolean contains(int element) {
-        return this.contains(element, (NodeAVL) this.root);
-    }
-
-    private boolean contains(int element, NodeAVL node) {
-        if (node == null) {
-            return false;
-        } else {
-            if (element < node.getToken())
-                return contains(element, (NodeAVL) node.getLeft());
-            else if (element > node.getToken())
-                return contains(element, (NodeAVL) node.getRight());
-            else
-                return true;
-        }
-    }
 
     /**
      * @param key
