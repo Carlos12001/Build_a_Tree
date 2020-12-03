@@ -16,8 +16,7 @@ public class Server {
 
         CreateConnection mainThread= new CreateConnection();
 
-        TimeJava newTime = new TimeJava();
-        newTime.timeStart(2000000000);
+
         mainThread.iniciarEscuchar();
 
 

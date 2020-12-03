@@ -17,8 +17,8 @@ public class CreateConnection implements Runnable{
     private UpdateInfo serverInfo;
 
     public static Tree[] treeArray = { new TreeB(3), new TreeBST(), new TreeAVL(), new TreeSplay()};
-    public static boolean challengeComplete = false;
-    public static boolean tokenComplete = false;
+
+    TimeJava newTime = null;
     public int challengeCounter;
 
 
@@ -55,14 +55,23 @@ public class CreateConnection implements Runnable{
                 /* Aquí procesamos la información */
 
                 UpdateInfo infoToUpdate = new JacksonDecoder(mensaje_texto).Decode();
+
+                System.out.println(this.newTime + "              " + this.serverInfo);
+                if (this.newTime==null && this.serverInfo.getPlayersName()[0].equals("")){
+                    this.newTime = new TimeJava();
+                    newTime.timeStart(2000000000);
+                }
+
+
+
                 serverInfo.UpdateFile(infoToUpdate);
 
-                System.out.println("Info received: " + infoToUpdate);
+
 
                 String answerJsonStr = new JacksonEncoder().EncodeInfo(this.serverInfo);
 
                 this.enviar(answerJsonStr);
-                System.out.println(mensaje_texto);
+
                 flujo_entrada.close();
                 servidor.close();
                 misocket.close();
@@ -83,7 +92,6 @@ public class CreateConnection implements Runnable{
 
     public static void main(String[] args) {
         // write your code here
-        System.out.println("Hola desde Servidor");
 
         CreateConnection hilito= new CreateConnection();
 

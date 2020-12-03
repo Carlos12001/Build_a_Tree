@@ -55,8 +55,9 @@ __path_game: str
         self.__powers_group: pygame.sprite.Group = pygame.sprite.Group()
         self.__all_sprite_group: pygame.sprite.Group = pygame.sprite.Group()
 
-        self.__time_server: int
+        self.__time_server: int = 0
         self.__time_pygame: pygame.time.Clock = pygame.time.Clock()
+
 
         self.running: bool = True
 

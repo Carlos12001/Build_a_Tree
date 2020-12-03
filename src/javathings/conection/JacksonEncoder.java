@@ -17,7 +17,7 @@ public class JacksonEncoder {
         String jsonString = mapper.writeValueAsString(message);
 
         //the field names of the objects become the JSON keys
-        System.out.println(jsonString);
+
         return jsonString;
 
     }
