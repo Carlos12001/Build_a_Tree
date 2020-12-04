@@ -19,7 +19,6 @@ public class CreateConnection implements Runnable{
     public static Tree[] treeArray = { new TreeB(3), new TreeBST(), new TreeAVL(), new TreeSplay()};
 
     private TimeJava newTime = null;
-    public int challengeCounter;
     private Boolean inChallenge = false;
     private Boolean waitingChallenge = false;
     private int timeTillChallenge = 8;
@@ -59,12 +58,11 @@ public class CreateConnection implements Runnable{
                 BufferedReader flujo_entrada=new BufferedReader(new InputStreamReader(misocket.getInputStream()));
                 String mensaje_texto= flujo_entrada.readLine();
                 /* Aquí procesamos la información */
-
                 UpdateInfo infoToUpdate = new JacksonDecoder(mensaje_texto).Decode();
-
 
                 serverInfo.UpdateFile(infoToUpdate);
 
+                //System.out.println(mensaje_texto);
 
                 if (this.firstConnection){
                     if (serverInfo.getPlayersName().length != 0){
@@ -80,6 +78,8 @@ public class CreateConnection implements Runnable{
                 ChallengeManager();
 
                 String answerJsonStr = new JacksonEncoder().EncodeInfo(this.serverInfo);
+
+                System.out.println(answerJsonStr);
 
                 this.enviar(answerJsonStr);
 
