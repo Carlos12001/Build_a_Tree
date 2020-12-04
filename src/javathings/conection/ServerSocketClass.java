@@ -1,33 +1,20 @@
-package javas.conection;
+package javathings.conection;
 
-import javas.time.TimeJava;
-import javas.trees.AVL.TreeAVL;
-import javas.trees.B.TreeB;
-import javas.trees.BST.TreeBST;
-import javas.trees.Splay.TreeSplay;
-import javas.trees.Abstract.Tree;
-
+import javathings.Time.TimeJava;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class CreateConnection implements Runnable{
-
-    private UpdateInfo serverInfo;
-
-    public static Tree[] treeArray = { new TreeB(3), new TreeBST(), new TreeAVL(), new TreeSplay()};
-
-    TimeJava newTime = null;
-    public int challengeCounter;
+class  ServerSocketClass implements Runnable{
+    UpdateInfo serverInfo;
     Boolean inChallenge = false;
     Boolean waitingChallenge = false;
     int timeTillChallenge = 8;
     int timeTillToken = 4;
     int ChallengeCounter = 0;
 
-
-    public CreateConnection(){
+    ServerSocketClass(){
         serverInfo = UpdateInfo.getUpdateInfo();
     }
 
@@ -60,13 +47,9 @@ public class CreateConnection implements Runnable{
                 /* Aquí procesamos la información */
 
                 UpdateInfo infoToUpdate = new JacksonDecoder(mensaje_texto).Decode();
-
-
                 serverInfo.UpdateFile(infoToUpdate);
 
-//                System.out.println(mensaje_texto);
-
-
+                System.out.println("Info received: " + infoToUpdate);
 
                 this.ChallengeCounter++;
                 System.out.println("Challenge Counter: " + this.ChallengeCounter);
@@ -75,7 +58,7 @@ public class CreateConnection implements Runnable{
                 String answerJsonStr = new JacksonEncoder().EncodeInfo(this.serverInfo);
 
                 this.enviar(answerJsonStr);
-
+                System.out.println(mensaje_texto);
                 flujo_entrada.close();
                 servidor.close();
                 misocket.close();
@@ -106,20 +89,6 @@ public class CreateConnection implements Runnable{
 
     }
 
-    public String SelectToken(){ // Necesito saber porque retorna Null, los árboles empiezan en null ?
-        //String[] TreeList = {"TreeAVL","TreeSplay","TreeB","TreeBST"};
-
-        int randomPos = (int)((Math.random() * (5-1) + 1)-1);
-        System.out.println("randomPos: " + randomPos);
-
-        return treeArray[randomPos].getCurrent();
-    }
-
-    public void AnalyzeReceivedData(){ // Analiza la información recién llagada para ve si ya alguien ganó, de ser así, qué se envía?
-    }
-
-
-
     public void ChallengeManager(){
         if(timeTillChallenge == 0){
             pickChallengeTime();
@@ -136,12 +105,8 @@ public class CreateConnection implements Runnable{
             }
         }
         if(this.inChallenge){
-            AnalyzeReceivedData();
-
             if (this.ChallengeCounter == this.timeTillToken){
                 this.ChallengeCounter = 0;
-                String token =SelectToken();
-                serverInfo.setTokenSend(token);
             }
         }
     }
@@ -155,8 +120,9 @@ public class CreateConnection implements Runnable{
 
     public static void main(String[] args) {
         // write your code here
+        System.out.println("Hola desde Servidor");
 
-        CreateConnection hilito= new CreateConnection();
+        ServerSocketClass hilito= new ServerSocketClass();
 
         TimeJava newTime = new TimeJava();
         newTime.timeStart(1);

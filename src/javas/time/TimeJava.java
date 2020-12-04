@@ -49,6 +49,26 @@ public class TimeJava {
     /**
      * @param segMax
      */
+    public boolean timeChallenge(int segMax){
+        Thread thread = new Thread(()->{
+            for (seg = 0; seg < segMax; seg++){
+                delaySeg();
+                System.out.println(seg);
+            }
+            System.out.println("fin de timeChallege");
+
+//            UpdateInfo newToken = new UpdateInfo();
+//            newToken.setTokenSend("treeAVL@12");  // Aqui se pone un metodo que tome tokens de manera aleatoria
+        });
+        thread.setDaemon(true);
+        thread.start();
+
+        return true;
+    }
+
+    /**
+     * @param segMax
+     */
     public void timeToken(int segMax){
         Thread thread = new Thread(()-> {
             for (seg = 0; seg < segMax; seg++) {
@@ -83,13 +103,13 @@ public class TimeJava {
     /**
      * @param segMax
      */
-    public void timeChallenge(int segMax){
+   /* public void timeChallenge(int segMax){
         Thread thread = new Thread(()->{
             for (seg = 0; seg < segMax; seg++){
                 delaySeg();
             }
         });
-    }
+    }*/
     /**
      *
      */

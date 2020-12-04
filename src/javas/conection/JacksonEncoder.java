@@ -9,7 +9,7 @@ public class JacksonEncoder {
     public String EncodeInfo(UpdateInfo message) throws JsonProcessingException{
 
         ObjectMapper mapper = new ObjectMapper();
-        //mapper.enable(SerializationFeature.INDENT_OUTPUT); //solo para printear bien
+        mapper.enable(SerializationFeature.INDENT_OUTPUT); //solo para printear bien
         String jsonString = mapper.writeValueAsString(message);
 
         //the field names of the objects become the JSON keys
