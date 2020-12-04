@@ -317,9 +317,7 @@ __path_game: str
         self.__base = Platform(self.__screen, -150, 1500, (1900, 400))
 
 
-        self.__all_sprite_group.add(platform)
 
-        # crear  los vacíos arboles y meterlos en el grupo
 
         self.__game_view()
 

@@ -27,7 +27,7 @@ class SocketClientClass(object):
     def send(self):
         from BuldiATree import newInfo
         first_conn = True
-        while (True):
+        while True:
             self.ip = '127.0.0.1'  # The server's hostname or IP address
             self.send_port = 9999
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
