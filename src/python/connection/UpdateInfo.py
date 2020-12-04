@@ -5,8 +5,8 @@ class UpdateInfo(object):
 
     def __init__(self):
         # Data that's gonna be sent to the server
-        self.playersName = []
-        self.playersGameOver = ["", "", "", ""]
+        self.playersName =[]
+        self.playersGameOver = []
         self.treeB = ""
         self.treeBST = ""
         self.treeAVL = ""

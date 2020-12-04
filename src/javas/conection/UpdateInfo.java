@@ -2,7 +2,7 @@ package javas.conection;
 
 public class UpdateInfo {
     private static UpdateInfo instance;
-    private String[] playersName = {"", "", "", ""};
+    private String[] playersName;
     private boolean[] playersGameOver = {true, true, true, true};
     private String treeB;
     private String treeBST;
