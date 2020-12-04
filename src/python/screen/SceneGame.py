@@ -8,11 +8,11 @@ from python.basicgui.LabelText import LabelText
 from python.basicgui.CursorRect import CursorRect
 from python.sprites.Platform import Platform
 from python.sprites.Player import Player
-import python.json.UpdateInfo as UI
+#import python.json.UpdateInfo as UI
 from python.sprites.Power import Power
 from python.sprites.Token import Token
 from python.sprites.TreeSprite import TreeSprite
-import python.connection.SocketClientClass as cl
+#import python.connection.SocketClientClass as cl
 
 
 class SceneGame:
@@ -515,6 +515,7 @@ __path_game: str
             i.update(dt)
 
     def __is_time_challenge(self) -> bool:
+        """
         result = False
 
         for i in self.UI.get_challenges():
@@ -527,6 +528,9 @@ __path_game: str
         for i in self.UI:
             pass
         return result
+        """
+        pass
+
 
     def __update_tokens(self, dt):
         for i in self.__tokens_group:
