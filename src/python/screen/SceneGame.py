@@ -8,7 +8,7 @@ from python.basicgui.LabelText import LabelText
 from python.basicgui.CursorRect import CursorRect
 from python.sprites.Platform import Platform
 from python.sprites.Player import Player
-import python.json.UpdateInfo as UI
+import python.connection.UpdateInfo as UI
 from python.sprites.Power import Power
 from python.sprites.Token import Token
 from python.sprites.TreeSprite import TreeSprite
