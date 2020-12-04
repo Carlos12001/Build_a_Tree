@@ -345,10 +345,7 @@ __path_game: str
 
         # PRUEBAS POWERS
 
-        power = Power(self.__screen, random.randrange(200, 700, 25), 0)
 
-        self.__powers_group.add(power)
-        self.__all_sprite_group.add(power)
 
         while self.running:
             secondsPower = (pygame.time.get_ticks()-self.__timePower)//1000
@@ -373,8 +370,10 @@ __path_game: str
             self.__update_players_and_powers(dt)
             label_time.draw_me()
 
-            if secondsPower > 3;
-                print("nuevoooooooo poweer")
+            if secondsPower > random.randrange(5,15):
+                power = Power(self.__screen, random.randrange(200, 700, 25), 0)
+                self.__powers_group.add(power)
+                self.__all_sprite_group.add(power)
                 self.__timePower = pygame.time.get_ticks()
             
             if self.__is_time_challenge():
