@@ -1,6 +1,9 @@
 package javathings.conection;
 
-import javathings.Time.TimeJava;
+import javas.conection.JacksonDecoder;
+import javas.conection.JacksonEncoder;
+import javas.conection.UpdateInfo;
+import javas.time.TimeJava;
 
 import java.io.*;
 import java.net.ServerSocket;
