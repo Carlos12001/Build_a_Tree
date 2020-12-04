@@ -323,6 +323,7 @@ __path_game: str
 
     def __game_view(self) -> None:
         from BuldiATree import newInfo
+        self.__timePower = pygame.time.get_ticks()
 
         bg_image = SceneGame.load_out_img("backgroundGame.png", (self.__scene_size_X, self.__scene_size_Y))
 
@@ -350,6 +351,7 @@ __path_game: str
         self.__all_sprite_group.add(power)
 
         while self.running:
+            secondsPower = (pygame.time.get_ticks()-self.__timePower)//1000
             self.__screen.blit(bg_image, [0, 0])
             label_time.set_text("Tiempo: " + str(self.UI.getTime()))
 
@@ -370,6 +372,11 @@ __path_game: str
             dt = self.__time_pygame.tick(60)
             self.__update_players_and_powers(dt)
             label_time.draw_me()
+
+            if secondsPower > 3;
+                print("nuevoooooooo poweer")
+                self.__timePower = pygame.time.get_ticks()
+            
             if self.__is_time_challenge():
 
 
