@@ -373,8 +373,7 @@ __path_game: str
             self.__update_players_and_powers(dt)
             label_time.draw_me()
 
-            if secondsPower > 3;
-                print("nuevoooooooo poweer")
+            if secondsPower > 3:
                 self.__timePower = pygame.time.get_ticks()
             
             if self.__is_time_challenge():
@@ -527,7 +526,7 @@ __path_game: str
             i.update(dt)
 
     def __is_time_challenge(self) -> bool:
-        result: bool = True
+        result: bool = False
         # tmp = ["","","",""]
         # for i in self.UI.get_challenges():
         #     tmp += [i]

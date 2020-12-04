@@ -5,8 +5,8 @@ class UpdateInfo(object):
 
     def __init__(self):
         # Data that's gonna be sent to the server
-        self.playersName = []
-        self.playersGameOver = []
+        self.playersName = ["", "", "", ""]
+        self.playersGameOver = ["", "", "", ""]
         self.treeB = ""
         self.treeBST = ""
         self.treeAVL = ""
@@ -15,7 +15,7 @@ class UpdateInfo(object):
         # Data that's gonna be received from the server
         self.time = ""
         self.tokenSend = ""
-        self.challenge = []
+        self.challenge = ["", "", "", ""]
 
 
     def updateWrapper(self, playersName, playersGameOver, treeB, treeBST, treeAVL, treeSplay):
@@ -35,7 +35,8 @@ class UpdateInfo(object):
 
     def createDict(self):
         return {"playersName": self.playersName, "playersGameOver": self.playersGameOver, "treeB": self.treeB,
-                "treeBST": self.treeBST, "treeAVL": self.treeAVL, "treeSplay": self.treeSplay}
+                "treeBST": self.treeBST, "treeAVL": self.treeAVL, "treeSplay": self.treeSplay, "time": self.time,
+                "tokenSend": self.tokenSend, "challenge": self.challenge}
 
     def unWrapper(self, dictio):
         self.setTime(dictio['time'])
