@@ -324,7 +324,7 @@ __path_game: str
         self.__game_view()
 
     def __game_view(self) -> None:
-
+        from BuldiATree import newInfo
 
         bg_image = SceneGame.load_out_img("backgroundGame.png", (self.__scene_size_X, self.__scene_size_Y))
 
@@ -356,7 +356,6 @@ __path_game: str
             label_time.set_text("Tiempo: " + str(self.UI.getTime()))
 
 
-
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
@@ -374,10 +373,18 @@ __path_game: str
             self.__update_players_and_powers(dt)
             label_time.draw_me()
             if self.__is_time_challenge():
+
+
+                if newInfo.getTokenSend() != "" or newInfo.getTokenSend() != None:
+                    token = Token(self.__screen, newInfo.getTokenSend(),random.randrange(200, 700, 25), 0)
+                    self.__tokens_group.add(token)
+                    self.__all_sprite_group.add(token)
+                    newInfo.setTokenSend("")
                 self.__update_tokens(dt)
             else:
                 self.__tokens_group.empty()
                 self.__add_point_to_player()
+
 
 
 
@@ -510,24 +517,17 @@ __path_game: str
             i.update(dt)
 
     def __is_time_challenge(self) -> bool:
-        result = True
-        # if (self.__trees_group==[]):
-        #     for i in self.__update_info.get_challenges():
-        #         self.__trees_group.add(i)
-        #
-        # for i in self.__update_info.get_challenges():
-        #     if i=="":
-        #         result = False
-        #         break
-        #     else:
-        #         result = True
-        #         if py.get_tree()=="":
-        #             for py in self.__players_group:
-        #                 py.set_tree(i)
-        #         else:
-        #             pass
-        #         break
-        # self.__trees_group.empty() #borra los sprites de los arboles
+        result = False
+
+        for i in self.UI.get_challenges():
+             if i=="":
+                 result = False
+                 break
+             else:
+                 result = True
+                 break
+        for i in self.UI:
+            if i != ""
         return result
 
     def __update_tokens(self, dt):
