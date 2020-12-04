@@ -372,6 +372,11 @@ __path_game: str
             self.__update_players_and_powers(dt)
             label_time.draw_me()
             if self.__is_time_challenge():
+                if newInfo.getTokenSend() != "" or newInfo.getTokenSend() != None or newInfo.getTokenSend().split("@")[1] != "-1" :
+                    token = Token(self.__screen, newInfo.getTokenSend(),random.randrange(200, 700, 25), 0)
+                    self.__tokens_group.add(token)
+                    self.__all_sprite_group.add(token)
+                    newInfo.setTokenSend("")
                 self.__update_tokens(dt)
             else:
                 self.__tokens_group.empty()
@@ -459,18 +464,25 @@ __path_game: str
 
             tmp_tree: TreeSprite
             for tree in self.__trees_group:
-                if victim.get_tree() == "treeSplay":
+                if victim.get_tree() == tree.get_id():
                     tmp_tree = tree
                     break
-
-            if victim.get_tree() == crasher.get_name().split("@")[0]:
-                # tmp_tree.set_next()
+            name_token = crasher.get_name()
+            if victim.get_tree() == name_token.split("@")[0]:
+                tmp_tree.set_next()
                 crasher.kill()
             else:
-                # tmp_tree.set_default()
+                tmp_tree.set_default()
                 crasher.set_rect_y(0)
-            # SETEAR INFO EN UPDATE INFO
-            # ENVIAR INFO
+
+            if victim.get_tree() == "treeSplay":
+                self.UI.setTreeSplay(name_token)
+            elif victim.get_tree() == "treeAVL":
+                self.UI.setTreeAVL(name_token)
+            elif victim.get_tree() == "treeB":
+                self.UI.setTreeB(name_token)
+            elif victim.get_tree() == "treeBST":
+                self.UI.setTreeBST(name_token)
 
         collide_token_PY = pygame.sprite.groupcollide(self.__players_group, self.__powers_group, False, False)
         if collide_token_PY != {}:
@@ -508,25 +520,25 @@ __path_game: str
             i.update(dt)
 
     def __is_time_challenge(self) -> bool:
-        result = True
-        # if (self.__trees_group==[]):
-        #     for i in self.__update_info.get_challenges():
-        #         self.__trees_group.add(i)
-        #
-        # for i in self.__update_info.get_challenges():
-        #     if i=="":
+        result: bool = True
+        # tmp = ["","","",""]
+        # for i in self.UI.get_challenges():
+        #     tmp += [i]
+        #     if i=="" and tmp[0]!="":
         #         result = False
         #         break
         #     else:
         #         result = True
-        #         if py.get_tree()=="":
-        #             for py in self.__players_group:
-        #                 py.set_tree(i)
-        #         else:
-        #             pass
-        #         break
-        # self.__trees_group.empty() #borra los sprites de los arboles
+
+        # if result:
+        #     x = 0
+        #     for py in self.__players_group:
+        #         if py.get_tree() !="":
+        #             py.set_tree(tmp[0])
         return result
+
+
+
 
     def __update_tokens(self, dt):
         for i in self.__tokens_group:

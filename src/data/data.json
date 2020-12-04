@@ -2,9 +2,9 @@
   "playersName": ["Nacho", "Carlos", "Mauro", "" ],
   "playersGameOver": [true, true, true, true],
   "treeB": "treeSplay@23",
-  "treeBST": "treeBST@16",
-  "treeAVL": "treeAVL@16",
-  "treeSplay": "treeSplay@1",
+  "treeBST": "treeSplay@16",
+  "treeAVL": "treeBST@16",
+  "treeSplay": "treeAVLy@1",
 
   "time": "0:0",
   "tokenSend": "treeAVL@16",
