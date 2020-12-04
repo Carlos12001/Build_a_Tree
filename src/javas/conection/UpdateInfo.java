@@ -2,15 +2,15 @@ package javas.conection;
 
 public class UpdateInfo {
     private static UpdateInfo instance;
-    private String[] playersName;
-    private boolean[] playersGameOver;
+    private String[] playersName = {"", "", "", ""};
+    private boolean[] playersGameOver = {true, true, true, true};
     private String treeB;
     private String treeBST;
     private String treeAVL;
     private String treeSplay;
-    private String time;
-    private String tokenSend;
-    private String[] challenge;
+    private String time = "0:0";
+    private String tokenSend = "";
+    private String[] challenge = {"", "", "", ""};
 
 
 

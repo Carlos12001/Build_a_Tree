@@ -8,7 +8,7 @@ from python.basicgui.LabelText import LabelText
 from python.basicgui.CursorRect import CursorRect
 from python.sprites.Platform import Platform
 from python.sprites.Player import Player
-#import python.json.UpdateInfo as UI
+#import python.connection.UpdateInfo as UI
 from python.sprites.Power import Power
 from python.sprites.Token import Token
 from python.sprites.TreeSprite import TreeSprite
@@ -377,9 +377,7 @@ __path_game: str
                 self.__timePower = pygame.time.get_ticks()
             
             if self.__is_time_challenge():
-
-
-                if newInfo.getTokenSend() != "" or newInfo.getTokenSend() != None:
+                if newInfo.getTokenSend() != "" or newInfo.getTokenSend() != None :
                     token = Token(self.__screen, newInfo.getTokenSend(),random.randrange(200, 700, 25), 0)
                     self.__tokens_group.add(token)
                     self.__all_sprite_group.add(token)
@@ -472,18 +470,25 @@ __path_game: str
 
             tmp_tree: TreeSprite
             for tree in self.__trees_group:
-                if victim.get_tree() == "treeSplay":
+                if victim.get_tree() == tree.get_id():
                     tmp_tree = tree
                     break
-
-            if victim.get_tree() == crasher.get_name().split("@")[0]:
-                # tmp_tree.set_next()
+            name_token = crasher.get_name()
+            if victim.get_tree() == name_token.split("@")[0]:
+                tmp_tree.set_next()
                 crasher.kill()
             else:
-                # tmp_tree.set_default()
+                tmp_tree.set_default()
                 crasher.set_rect_y(0)
-            # SETEAR INFO EN UPDATE INFO
-            # ENVIAR INFO
+
+            if victim.get_tree() == "treeSplay":
+                self.UI.setTreeSplay(name_token)
+            elif victim.get_tree() == "treeAVL":
+                self.UI.setTreeAVL(name_token)
+            elif victim.get_tree() == "treeB":
+                self.UI.setTreeB(name_token)
+            elif victim.get_tree() == "treeBST":
+                self.UI.setTreeBST(name_token)
 
         collide_token_PY = pygame.sprite.groupcollide(self.__players_group, self.__powers_group, False, False)
         if collide_token_PY != {}:
@@ -521,21 +526,26 @@ __path_game: str
             i.update(dt)
 
     def __is_time_challenge(self) -> bool:
-        """
-        result = False
+        result: bool = False
+        # tmp = ["","","",""]
+        # for i in self.UI.get_challenges():
+        #     tmp += [i]
+        #     if i=="" and tmp[0]!="":
+        #         result = False
+        #         break
+        #     else:
+        #         result = True
 
-        for i in self.UI.get_challenges():
-             if i=="":
-                 result = False
-                 break
-             else:
-                 result = True
-                 break
-        for i in self.UI:
-            pass
+        # if result:
+        #     x = 0
+        #     for py in self.__players_group:
+        #         if py.get_tree() !="":
+        #             py.set_tree(tmp[0])
+
         return result
-        """
-        pass
+
+
+
 
 
     def __update_tokens(self, dt):
