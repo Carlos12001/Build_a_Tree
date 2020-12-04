@@ -25,7 +25,7 @@ public class CreateConnection implements Runnable{
     private TimeJava newTime = null;
     private Boolean inChallenge = false;
     private Boolean waitingChallenge = false;
-    private int timeTillChallenge = 45;
+    private int timeTillChallenge = 20;
     private int timeTillToken = 7;
     private int ChallengeCounter = 0;
     private boolean firstConnection = true;
@@ -86,8 +86,6 @@ public class CreateConnection implements Runnable{
                 System.out.println(answerJsonStr);
                 System.out.println();
 
-
-
                 this.enviar(answerJsonStr);
 
                 flujo_entrada.close();
@@ -105,12 +103,14 @@ public class CreateConnection implements Runnable{
     public String[] ChallengeAssigner(){
         String[] names = serverInfo.getPlayersName();
         boolean[] states = serverInfo.getPlayersGameOver();
-        String[] challengeList = {"TreeAVL","TreeSplay","TreeB","TreeBST"};
+        java.util.Random r = new java.util.Random();
+        int num = r.nextInt(16);
         String[] challenges = {"","","",""};
 
         for(int n=0; n < names.length; n++) {
             if (states[n]) {
-                challenges[n] = challengeList[n];
+                challenges[n] = CreateConnection.treeArray[num % 4].getTreeID();
+                num++;
             }
             else {
                 challenges[n] = "";
@@ -123,22 +123,27 @@ public class CreateConnection implements Runnable{
     public String SelectToken(){ // Necesito saber porque retorna Null, los árboles empiezan en null ?
 
         int randomPos = (int)((Math.random() * (5-1) + 1)-1);
-        System.out.println("randomPos: " + randomPos);
+//        System.out.println("randomPos: " + randomPos);
 
         return treeArray[randomPos].getCurrent();
     }
 
     public void AnalyzeReceivedData(){
-        Tree[] treeArrayTmp = CreateConnection.treeArray;
-        boolean complete = true;
+        boolean inchallenge = true;
 
-        for (Tree treeCurrent : treeArrayTmp) {
+        for (Tree treeCurrent : CreateConnection.treeArray) {
             if (treeCurrent.getCurrent().split("@")[1].equals("-1")) {
-                complete = false;
+                inchallenge = false;
+                for (Tree t : CreateConnection.treeArray) {
+                    t.defaultTree();
+                }
+                this.ChallengeCounter = 0;
+                this.serverInfo.setChallenge(new java.lang.String[]{"", "", "", ""});
+                this.serverInfo.setTokenSend("");
                 break;
             }
         }
-        this.inChallenge = complete;
+        this.inChallenge = inchallenge;
     }
 
 
@@ -158,9 +163,9 @@ public class CreateConnection implements Runnable{
                 }
             }
         }
+
         if(this.inChallenge){
             AnalyzeReceivedData();
-
             if (this.ChallengeCounter == this.timeTillToken){
                 this.ChallengeCounter = 0;
                 String token =SelectToken();
@@ -170,29 +175,45 @@ public class CreateConnection implements Runnable{
     }
 
     public void pickChallengeTime(){
-        int minSecs = 40;
-        int maxSecs = 95;
+        int minSecs = 20;
+        int maxSecs = 30;
         this.timeTillChallenge = (int)(Math.random() * (maxSecs - minSecs + 1) + minSecs);
         System.out.println("time till ch: " + this.timeTillChallenge);
     }
 
     public void updateTrees(){
         try {
+            boolean flaj = false;
             if (!this.serverInfo.getTreeB().equals("")){
                 CreateConnection.treeArray[0].append(this.serverInfo.getTreeB());
+                this.serverInfo.setTreeB("");
             }
 
             if (!this.serverInfo.getTreeBST().equals("")){
-                CreateConnection.treeArray[1].append(this.serverInfo.getTreeB());
+                CreateConnection.treeArray[1].append(this.serverInfo.getTreeBST());
+                flaj = true;
+                this.serverInfo.setTreeBST("");
             }
 
             if (!this.serverInfo.getTreeAVL().equals("")){
-                CreateConnection.treeArray[2].append(this.serverInfo.getTreeB());
+                CreateConnection.treeArray[2].append(this.serverInfo.getTreeAVL());
+                flaj = true;
+                this.serverInfo.setTreeAVL("");
 
             }
             if (!this.serverInfo.getTreeSplay().equals("")){
-                CreateConnection.treeArray[3].append(this.serverInfo.getTreeB());
+                CreateConnection.treeArray[3].append(this.serverInfo.getTreeSplay());
+                flaj = true;
+                this.serverInfo.setTreeSplay("");
             }
+//            if (flaj == true) {
+//                System.out.println(CreateConnection.treeArray[0].getCurrent());
+//                System.out.println(CreateConnection.treeArray[1].getCurrent());
+//                System.out.println(CreateConnection.treeArray[2].getCurrent());
+//                System.out.println(CreateConnection.treeArray[3].getCurrent());
+//            }
+
+
         }catch (Exception ex){
             System.out.println("MAME");
         }

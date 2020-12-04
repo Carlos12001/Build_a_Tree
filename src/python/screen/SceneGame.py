@@ -8,11 +8,13 @@ from python.basicgui.LabelText import LabelText
 from python.basicgui.CursorRect import CursorRect
 from python.sprites.Platform import Platform
 from python.sprites.Player import Player
-#import python.connection.UpdateInfo as UI
+# import python.connection.UpdateInfo as UI
 from python.sprites.Power import Power
 from python.sprites.Token import Token
 from python.sprites.TreeSprite import TreeSprite
-#import python.connection.SocketClientClass as cl
+
+
+# import python.connection.SocketClientClass as cl
 
 
 class SceneGame:
@@ -58,13 +60,11 @@ __path_game: str
         self.__time_server: int = 0
         self.__time_pygame: pygame.time.Clock = pygame.time.Clock()
 
-
         self.running: bool = True
 
         from BuldiATree import newInfo
 
         self.UI = newInfo
-
 
         pygame.display.set_caption("Build a Tree")
         pygame.display.set_icon(SceneGame.load_out_img("iconGame.png"))
@@ -258,7 +258,7 @@ __path_game: str
         j: int = 0
         for i in names:
             if i != "":
-                player = Player(self.__screen, i, random.randrange(100, 700, 25), 0, j)
+                player = Player(self.__screen, i, random.randrange(200, 1200), 0, j)
                 self.__players_group.add(player)
                 self.__all_sprite_group.add(player)
                 tmp[j] = i
@@ -303,7 +303,7 @@ __path_game: str
         self.__trees_group.add(treeBST)
         self.__all_sprite_group.add(treeBST)
 
-        treeAVL= TreeSprite(self.__screen, "treeAVL", 1350, 500)
+        treeAVL = TreeSprite(self.__screen, "treeAVL", 1350, 500)
 
         self.__trees_group.add(treeAVL)
         self.__all_sprite_group.add(treeAVL)
@@ -312,12 +312,9 @@ __path_game: str
 
         self.__trees_group.add(treeSPLAY)
         self.__all_sprite_group.add(treeSPLAY)
+        self.__last_token_send: str = ""
 
-
-        self.__base = Platform(self.__screen, -150, 1500, (1900, 400))
-
-
-
+        self.__base = Platform(self.__screen, -250, 1500, (2600, 400))
 
         self.__game_view()
 
@@ -330,15 +327,10 @@ __path_game: str
         serverTime = "Tiempo: "
         label_time = LabelText(str(serverTime), 0, SceneGame.get_color()["black"], self.__screen, (200, 30))
 
-
-
-
-
         while self.running:
-            secondsPower = (pygame.time.get_ticks()-self.__timePower)//1000
+            secondsPower = (pygame.time.get_ticks() - self.__timePower) // 1000
             self.__screen.blit(bg_image, [0, 0])
             label_time.set_text("Tiempo: " + str(self.UI.getTime()))
-
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -357,13 +349,13 @@ __path_game: str
             self.__update_players_and_powers(dt)
             label_time.draw_me()
 
-            if secondsPower > random.randrange(5,15):
-                power = Power(self.__screen, random.randrange(200, 700, 25), 0)
+            if secondsPower > random.randrange(5, 15) and len(self.__tokens_group) + len(self.__powers_group) < 7:
+                power = Power(self.__screen, random.randrange(200, 1200), 0)
                 self.__powers_group.add(power)
                 self.__all_sprite_group.add(power)
                 self.__timePower = pygame.time.get_ticks()
-            
-            if self.__is_time_challenge():
+
+            if self.UI.getChallenge() != None and self.__is_time_challenge():
                 self.__create_token()
 
                 self.__update_tokens(dt)
@@ -371,26 +363,24 @@ __path_game: str
                 self.__tokens_group.empty()
                 self.__add_point_to_player()
 
-
-
-
             self.__collisions()
 
             x = 1
             for n in self.__players_group:
                 img = n.get_image()
-                label_name = LabelText(n.get_name(), 3, SceneGame.get_color()["black"], self.__screen, (x*150, 900))
-                label_points = LabelText(str(n.get_points()), 3, SceneGame.get_color()["black"], self.__screen, (x*150, 925))
-                label_tree = LabelText(n.get_tree(), 3, SceneGame.get_color()["black"], self.__screen, (x*150, 950))
-                label_power = LabelText(n.get_power(), 3, SceneGame.get_color()["black"], self.__screen, (x*150, 975))
+                label_name = LabelText(n.get_name(), 3, SceneGame.get_color()["black"], self.__screen, (x * 150, 900))
+                label_points = LabelText(str(n.get_points()), 3, SceneGame.get_color()["black"], self.__screen,
+                                         (x * 150, 925))
+                label_tree = LabelText(n.get_tree(), 3, SceneGame.get_color()["black"], self.__screen, (x * 150, 950))
+                label_power = LabelText(n.get_power(), 3, SceneGame.get_color()["black"], self.__screen, (x * 150, 975))
 
-                self.__screen.blit(img, [x*150-25, 800])
+                self.__screen.blit(img, [x * 150 - 25, 800])
                 label_name.draw_me()
                 label_points.draw_me()
                 label_tree.draw_me()
                 label_power.draw_me()
 
-                x+=1
+                x += 1
 
             pygame.display.flip()
 
@@ -420,24 +410,24 @@ __path_game: str
                 victim: Player = i
                 if abs(victim.get_rect_x() - collide_player_PY[0].get_rect_x()) <= 10:
 
-                    push = 150
+                    push = 100
                     v_s = victim.get_shield()
                     v_p = victim.get_push()
 
                     c_s = collide_player_PY[0].get_shield()
                     c_p = collide_player_PY[0].get_push()
-                    if v_s !=0:
+                    if v_s != 0:
                         v_s = push + c_p
 
-                    if c_s !=0:
+                    if c_s != 0:
                         v_s = push + v_p
 
                     if victim.get_rect_x() > collide_player_PY[0].get_rect_x():
-                        victim.set_rect_x(push-v_s+c_p)
-                        collide_player_PY[0].set_rect_x(-push+c_s-v_p)
+                        victim.set_rect_x(push - v_s + c_p)
+                        collide_player_PY[0].set_rect_x(-push + c_s - v_p)
                     else:
-                        victim.set_rect_x(-push-(-v_s+c_p))
-                        collide_player_PY[0].set_rect_x(push-(c_s-v_p))
+                        victim.set_rect_x(-push - (-v_s + c_p))
+                        collide_player_PY[0].set_rect_x(push - (c_s - v_p))
 
         collide_platform_TK = pygame.sprite.groupcollide(self.__tokens_group, self.__platforms_group, False, False)
         if collide_platform_TK != {}:
@@ -451,19 +441,21 @@ __path_game: str
         if collide_token_PY != {}:
             crasher: Token = list(collide_token_PY.values())[0][0]
             victim: Player = list(collide_token_PY.keys())[0]
-
-            tmp_tree: TreeSprite
+            tree_tmp: TreeSprite = None
             for tree in self.__trees_group:
-                if victim.get_tree() == tree.get_id():
-                    tmp_tree = tree
+                if tree.get_id() == victim.get_tree():
+                    tree_tmp = tree
                     break
+
             name_token = crasher.get_name()
+
             if victim.get_tree() == name_token.split("@")[0]:
-                tmp_tree.set_next()
                 crasher.kill()
+                tree_tmp.set_next()
+
             else:
-                tmp_tree.default()
-                crasher.set_rect_y(0)
+                crasher.kill()
+                tree_tmp.default()
 
             if victim.get_tree() == "treeSplay":
                 self.UI.setTreeSplay(name_token)
@@ -473,6 +465,15 @@ __path_game: str
                 self.UI.setTreeB(name_token)
             elif victim.get_tree() == "treeBST":
                 self.UI.setTreeBST(name_token)
+
+            if tree_tmp.is_completed():
+                for t in self.__trees_group:
+                    t.default()
+
+                self.__tokens_group.empty()
+                self.__add_point_to_player()
+
+
 
         collide_token_PY = pygame.sprite.groupcollide(self.__players_group, self.__powers_group, False, False)
         if collide_token_PY != {}:
@@ -490,13 +491,10 @@ __path_game: str
                 victim.collision(floor=[crasher.get_rect_y(), crasher.get_rect_x() + 50,
                                         crasher.get_rect_x() + crasher.get_width() - 50])
 
-
         collide_game_over = pygame.sprite.spritecollide(self.__base, self.__players_group, False, False)
         if collide_game_over != []:
-
             collide_game_over[0].kill()
-            #Agregar logica
-
+            # Agregar logica
 
     def get_Y(self) -> int:
         return self.__scene_size_Y
@@ -511,36 +509,48 @@ __path_game: str
         for i in self.__powers_group:
             i.update(dt)
 
+        for i in self.__trees_group:
+            i.update(dt)
+
     def __is_time_challenge(self) -> bool:
         result: bool = False
+
         for i in self.UI.getChallenge():
+
             if i == "":
                 result = False
                 break
             else:
                 result = True
 
+                break
 
-
+        self.__put_the_tree_to_players(result, self.UI.getChallenge())
 
         return result
 
+    def __put_the_tree_to_players(self, result: bool, challenge: list):
+        if result:
+            i = 0
+            for py in self.__players_group:
+                if py.get_tree() == "":
+                    py.set_tree(challenge[i])
+                    i += 1
+                else:
+                    break
 
     def __create_token(self):
-        if self.UI.getTokenSend() != "":
+        if self.UI.getTokenSend() != None and self.UI.getTokenSend() != "":
             result = True
             for token in self.__tokens_group:
-                if token.get_name() == self.UI.getTokenSend():
+                if token.get_name() == self.UI.getTokenSend() or self.UI.getTokenSend() == token.get_name():
                     result = False
                     break
             if result:
-                token = Token(self.__screen, self.UI.getTokenSend(), random.randrange(200, 700, 25), 0)
+                token = Token(self.__screen, self.UI.getTokenSend(), random.randrange(200, 1200), 0)
                 self.__tokens_group.add(token)
                 self.__all_sprite_group.add(token)
-                self.UI.setTokenSend("")
-
-
-
+                self.__last_token_send = self.UI.getTokenSend()
 
     # ncbsaoifhisjaofdiljgdalodjvi
     # dt es difenrcial de tiempo
@@ -550,19 +560,6 @@ __path_game: str
                 i.update(dt)
 
     def __add_point_to_player(self) -> None:
-        # tree: TreeSprite
-        # num_max_token_take_it = 0 # numero en la posicion mayor de sprites
-        # for tree in self.__trees_group:
-        #     num2 =  tree.get_position_image()
-        #     #logica para saber cual es el mayor
-        # #     tree = mayor position image
-        #
-        #
-        # for py in self.__players_group:
-        #     if py.get_tree()==tree.get_id():
-        #         py.set_points(num_max_token_take_it*100)
-        #
-        # VOLVER RECETEAR
         pass
 
     @staticmethod

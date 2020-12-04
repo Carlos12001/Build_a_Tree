@@ -159,11 +159,13 @@ class TreeSprite(pygame.sprite.Sprite):
         tmp = int(self.__current_key) + 1
         if tmp < 6:
             self.__current_state = self.__states_dict[str(tmp)]
+            self.__current_key = str(tmp)
 
     def default(self):
         self.set_current_state("0")
+        self.__current_key = "0"
 
-    def update(self):
+    def update(self, dt):
         self.__current_state.update(dt=None)
         self.image = self.__current_state.get_current_sprite()
 

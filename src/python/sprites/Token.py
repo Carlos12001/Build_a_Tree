@@ -67,7 +67,7 @@ class Token(pygame.sprite.Sprite):
 
             self.__states_dict[self.__image_state.get_name()] = self.__image_state
         elif tmp == "treeSplay" and num != -1:
-            image = (SceneGame.load_out_img("nodeSPLAY.png", (50, 50)))
+            image = (SceneGame.load_out_img("nodeSplay.png", (50, 50)))
             self.__image_state = StaticState(image, "image")
 
         if not image is None:

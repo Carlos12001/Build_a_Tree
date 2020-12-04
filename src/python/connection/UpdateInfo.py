@@ -35,8 +35,7 @@ class UpdateInfo(object):
 
     def createDict(self):
         return {"playersName": self.playersName, "playersGameOver": self.playersGameOver, "treeB": self.treeB,
-                "treeBST": self.treeBST, "treeAVL": self.treeAVL, "treeSplay": self.treeSplay, "time": self.time,
-                "tokenSend": self.tokenSend, "challenge": self.challenge}
+                "treeBST": self.treeBST, "treeAVL": self.treeAVL, "treeSplay": self.treeSplay, "time": self.time,}
 
     def unWrapper(self, dictio):
         self.setTime(dictio['time'])
