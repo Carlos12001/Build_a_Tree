@@ -155,7 +155,7 @@ class TreeSprite(pygame.sprite.Sprite):
     def set_current_state(self, key: str):
         self.__current_state = self.__states_dict[key]
 
-    def setNext(self):
+    def set_next(self):
         tmp = int(self.__current_key) + 1
         if tmp < 6:
             self.__current_state = self.__states_dict[str(tmp)]

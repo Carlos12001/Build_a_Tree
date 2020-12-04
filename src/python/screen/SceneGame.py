@@ -330,25 +330,9 @@ __path_game: str
         serverTime = "Tiempo: "
         label_time = LabelText(str(serverTime), 0, SceneGame.get_color()["black"], self.__screen, (200, 30))
 
-        # PRUEBAS TOKEN
-        token = Token(self.__screen, "treeSplay@23",random.randrange(200, 700, 25), 0)
-        self.__tokens_group.add(token)
-        self.__all_sprite_group.add(token)
 
-        num = 0
-        for i in self.__players_group:
-            if num == 0:
-                i.set_tree("treeSplay")
-            else:
-                i.set_tree("treeB")
-            num += 1
 
-        # PRUEBAS POWERS
 
-        power = Power(self.__screen, random.randrange(200, 700, 25), 0)
-
-        self.__powers_group.add(power)
-        self.__all_sprite_group.add(power)
 
         while self.running:
             secondsPower = (pygame.time.get_ticks()-self.__timePower)//1000
@@ -377,11 +361,8 @@ __path_game: str
                 self.__timePower = pygame.time.get_ticks()
             
             if self.__is_time_challenge():
-                if newInfo.getTokenSend() != "" or newInfo.getTokenSend() != None :
-                    token = Token(self.__screen, newInfo.getTokenSend(),random.randrange(200, 700, 25), 0)
-                    self.__tokens_group.add(token)
-                    self.__all_sprite_group.add(token)
-                    newInfo.setTokenSend("")
+                self.__create_token()
+
                 self.__update_tokens(dt)
             else:
                 self.__tokens_group.empty()
@@ -478,7 +459,7 @@ __path_game: str
                 tmp_tree.set_next()
                 crasher.kill()
             else:
-                tmp_tree.set_default()
+                tmp_tree.default()
                 crasher.set_rect_y(0)
 
             if victim.get_tree() == "treeSplay":
@@ -509,7 +490,9 @@ __path_game: str
 
         collide_game_over = pygame.sprite.spritecollide(self.__base, self.__players_group, False, False)
         if collide_game_over != []:
+
             collide_game_over[0].kill()
+            #Agregar logica
 
 
     def get_Y(self) -> int:
@@ -527,27 +510,37 @@ __path_game: str
 
     def __is_time_challenge(self) -> bool:
         result: bool = False
-        # tmp = ["","","",""]
-        # for i in self.UI.get_challenges():
-        #     tmp += [i]
-        #     if i=="" and tmp[0]!="":
-        #         result = False
-        #         break
-        #     else:
-        #         result = True
+        for i in self.UI.getChallenge():
+            if i == "":
+                result = False
+                break
+            else:
+                result = True
 
-        # if result:
-        #     x = 0
-        #     for py in self.__players_group:
-        #         if py.get_tree() !="":
-        #             py.set_tree(tmp[0])
+
+
 
         return result
 
 
+    def __create_token(self):
+        if self.UI.getTokenSend() != "":
+            result = True
+            for token in self.__tokens_group:
+                if token.get_name() == self.UI.getTokenSend():
+                    result = False
+                    break
+            if result:
+                token = Token(self.__screen, self.UI.getTokenSend(), random.randrange(200, 700, 25), 0)
+                self.__tokens_group.add(token)
+                self.__all_sprite_group.add(token)
+                self.UI.setTokenSend("")
 
 
 
+
+    # ncbsaoifhisjaofdiljgdalodjvi
+    # dt es difenrcial de tiempo
     def __update_tokens(self, dt):
         for i in self.__tokens_group:
             if not i.get_dont_work():
