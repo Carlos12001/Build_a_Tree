@@ -527,7 +527,7 @@ __path_game: str
                  result = True
                  break
         for i in self.UI:
-            if i != ""
+            pass
         return result
 
     def __update_tokens(self, dt):
