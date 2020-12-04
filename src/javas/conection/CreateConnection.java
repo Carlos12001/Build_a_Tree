@@ -18,13 +18,14 @@ public class CreateConnection implements Runnable{
 
     public static Tree[] treeArray = { new TreeB(3), new TreeBST(), new TreeAVL(), new TreeSplay()};
 
-    TimeJava newTime = null;
+    private TimeJava newTime = null;
     public int challengeCounter;
-    Boolean inChallenge = false;
-    Boolean waitingChallenge = false;
-    int timeTillChallenge = 8;
-    int timeTillToken = 4;
-    int ChallengeCounter = 0;
+    private Boolean inChallenge = false;
+    private Boolean waitingChallenge = false;
+    private int timeTillChallenge = 8;
+    private int timeTillToken = 4;
+    private int ChallengeCounter = 0;
+    private boolean firstConnection = true;
 
 
     public CreateConnection(){
@@ -64,8 +65,14 @@ public class CreateConnection implements Runnable{
 
                 serverInfo.UpdateFile(infoToUpdate);
 
-//                System.out.println(mensaje_texto);
 
+                if (this.firstConnection){
+                    if (serverInfo.getPlayersName().length != 0){
+                        this.startTime();
+                        this.firstConnection = false;
+                }
+
+                }
 
 
                 this.ChallengeCounter++;
@@ -151,6 +158,12 @@ public class CreateConnection implements Runnable{
         int maxSecs = 95;
         //this.timeTillChallenge = (int)(Math.random() * (maxSecs - minSecs + 1) + minSecs);
         //System.out.println("time till ch: " + this.timeTillChallenge);
+    }
+
+    public void startTime(){
+        TimeJava newTime = new TimeJava();
+        newTime.timeStart(20000);
+        System.out.println("--------------Tiempo iniciado---------------");
     }
 
     public static void main(String[] args) {

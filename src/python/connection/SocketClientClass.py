@@ -21,7 +21,7 @@ class SocketClientClass(object):
         self.send_port = send_port
         self.ip = '127.0.0.1'
         self.data_received = ""
-        self.name_list = ["", "", "", ""]
+        self.name_list = []
         self.info_managed = {}
 
     def send(self):
