@@ -22,6 +22,7 @@ public class CreateConnection implements Runnable{
             new TreeAVL(),
             new TreeSplay()};
 
+
     private TimeJava newTime = null;
     private Boolean inChallenge = false;
     private Boolean waitingChallenge = false;
@@ -114,7 +115,7 @@ public class CreateConnection implements Runnable{
         for(int n=0; n < names.length; n++) {
             if (states[n]) {
                 challenges[n] = CreateConnection.treeArray[num % 4].getTreeID();
-                System.out.println(names[n] + "         " + challenges[n]);
+                System.out.println(names[n] + "         " + challenges[n] + "     " );
                 num++;
             }
             else {
@@ -165,6 +166,7 @@ public class CreateConnection implements Runnable{
                     this.inChallenge = true;
                     String[] challengeUpdate = ChallengeAssigner();
                     serverInfo.setChallenge(challengeUpdate);
+//                    TimeJava chalengeCounter
                 }
             }
         }

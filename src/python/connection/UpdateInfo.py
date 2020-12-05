@@ -68,7 +68,7 @@ class UpdateInfo(object):
         return self.treeBST
 
     def setTreeAVL(self, treeAVL):
-        self.treeSplay = treeAVL
+        self.treeAVL = treeAVL
 
     def getTreeAVL(self):
         return self.treeAVL
