@@ -41,7 +41,8 @@ __path_game: str
                       "red_light": (190, 74, 71),
                       "cyan_light": (178, 223, 219),
                       "brown": (141, 137, 128),
-                      "white": (255, 255, 255)}
+                      "white": (255, 255, 255),
+                      "red": (255,39,42)}
 
     def __init__(self) -> None:
 
@@ -383,7 +384,7 @@ __path_game: str
                 label_power.draw_me()
 
                 x += 1
-
+            self.__GAME_OVER()
             pygame.display.flip()
 
     def __key_down(self, event_key) -> None:
@@ -585,6 +586,31 @@ __path_game: str
         for tree in self.__trees_group:
             tree.default()
 
+    def __GAME_OVER(self) -> None:
+        if len(self.__players_group) == 1 or self.UI.getTime() == "7:00":
+
+            max_player = self.__players_group.sprites()[0]
+            for player in self.__players_group.sprites()[1:]:
+                if max_player.get_points() < player.get_points:
+                    max_player = player
+
+            bg_image = SceneGame.load_out_img("backgroundMenu.png", (self.__scene_size_X, self.__scene_size_Y))
+
+            tmp = True
+            while tmp:
+                bg_image.blit(self.__screen, [0, 0])
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        tmp = False
+                        pygame.quit()
+                        sys.exit()
+
+                label = LabelText("Ganó   " + max_player.get_name(),0, SceneGame.get_color()["red"], self.__screen,
+                                  (self.__scene_size_X / 2, self.__scene_size_Y / 2))
+
+                label.draw_me()
+
+                pygame.display.flip()
 
 
     @staticmethod

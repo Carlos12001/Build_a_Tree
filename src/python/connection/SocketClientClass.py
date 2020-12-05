@@ -67,7 +67,6 @@ class SocketClientClass(object):
                             break
 
                         newInfo.unWrapper(json.loads(self.data_received))
-                        print(newInfo.getTokenSend())
 
 
     def start_listen(self):

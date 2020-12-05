@@ -29,6 +29,7 @@ public class CreateConnection implements Runnable{
     private int timeTillChallenge = 20;
     private int timeTillToken = 5;
     private int ChallengeCounter = 0;
+    private int ChallengeFinish = 0;
     private boolean firstConnection = true;
     private String lastNodeB = "";
     private String lastNodeAVL = "";
@@ -166,13 +167,20 @@ public class CreateConnection implements Runnable{
                     this.inChallenge = true;
                     String[] challengeUpdate = ChallengeAssigner();
                     serverInfo.setChallenge(challengeUpdate);
-//                    TimeJava chalengeCounter
                 }
             }
         }
 
         if(this.inChallenge){
             AnalyzeReceivedData();
+            if (this.ChallengeFinish == 120){
+                this.inChallenge = false;
+                this.ChallengeCounter = 0;
+                UpdateInfo.getUpdateInfo().setChallenge(new String[]{"","","",""});
+                this.ChallengeFinish = 0;
+            } else {
+                this.ChallengeFinish++;
+            }
             if (this.ChallengeCounter == this.timeTillToken){
                 this.ChallengeCounter = 0;
                 String token =SelectToken();
@@ -271,7 +279,7 @@ public class CreateConnection implements Runnable{
 
     public void startTime(){
         TimeJava newTime = new TimeJava();
-        newTime.timeStart(20000);
+        newTime.timeStart(7);
     }
 
     public static void main(String[] args) {
