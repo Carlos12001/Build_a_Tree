@@ -1,20 +1,14 @@
 package javas.trees.Abstract;
 
 /**
- *
+ * This class creates a basic node for the trees
  */
 public class TreeNode {
-    /**
-     *
-     */
+
     private int token;
-    /**
-     *
-     */
+
     private TreeNode left;
-    /**
-     *
-     */
+
     private TreeNode right;
 
     /**

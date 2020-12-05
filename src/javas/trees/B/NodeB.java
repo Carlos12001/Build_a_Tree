@@ -3,7 +3,9 @@ package javas.trees.B;
 
 import javas.trees.Abstract.TreeNode;
 
-// A BTree node 
+/**
+ * This class manages all the operations of the NodeB tree Node
+ */
 class NodeB extends TreeNode {
     private int[] keys; // An array of keys
     private final int t; // Minimum degree (defines the range for number of keys)
@@ -11,7 +13,11 @@ class NodeB extends TreeNode {
     private int countKeys; // Current number of keys
     private boolean leaf;
 
-
+    /**
+     * Constructor sets all the atributes of the class
+     * @param t
+     * @param leaf
+     */
     public NodeB(int t, boolean leaf) {
         super(0);
         this.t = t;
@@ -21,6 +27,10 @@ class NodeB extends TreeNode {
         this.countKeys = 0;
     }
 
+    /**
+     * Performs one of the  insertion types of this tree, its the case whe the leaf is not full
+     * @param k
+     */
     public void insertNonFull(int k)
     {
 
@@ -60,7 +70,11 @@ class NodeB extends TreeNode {
         }
     }
 
-
+    /**
+     * If the leaf is full, it performs a split and positions the values differently
+     * @param i
+     * @param y
+     */
     public void splitChild(int i, NodeB y) {
         //Crea el nuevo Nodo Hijo
         NodeB z = new NodeB(y.t, y.leaf);

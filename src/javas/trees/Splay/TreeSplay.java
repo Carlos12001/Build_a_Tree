@@ -3,9 +3,16 @@ package javas.trees.Splay;
 import javas.trees.Abstract.Tree;
 import javas.trees.Abstract.TreeNode;
 
+/**
+ *This class manages the Splay trees, it extends from Trees
+ */
 public class TreeSplay extends Tree {
 
-
+    /**
+     * class for the Splay Three Node
+     * It extends from Tree node
+     * It sets the left and right spaces for a node
+     */
     private static class NodeSplay extends TreeNode {
         int key;
         NodeSplay left = null, right =null;
@@ -17,6 +24,9 @@ public class TreeSplay extends Tree {
 
     private NodeSplay root;
 
+    /**
+     * Constructor, sets the initial values for the tree
+     */
     public TreeSplay() {
         super();
         this.root = null;
@@ -25,6 +35,11 @@ public class TreeSplay extends Tree {
         this.defaultTree();
     }
 
+    /**
+     * This method performs a right rotation.
+     * @param x
+     * @return
+     */
     private static NodeSplay rightRotate(NodeSplay x) {
         NodeSplay y = x.left;
         x.left = y.right;
@@ -32,6 +47,9 @@ public class TreeSplay extends Tree {
         return y;
     }
 
+    /**
+     * This method performs a Left rotation.
+     */
     private static NodeSplay leftRotate(NodeSplay x){
         NodeSplay y = x.left;
         x.right =y.left;
@@ -39,6 +57,12 @@ public class TreeSplay extends Tree {
         return y;
     }
 
+    /**
+     * Main logic for the Splay tree, this makes all the tests to chek if the node can be added to the tree, it reboots when the client fails
+     * @param root
+     * @param key
+     * @return
+     */
     private static NodeSplay splay(NodeSplay root, int key) {
         if (root == null || root.key == key) {
             return root;
@@ -81,6 +105,11 @@ public class TreeSplay extends Tree {
         }
     }
 
+    /**
+     * Sets a new Element in the tree
+     *
+     * @param key The new Element for insert
+     */
     private NodeSplay appendAux2(NodeSplay root, int k) {
 
         NodeSplay z = root;

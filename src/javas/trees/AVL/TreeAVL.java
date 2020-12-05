@@ -4,13 +4,13 @@ import javas.trees.Abstract.Tree;
 
 
 /**
- *
+ *This class manages the AVL trees, it extends from Tress
  */
 public class TreeAVL extends Tree {
 
 
     /**
-     *
+     *This is the constructor and it has a list with the order of the no
      */
     public TreeAVL() {
         super();
@@ -20,6 +20,7 @@ public class TreeAVL extends Tree {
     }
 
     /**
+     * This is the method to insert a new node in the tree.
      * @param key
      * @param tree
      * @return
@@ -40,6 +41,7 @@ public class TreeAVL extends Tree {
     }
 
     /**
+     * Method to get the proper balance needed for the tree
      * @param N
      * @return
      */
@@ -49,6 +51,7 @@ public class TreeAVL extends Tree {
         return height((NodeAVL) N.getLeft()) - height((NodeAVL) N.getRight());
     }
     /**
+     * Method to get the tree balanced, this is a requirement of this type of tree
      * @param tree
      * @return
      */
@@ -79,6 +82,8 @@ public class TreeAVL extends Tree {
     }
 
     /**
+     * It preforms a left rotation, move necesary for other operations
+     * Specific of the AVL tree
      * @param root
      * @return
      */
@@ -96,6 +101,8 @@ public class TreeAVL extends Tree {
     }
 
     /**
+     * It preforms a right rotation, move necesary for other operations
+     * Specific of the AVL tree
      * @param root
      * @return
      */
@@ -112,6 +119,7 @@ public class TreeAVL extends Tree {
     }
 
     /**
+     * It sets the hight of the tree based ont the amount of levels that it has
      * @param tree
      * @return
      */
@@ -120,6 +128,7 @@ public class TreeAVL extends Tree {
     }
 
     /**
+     * Stes the root of the tree
      * @param key
      */
     @Override

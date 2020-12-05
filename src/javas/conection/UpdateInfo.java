@@ -1,5 +1,8 @@
 package javas.conection;
 
+/**
+ * Class that holds the info that must be updated and treated by de server
+ */
 public class UpdateInfo {
     private static UpdateInfo instance;
     private String[] playersName = {"", "", "", ""};
@@ -12,15 +15,15 @@ public class UpdateInfo {
     private String tokenSend = "";
     private String[] challenge = {"", "", "", ""};
 
-
-
-    /**
-     *
-     */
     private UpdateInfo(){
 
     }
 
+    /**
+     * This constructor works as a Singleton, it creates an instance and if the instance is created, it
+     * returns it
+     * @return instance
+     */
     public static UpdateInfo getUpdateInfo(){
         if (instance == null){
             instance = new UpdateInfo();
@@ -28,10 +31,18 @@ public class UpdateInfo {
         return instance;
     }
 
+    /**
+     * This constructor updates the time value when game starts
+     * @param time
+     */
     public UpdateInfo(String time){
         this.time = time;
     }
 
+    /**
+     * This method updates the whole files info.
+     * @param newInfo
+     */
     public void UpdateFile(UpdateInfo newInfo){
         this.playersName = newInfo.getPlayersName();
         this.playersGameOver = newInfo.getPlayersGameOver();

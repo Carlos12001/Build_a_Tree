@@ -2,6 +2,9 @@ package javas.trees.AVL;
 
 import javas.trees.Abstract.TreeNode;
 
+/**
+ * This class is the specific class for an AVL tree node
+ */
 public class NodeAVL extends TreeNode {
 
     private int height;
@@ -10,6 +13,12 @@ public class NodeAVL extends TreeNode {
         super(token);
     }
 
+    /**
+     * This is a constructor for the node that sets new values
+     * @param token
+     * @param left
+     * @param right
+     */
     public NodeAVL(int token, NodeAVL left, NodeAVL right){
         super(token, left, right);
         this.height = 0;

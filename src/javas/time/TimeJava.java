@@ -6,7 +6,7 @@ import javas.trees.Abstract.Tree;
 import java.util.Random;
 
 /**
- *
+ *THis class manages the time, in game
  */
 public class TimeJava {
 
@@ -30,6 +30,7 @@ public class TimeJava {
     }
 
     /**
+     * This cmethod starts a thread to manage the time as it goes by, and using mins and segs .
      * @param minMax
      */
     public void timeStart(int minMax){
@@ -45,18 +46,9 @@ public class TimeJava {
         thread.setDaemon(true);
         thread.start();
     }
+
     /**
-     * @param segMax
-     */
-   /* public void timeChallenge(int segMax){
-        Thread thread = new Thread(()->{
-            for (seg = 0; seg < segMax; seg++){
-                delaySeg();
-            }
-        });
-    }*/
-    /**
-     *
+     *This method delays a timer thread one second eaxactiol
      */
     private static void delaySeg(){
         try {

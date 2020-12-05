@@ -12,6 +12,10 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * This class is in charge of the connection, of creating the server that will manage the information sent
+ * by the customer, update it and send an aswer back
+ */
 public class CreateConnection implements Runnable{
 
     private UpdateInfo serverInfo;
@@ -30,17 +34,27 @@ public class CreateConnection implements Runnable{
     private int ChallengeCounter = 0;
     private boolean firstConnection = true;
 
-
+    /**
+     * Constructor
+     * Creates an Update Info Instance
+     */
     public CreateConnection(){
         serverInfo = UpdateInfo.getUpdateInfo();
     }
 
+    /**
+     * Runs the listening Thread of the server
+     */
     public void iniciarEscuchar(){
         Thread miHilo= new Thread(this);
         miHilo.start();
 
     }
 
+    /**
+     * Send a String mensaje to the Client, using the clients info and listening port
+     * @param mensaje
+     */
     public void enviar(String mensaje){
         try {
             Socket misocket = new Socket("127.0.0.1",9998);
@@ -53,6 +67,16 @@ public class CreateConnection implements Runnable{
         }
     }
 
+
+    /**
+     * Main server method preforms the following operations:
+     * It's a thread that is always listening
+     * It receives the message (string) and turns it into an UpdateInfo Object
+     * It checks if it it should start sending the time counter to the Client
+     * It checks if calls the ChallengeManager method
+     * It updates the UpdateInfo Object and calls the encoding method
+     * It calls the sending method and cleans all the variables to listen again for a new message
+     */
     @Override
     public void run() {
         while(true){
@@ -102,6 +126,11 @@ public class CreateConnection implements Runnable{
 
     }
 
+    /**
+     * This method Assigns a challenge to each live player on the game, it checks which player is alive
+     * on the same method. Then it returns a String array with the challenges
+     * @return String Array
+     */
     public String[] ChallengeAssigner(){
         String[] names = serverInfo.getPlayersName();
         boolean[] states = serverInfo.getPlayersGameOver();
@@ -120,6 +149,11 @@ public class CreateConnection implements Runnable{
 
     }
 
+    /**
+     * Selects a random tree from the treeArray Variable of the class, and it gets the current token to send.
+     * Then return a String with the token info.
+     * @return String
+     */
     public String SelectToken(){ // Necesito saber porque retorna Null, los árboles empiezan en null ?
 
         int randomPos = (int)((Math.random() * (5-1) + 1)-1);
@@ -142,7 +176,13 @@ public class CreateConnection implements Runnable{
     }
 
 
-
+    /**
+     * This method manages the logic of the challenges.
+     * It picks a time until the next challenge
+     * If the challenge hasn't started, checks if the counter has reached the time to start the challenge
+     * If the challenge starts, it calls the challenge assigner and puts he returned info in the UI Object
+     * If the challenge is in progress, it sends a random token of a random challenge, on a period of time
+     */
     public void ChallengeManager(){
         if(timeTillChallenge == 0){
             pickChallengeTime();
@@ -169,6 +209,10 @@ public class CreateConnection implements Runnable{
         }
     }
 
+    /**
+     * This method picks a random number to set it as the time till next challenge.
+     * It chooses a random number between a range
+     */
     public void pickChallengeTime(){
         int minSecs = 40;
         int maxSecs = 95;
@@ -176,6 +220,9 @@ public class CreateConnection implements Runnable{
         System.out.println("time till ch: " + this.timeTillChallenge);
     }
 
+    /**
+     * This method updates the trees each time a token is collected and set by the customer
+     */
     public void updateTrees(){
         try {
             if (!this.serverInfo.getTreeB().equals("")){
@@ -200,6 +247,9 @@ public class CreateConnection implements Runnable{
 
     }
 
+    /**
+     * Starts the time when game is started
+     */
     public void startTime(){
         TimeJava newTime = new TimeJava();
         newTime.timeStart(20000);

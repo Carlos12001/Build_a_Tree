@@ -2,31 +2,20 @@ package javas.trees.Abstract;
 
 
 /**
- *
+ * This abstract class is the parent base for all the other tree classes
  */
 public abstract class Tree {
 
-    /**
-     *
-     */
     protected TreeNode root;
-    /**
-     *
-     */
+
     private String treeID;
 
-    /**
-     *
-     */
     protected String current;
 
-    /**
-     *
-     */
     protected int[] currentArray;
 
     /**
-     *
+     * Constructor sets the root and the current node of the tree
      */
     public Tree() {
         this.root = null;
@@ -34,14 +23,16 @@ public abstract class Tree {
     }
 
     /**
-     * @return
+     * Method that checks if a tree exists or is empty
+     * @return boolean
      */
     public boolean isEmpty(){
         return this.root == null;
     }
 
     /**
-     * @param nodeID
+     * Adds a new token to the tree, divides the id from the actual token
+     * @param nodeID String
      */
     public void append(String nodeID){
         String[] tmp = nodeID.split("@");
@@ -55,7 +46,7 @@ public abstract class Tree {
     }
 
     /**
-     *
+     *sets the root value to null and creates a node
      */
     public void defaultTree(){
         this.root = null;
@@ -68,7 +59,7 @@ public abstract class Tree {
     protected abstract void appendAux(int key);
 
     /**
-     *
+     *This method sets the new current node of the tree
      */
     public void setCurrent(){
         int[] tmp = getCurrentArray();
