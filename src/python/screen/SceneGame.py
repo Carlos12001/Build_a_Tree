@@ -446,6 +446,8 @@ __path_game: str
         if collide_token_PY != {}:
             crasher: Token = list(collide_token_PY.values())[0][0]
             victim: Player = list(collide_token_PY.keys())[0]
+
+
             tree_tmp: TreeSprite = None
             for tree in self.__trees_group:
                 if tree.get_id() == victim.get_tree():
@@ -473,8 +475,6 @@ __path_game: str
 
 
             if tree_tmp.is_completed():
-                for t in self.__trees_group:
-                    t.default()
 
                 self.__tokens_group.empty()
                 self.__add_point_to_player()
@@ -570,7 +570,8 @@ __path_game: str
                 self.__all_sprite_group.add(token)
                 self.__last_token_send = self.UI.getTokenSend()
 
-    # ncbsaoifhisjaofdiljgdalodjvi
+
+    # este actualiza los tokens
     # dt es difenrcial de tiempo
     def __update_tokens(self, dt):
         for i in self.__tokens_group:
@@ -578,7 +579,26 @@ __path_game: str
                 i.update(dt)
 
     def __add_point_to_player(self) -> None:
-        pass
+        list_tree = self.__trees_group.sprites()
+        max_tree: TreeSprite = list_tree[0].get_current_key()
+
+        for tree in list_tree[1:]:
+            tmp: int = int(tree.get_current_key())
+            num_s = int(max_tree.get_current_key())
+            if num_s < tmp:
+                max_tree = tree
+            elif num_s == tmp:
+                max_tree = random.choice([tree, max_tree])
+
+        for py in self.__players_group:
+            if py.get_tree() == max_tree.get_id():
+                py.set_points(int(max_tree.get_current_key()) * 1000)
+                py.set_tree("")
+
+        for tree in self.__trees_group:
+            tree.default()
+
+
 
     @staticmethod
     def get_path_game() -> str:

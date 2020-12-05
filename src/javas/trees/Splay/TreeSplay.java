@@ -33,7 +33,7 @@ public class TreeSplay extends Tree {
     }
 
     private static NodeSplay leftRotate(NodeSplay x){
-        NodeSplay y = x.left;
+        NodeSplay y = x.right;
         x.right =y.left;
         y.left = x;
         return y;
@@ -48,7 +48,7 @@ public class TreeSplay extends Tree {
             if (root.left == null)
                 return root;
 
-            //zig-zag
+            //zig-zig
             if (root.left.key > key) {
                 root.left.left = splay(root.left.left, key);
                 root = rightRotate(root);
@@ -83,25 +83,33 @@ public class TreeSplay extends Tree {
 
     private NodeSplay appendAux2(NodeSplay root, int k) {
 
-        NodeSplay z = root;
-        NodeSplay p = null;
-        while (z != null)
-        {
-            p = z;
-            if (k > z.key)
-                z = z.right;
-            else
-                z = z.left;
-        }
-        z = new NodeSplay(k);
 
-        if (p == null)
-            root = z;
-        else if (k > p.key)
-            p.right = z;
+        if (root == null) return new NodeSplay(k);
+
+
+        root = splay(root, k);
+
+
+        if (root.key == k) return root;
+
+
+        NodeSplay newnode =  new NodeSplay(k);
+
+        if (root.key > k)
+        {
+            newnode.right = root;
+            newnode.left = root.left;
+            root.left = null;
+        }
+
         else
-            p.left = z;
-        return root = TreeSplay.splay(root, k);
+        {
+            newnode.left = root;
+            newnode.right = root.right;
+            root.right = null;
+        }
+
+        return newnode;
     }
 
     /**
