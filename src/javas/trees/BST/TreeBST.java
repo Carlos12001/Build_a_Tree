@@ -8,7 +8,7 @@ public class TreeBST extends Tree {
 
     public TreeBST(){
        super();
-       setTreeID("treeBST");
+       this.setTreeID("treeBST");
        this.setCurrentArray(new int[]{300, 8, 232, 78, 1, -1});
         this.defaultTree();
     }

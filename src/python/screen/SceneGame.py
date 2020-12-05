@@ -293,11 +293,6 @@ __path_game: str
         self.__platforms_group.add(platform)
         self.__all_sprite_group.add(platform)
 
-        platform = Platform(self.__screen, 450, 100, (200, 5))
-
-        self.__platforms_group.add(platform)
-        self.__all_sprite_group.add(platform)
-
         treeB = TreeSprite(self.__screen, "treeB", 1350, 0)
 
         self.__trees_group.add(treeB)
@@ -362,9 +357,11 @@ __path_game: str
 
             if self.UI.getChallenge() != None and self.__is_time_challenge():
                 self.__create_token()
-
+                self.__tokens_group.draw(self.__screen)
                 self.__update_tokens(dt)
             else:
+                for token in self.__tokens_group:
+                    token.kill()
                 self.__tokens_group.empty()
                 self.__add_point_to_player()
 
@@ -546,29 +543,19 @@ __path_game: str
                     break
 
     def __create_token(self):
-        if self.UI.getTokenSend() != None and self.UI.getTokenSend() != "":
+        tmp = self.UI.getTokenSend()
+        if tmp != None and tmp != "":
             result = True
             for token in self.__tokens_group:
-                """
-                if token.get_name() == self.UI.getTokenSend():
-                    if token.get_name().split("@")[0] == "treeB":
-                        self.__last_token_B = token.get_name()
-                    elif token.get_name().split("@")[0] == "treeBST":
-                        self.__last_token_BST = token.get_name()
-                    elif token.get_name().split("@")[0] == "treeAVL":
-                        self.__last_token_AVL = token.get_name()
-                    elif token.get_name().split("@")[0] == "treeSplay":
-                        self.__last_token_Splay = token.get_name()
-                """
+                if token.get_name() == tmp:
+                    result = False
+                    break
 
-                result = False
-                break
-
-            if result:
-                token = Token(self.__screen, self.UI.getTokenSend(), random.randrange(200, 1200), 0)
+            if result and tmp != self.__last_token_send:
+                token = Token(self.__screen, tmp, random.randrange(200, 1200), 0)
                 self.__tokens_group.add(token)
-                self.__all_sprite_group.add(token)
-                self.__last_token_send = self.UI.getTokenSend()
+                #self.__all_sprite_group.add(token)
+                self.__last_token_send = tmp
 
 
     # este actualiza los tokens
@@ -580,7 +567,7 @@ __path_game: str
 
     def __add_point_to_player(self) -> None:
         list_tree = self.__trees_group.sprites()
-        max_tree: TreeSprite = list_tree[0].get_current_key()
+        max_tree: TreeSprite = list_tree[0]
 
         for tree in list_tree[1:]:
             tmp: int = int(tree.get_current_key())

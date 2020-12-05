@@ -26,7 +26,7 @@ public class CreateConnection implements Runnable{
     private Boolean inChallenge = false;
     private Boolean waitingChallenge = false;
     private int timeTillChallenge = 20;
-    private int timeTillToken = 8;
+    private int timeTillToken = 5;
     private int ChallengeCounter = 0;
     private boolean firstConnection = true;
     private String lastNodeB = "";

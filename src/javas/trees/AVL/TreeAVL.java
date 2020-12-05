@@ -14,7 +14,7 @@ public class TreeAVL extends Tree {
      */
     public TreeAVL() {
         super();
-        setTreeID("treeAVL");
+        this.setTreeID("treeAVL");
         this.currentArray = new int[]{5, 8, 23, 76, 90, -1};
         this.defaultTree();
     }

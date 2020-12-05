@@ -13,7 +13,7 @@ public class TreeB extends Tree {
         super();
         this.setCurrentArray(new int[]{47, 38, 22, 59, 75, -1});
         this.t = t;
-        setTreeID("treeB");
+        this.setTreeID("treeB");
         this.defaultTree();
     }
 
