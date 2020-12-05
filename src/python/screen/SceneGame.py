@@ -66,6 +66,11 @@ __path_game: str
 
         self.UI = newInfo
 
+        self.__last_token_B: str = ""
+        self.__last_token_BST: str = ""
+        self.__last_token_AVL: str = ""
+        self.__last_token_Splay: str = ""
+
         pygame.display.set_caption("Build a Tree")
         pygame.display.set_icon(SceneGame.load_out_img("iconGame.png"))
 
@@ -466,6 +471,7 @@ __path_game: str
             elif victim.get_tree() == "treeBST":
                 self.UI.setTreeBST(name_token)
 
+
             if tree_tmp.is_completed():
                 for t in self.__trees_group:
                     t.default()
@@ -543,9 +549,21 @@ __path_game: str
         if self.UI.getTokenSend() != None and self.UI.getTokenSend() != "":
             result = True
             for token in self.__tokens_group:
-                if token.get_name() == self.UI.getTokenSend() or self.UI.getTokenSend() == token.get_name():
-                    result = False
-                    break
+                """
+                if token.get_name() == self.UI.getTokenSend():
+                    if token.get_name().split("@")[0] == "treeB":
+                        self.__last_token_B = token.get_name()
+                    elif token.get_name().split("@")[0] == "treeBST":
+                        self.__last_token_BST = token.get_name()
+                    elif token.get_name().split("@")[0] == "treeAVL":
+                        self.__last_token_AVL = token.get_name()
+                    elif token.get_name().split("@")[0] == "treeSplay":
+                        self.__last_token_Splay = token.get_name()
+                """
+
+                result = False
+                break
+
             if result:
                 token = Token(self.__screen, self.UI.getTokenSend(), random.randrange(200, 1200), 0)
                 self.__tokens_group.add(token)

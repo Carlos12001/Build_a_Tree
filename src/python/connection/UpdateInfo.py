@@ -35,7 +35,7 @@ class UpdateInfo(object):
 
     def createDict(self):
         return {"playersName": self.playersName, "playersGameOver": self.playersGameOver, "treeB": self.treeB,
-                "treeBST": self.treeBST, "treeAVL": self.treeAVL, "treeSplay": self.treeSplay, "time": self.time,}
+                "treeBST": self.treeBST, "treeAVL": self.treeAVL, "treeSplay": self.treeSplay, "time": self.time}
 
     def unWrapper(self, dictio):
         self.setTime(dictio['time'])
@@ -68,7 +68,7 @@ class UpdateInfo(object):
         return self.treeBST
 
     def setTreeAVL(self, treeAVL):
-        pass
+        self.treeSplay = treeAVL
 
     def getTreeAVL(self):
         return self.treeAVL

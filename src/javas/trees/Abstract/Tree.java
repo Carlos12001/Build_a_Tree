@@ -49,10 +49,12 @@ public abstract class Tree {
 
 
         if(tmp[0].equals(this.treeID) ){
-            setCurrent();
-            appendAux(Integer.parseInt(tmp[1]));
+            this.setCurrent();
+            this.appendAux(Integer.parseInt(tmp[1]));
+            System.out.println("setee" + nodeID);
         } else if (!tmp[0].equals(this.treeID)){
-            defaultTree();
+            this.defaultTree();
+            System.out.println("borre arbol" + "          " + this.treeID + "       " + tmp[0]);
         }
     }
 
