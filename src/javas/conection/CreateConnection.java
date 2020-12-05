@@ -186,6 +186,7 @@ public class CreateConnection implements Runnable{
             boolean flaj = false;
             if (!this.serverInfo.getTreeB().equals("")){
                 CreateConnection.treeArray[0].append(this.serverInfo.getTreeB());
+                flaj = true;
                 this.serverInfo.setTreeB("");
             }
 
@@ -206,12 +207,12 @@ public class CreateConnection implements Runnable{
                 flaj = true;
                 this.serverInfo.setTreeSplay("");
             }
-//            if (flaj == true) {
-//                System.out.println(CreateConnection.treeArray[0].getCurrent());
-//                System.out.println(CreateConnection.treeArray[1].getCurrent());
-//                System.out.println(CreateConnection.treeArray[2].getCurrent());
-//                System.out.println(CreateConnection.treeArray[3].getCurrent());
-//            }
+            if (flaj == true) {
+                System.out.println(CreateConnection.treeArray[0].getCurrent());
+                System.out.println(CreateConnection.treeArray[1].getCurrent());
+                System.out.println(CreateConnection.treeArray[2].getCurrent());
+                System.out.println(CreateConnection.treeArray[3].getCurrent());
+            }
 
 
         }catch (Exception ex){

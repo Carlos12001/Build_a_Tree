@@ -29,8 +29,11 @@ class TreeSprite(pygame.sprite.Sprite):
     def get_rect_y(self) -> int:
         return self.rect.y
 
-    def get_id(self):
+    def get_id(self) -> str:
         return self.__id
+
+    def get_current_key(self) -> str:
+        return self.__current_key
 
     def __set_dict_images(self):
         from python.screen.SceneGame import SceneGame
@@ -171,4 +174,3 @@ class TreeSprite(pygame.sprite.Sprite):
 
     def is_completed(self):
         return self.__current_key == "5"
-        
