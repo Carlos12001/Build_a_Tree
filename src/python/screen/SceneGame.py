@@ -587,11 +587,11 @@ __path_game: str
             tree.default()
 
     def __GAME_OVER(self) -> None:
-        if len(self.__players_group) == 1 or self.UI.getTime() == "7:00":
-
+        if len(self.__players_group) == 1 or self.UI.getTime() == "3:0":
+            self.__add_point_to_player()
             max_player = self.__players_group.sprites()[0]
             for player in self.__players_group.sprites()[1:]:
-                if max_player.get_points() < player.get_points:
+                if max_player.get_points() < player.get_points():
                     max_player = player
 
             bg_image = SceneGame.load_out_img("backgroundMenu.png", (self.__scene_size_X, self.__scene_size_Y))
