@@ -350,7 +350,7 @@ __path_game: str
             self.__update_players_and_powers(dt)
             label_time.draw_me()
 
-            if secondsPower > random.randrange(5, 15) and len(self.__tokens_group) + len(self.__powers_group) < 7:
+            if secondsPower > random.randrange(7, 20) and len(self.__tokens_group) + len(self.__powers_group) < 7:
                 power = Power(self.__screen, random.randrange(200, 1200), 0)
                 self.__powers_group.add(power)
                 self.__all_sprite_group.add(power)
