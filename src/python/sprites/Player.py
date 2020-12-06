@@ -260,6 +260,8 @@ class Player(pygame.sprite.Sprite):
             self.__key_down_player_3(key)
 
     def __key_down_player_0(self, key):
+        if self.__shield != 0 :
+            self.__shield = 100
         if key == pygame.K_w:
             if not self.__jumping:
                 self.jump(9)
@@ -284,6 +286,8 @@ class Player(pygame.sprite.Sprite):
             self.__floor = 2000
 
     def __key_down_player_1(self, key):
+        if self.__shield != 0 :
+            self.__shield = 100
         if key == pygame.K_UP:
             if not self.__jumping:
                 self.jump(9)
@@ -308,6 +312,8 @@ class Player(pygame.sprite.Sprite):
             self.__floor = 2000
 
     def __key_down_player_2(self, key):
+        if self.__shield != 0 :
+            self.__shield = 100
         if key == pygame.K_i:
             if not self.__jumping:
                 self.jump(9)
@@ -333,6 +339,8 @@ class Player(pygame.sprite.Sprite):
             self.__floor = 2000
 
     def __key_down_player_3(self, key):
+        if self.__shield != 0 :
+            self.__shield = 100
         if key == pygame.K_g:
             if not self.__jumping:
                 self.jump(9)
