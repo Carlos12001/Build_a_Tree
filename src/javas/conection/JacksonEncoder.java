@@ -13,7 +13,6 @@ public class JacksonEncoder {
         mapper.enable(SerializationFeature.INDENT_OUTPUT); //solo para printear bien
         String jsonString = mapper.writeValueAsString(message);
 
-        //the field names of the objects become the JSON keys
 
         return jsonString;
 
