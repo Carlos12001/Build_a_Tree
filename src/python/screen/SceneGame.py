@@ -587,7 +587,7 @@ __path_game: str
             tree.default()
 
     def __GAME_OVER(self) -> None:
-        if len(self.__players_group) == 1 or self.UI.getTime() == "3:0":
+        if len(self.__players_group) == 1 or self.UI.getTime() == "7:00":
             self.__add_point_to_player()
             max_player = self.__players_group.sprites()[0]
             for player in self.__players_group.sprites()[1:]:
