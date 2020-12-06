@@ -7,6 +7,8 @@ pygame.font.init()
 
 
 class LabelText(pygame.sprite.Sprite):
+    '''
+    '''
     __fonts: List[Union[None, Font, FontType]] = [
         pygame.font.SysFont("Times New Roman", 70),
         pygame.font.SysFont("Times New Roman", 20),

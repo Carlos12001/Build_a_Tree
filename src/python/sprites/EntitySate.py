@@ -2,8 +2,12 @@ import pygame
 
 
 class EntityState:
+    '''
+    '''
 
     def __init__(self):
+        '''
+        '''
         self.__current_sprite: pygame.Surface = None
         self.__name: str = ""
 
