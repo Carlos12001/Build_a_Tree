@@ -26,7 +26,7 @@ public class CreateConnection implements Runnable{
     private TimeJava newTime = null;
     private Boolean inChallenge = false;
     private Boolean waitingChallenge = false;
-    private int timeTillChallenge = 20;
+    private int timeTillChallenge = 25;
     private int timeTillToken = 5;
     private int ChallengeCounter = 0;
     private int ChallengeFinish = 0;
@@ -86,11 +86,6 @@ public class CreateConnection implements Runnable{
                 String answerJsonStr = new JacksonEncoder().EncodeInfo(this.serverInfo);
 
 
-
-//                System.out.println();
-//                System.out.println(answerJsonStr);
-//                System.out.println();
-
                 this.enviar(answerJsonStr);
 
                 flujo_entrada.close();
@@ -116,7 +111,6 @@ public class CreateConnection implements Runnable{
         for(int n=0; n < names.length; n++) {
             if (states[n]) {
                 challenges[n] = CreateConnection.treeArray[num % 4].getTreeID();
-                System.out.println(names[n] + "         " + challenges[n] + "     " );
                 num++;
             }
             else {
@@ -139,7 +133,6 @@ public class CreateConnection implements Runnable{
 
         for (Tree treeCurrent : CreateConnection.treeArray) {
             if (treeCurrent.getCurrent().split("@")[1].equals("-1")) {
-                System.out.println("GANO CHALLENGE");
                 inchallenge = false;
                 for (Tree t : CreateConnection.treeArray) {
                     t.defaultTree();
@@ -190,28 +183,23 @@ public class CreateConnection implements Runnable{
     }
 
     public void pickChallengeTime(){
-        int minSecs = 20;
-        int maxSecs = 30;
+        int minSecs = 25;
+        int maxSecs = 40;
         this.timeTillChallenge = (int)(Math.random() * (maxSecs - minSecs + 1) + minSecs);
-        System.out.println("time till ch: " + this.timeTillChallenge);
     }
 
     public void updateTrees(){
         try {
-            boolean flaj = false;
 
             if (!this.serverInfo.getTreeB().equals("")){
                 if (!this.lastNodeB.equals(this.serverInfo.getTreeB())) {
                     CreateConnection.treeArray[0].append(this.serverInfo.getTreeB());
                     this.lastNodeB = this.serverInfo.getTreeB();
-//                    System.out.println(CreateConnection.treeArray[0]);
-//                    System.out.println(this.lastNodeB);
-                    System.out.println(this.serverInfo.getTreeB());
-                    System.out.println("-----------------------");
 
-                    flaj = true;
+
+
                     this.serverInfo.setTreeB("");
-                    //CreateConnection.treeArray[0].setCurrent();
+
                 }
 
             }
@@ -220,13 +208,9 @@ public class CreateConnection implements Runnable{
                 if (!this.lastNodeBST.equals(this.serverInfo.getTreeBST())){
                     CreateConnection.treeArray[1].append(this.serverInfo.getTreeBST());
                     this.lastNodeBST = this.serverInfo.getTreeBST();
-//                    System.out.println(this.lastNodeBST);
-                    System.out.println(this.serverInfo.getTreeBST());
-                    System.out.println("-----------------------");
-                    //System.out.println(this.serverInfo.getTreeBST());
-                    flaj = true;
+
                     this.serverInfo.setTreeBST("");
-                    //CreateConnection.treeArray[1].setCurrent();
+
                 }
 
             }
@@ -235,13 +219,8 @@ public class CreateConnection implements Runnable{
                 if (!this.lastNodeAVL.equals(this.serverInfo.getTreeAVL())){
                     CreateConnection.treeArray[2].append(this.serverInfo.getTreeAVL());
                     this.lastNodeAVL = this.serverInfo.getTreeAVL();
-//                    System.out.println(this.lastNodeAVL);
-                    System.out.println(this.serverInfo.getTreeAVL());
-                    System.out.println("-----------------------");
-                    //System.out.println(this.serverInfo.getTreeAVL());
-//                    flaj = true;
                     this.serverInfo.setTreeAVL("");
-                    //CreateConnection.treeArray[2].setCurrent();
+
                 }
 
 
@@ -250,24 +229,11 @@ public class CreateConnection implements Runnable{
                 if (!this.lastNodeSplay.equals(this.serverInfo.getTreeSplay())){
                     CreateConnection.treeArray[3].append(this.serverInfo.getTreeSplay());
                     this.lastNodeSplay = this.serverInfo.getTreeSplay();
-//                    System.out.println(this.lastNodeSplay);
-                    System.out.println(this.serverInfo.getTreeSplay());
-                    System.out.println("------------------");
-                    //System.out.println(this.serverInfo.getTreeSplay());
-                    flaj = true;
                     this.serverInfo.setTreeSplay("");
-                    //CreateConnection.treeArray[3].setCurrent();
+
                 }
 
             }
-//            if (flaj == true) {
-//                System.out.println("----------------------------------------------------");
-//                System.out.println(CreateConnection.treeArray[0].getCurrent());
-//                System.out.println(CreateConnection.treeArray[1].getCurrent());
-//                System.out.println(CreateConnection.treeArray[2].getCurrent());
-//                System.out.println(CreateConnection.treeArray[3].getCurrent());
-//                System.out.println("----------------------------------------------------");
-//            }
 
 
         }catch (Exception ex){
