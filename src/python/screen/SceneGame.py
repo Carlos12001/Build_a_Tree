@@ -105,6 +105,12 @@ __path_game: str
         self.__menu_view()
 
     def __menu_view(self) -> None:
+        """
+        Description: This method is in charge of creating the main menu view, it sets the back ground image,
+        also manages the text fields for the players that are gonna be playing the game, and the button that
+        starts the game, saves the info and checks for the position of the of the cursor.
+
+        """
 
         bg_image = SceneGame.load_out_img("backgroundMenu.png", (self.__scene_size_X, self.__scene_size_Y))
         cursorRect = CursorRect()
