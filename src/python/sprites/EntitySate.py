@@ -2,12 +2,22 @@ import pygame
 
 
 class EntityState:
-    '''
-    '''
+    """
+    Description: this class manages all the information that is necesary to show and manage the sprite
+    update in the interface.
+
+    """
 
     def __init__(self):
-        '''
-        '''
+        """
+        Description: -- Constructor--
+
+        Attributes:
+
+            current_sprite: sets the sprite that is being showed at the moment
+            name: string with the name of the sprite
+
+        """
         self.__current_sprite: pygame.Surface = None
         self.__name: str = ""
 

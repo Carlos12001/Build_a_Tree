@@ -2,8 +2,27 @@ import pygame
 
 
 class Platform(pygame.sprite.Sprite):
+    """
+    Description: This class will be the one in charge of the management of the platform sprites.
+     It extends from pygame.sprite.Sprite
+
+    """
 
     def __init__(self, screen: pygame.Surface, px: int, py: int, size: tuple):
+        """
+        Description: -- Constructor--
+        And makes some actions as setting the image and position for the sprite.
+
+        Attributes:
+            screen: surface on which the sprite will be showed
+            states_dict: dictionary with the states of the sprites
+            current_state: attribute with an instance of entityState
+            dx: position in the x coordinates of the sprite
+            dy: position in the y coordinates of the sprite
+            image: image of the surface that will be set later
+            size: tuple with the width of the sprite and the height of the sprite
+
+        """
         super(Platform, self).__init__()
         self.__screen: pygame.Surface = screen
         self.__states_dict: dict = {}
