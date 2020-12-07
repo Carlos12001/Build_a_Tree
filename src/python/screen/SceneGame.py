@@ -46,6 +46,35 @@ __path_game: str
 
     def __init__(self) -> None:
 
+        """
+        Description: --Constructor--
+
+        Attributes:
+            scene_size_X: It sets the size of the scene on an X coordinate, width.
+            scene_size_Y: It sets the size of the scene on an X coordinate, height.
+            screen: it creates anew suface to work and the size is the one set on the previous attributes
+
+            trees_group: This is an attribute that loads the tree sprites
+            players_group: This is an attribute that loads the players sprites
+            platforms_group: This is an attribute that loads the paltforms sprites
+            tokens_group: This is an attribute that loads the tokens sprites
+            powers_group: This is an attribute that loads the powers sprites
+            all_sprite_group: This is an attribute that loads the all type sprites
+
+            time_server: This attribute will be uptdate with the time that comes from the server
+            time_pygame: pygame.time.Clock = pygame.time.Clock()
+
+            running: This attribute determines if the game is running
+
+            UI = this is the instance of the info that is sent form the server
+
+            last_token_B: this attribute saves the last B tree token that came from the server till a player grabs it
+            last_token_BST: this attribute saves the last BST tree token that came from the server till a player grabs it
+            last_token_AVL: this attribute saves the last AVL tree token that came from the server till a player grabs it
+            last_token_Splay: this attribute saves the last Splay tree token that came from the server till a player grabs it
+
+        """
+
         pygame.init()
         self.__scene_size_X: int = 1600
         self.__scene_size_Y: int = 1000
@@ -257,6 +286,15 @@ __path_game: str
             pygame.display.flip()
 
     def __transition_game(self, names: list) -> None:
+        """
+        Description:
+            This method is transition from the main menu to the start of the game
+
+        Parameters:
+           names : list with the names of the players that will be sumoned
+
+        """
+
         from BuldiATree import newInfo
 
         tmp = ["", "", "", ""]
@@ -320,6 +358,13 @@ __path_game: str
         self.__game_view()
 
     def __game_view(self) -> None:
+        """
+        Description: This set the interface objects that will be showed when the game starts.
+        Puts all of the labels, and sprites on the right place, and if the game is rnning updates the
+        sprites.
+
+        """
+
         from BuldiATree import newInfo
         self.__timePower = pygame.time.get_ticks()
 
@@ -388,14 +433,41 @@ __path_game: str
             pygame.display.flip()
 
     def __key_down(self, event_key) -> None:
+        """
+        Description: this method is activated when the down key is pressed
+
+        Parameters:
+           event_key: code with the respective event key
+
+        """
+
         for i in self.__players_group:
             i.key_down(event_key)
 
     def __key_up(self, event_key) -> None:
+        """
+        Description: this method is activated when the up key is pressed
+
+        Parameters:
+           event_key: code with the respective event key
+
+        """
+
         for i in self.__players_group:
             i.key_up(event_key)
 
     def __collisions(self):
+        """
+        Description: this method is activated when the two the bounds of two sprites collide.
+        It takes into account all of the collision aspects that could affect, like the power ups,
+        depending on this it calculates how much the sprite will be pushed and on wjhat direction.
+
+
+          returns:
+           result of the collision
+
+        """
+
         collide_platform_PY = pygame.sprite.groupcollide(self.__players_group, self.__platforms_group, False, False)
 
         if collide_platform_PY != {}:
@@ -501,12 +573,28 @@ __path_game: str
             # Agregar logica
 
     def get_Y(self) -> int:
+        """
+        Description: It returns the scene size Y (width) of the scene saved in the attribute
+
+        """
         return self.__scene_size_Y
 
     def get_X(self) -> int:
+        """
+        Description: It returns the scene size X (height) of the scene saved in the attribute
+
+        """
+
         return self.__scene_size_X
 
     def __update_players_and_powers(self, dt) -> None:
+        """
+        Description: It updates the players and powers sprites and positions on the screen
+
+        parameters:
+        dt: diferencial de tiempo
+
+        """
         for i in self.__players_group:
             i.update(dt)
 
@@ -517,6 +605,14 @@ __path_game: str
             i.update(dt)
 
     def __is_time_challenge(self) -> bool:
+        """
+        Description: It checks if is time for challenge, if the tokenSend attribute of the update info object
+        is empty it means it isn't time for a challenge, otherwise, it returns True
+
+        Returns:
+            True or False if a challenge is in progress or not
+
+        """
         result: bool = False
 
         for i in self.UI.getChallenge():
@@ -534,6 +630,14 @@ __path_game: str
         return result
 
     def __put_the_tree_to_players(self, result: bool, challenge: list):
+        """
+        Description: It assigns a tree to each player that is alive on the game
+
+        Parameters:
+            result: boolean that determines if a challenge is in progress
+            challenge: list of shallenges for each player
+        """
+
         if result:
             i = 0
             for py in self.__players_group:
@@ -544,6 +648,12 @@ __path_game: str
                     break
 
     def __create_token(self):
+        """
+        Description: Takes the info of tokenSend from the server and creates a token.
+        Sets the respective info of the token and assigns an image.
+
+        """
+
         tmp = self.UI.getTokenSend()
         if tmp != None and tmp != "":
             result = True
@@ -559,14 +669,23 @@ __path_game: str
                 self.__last_token_send = tmp
 
 
-    # este actualiza los tokens
-    # dt es difenrcial de tiempo
     def __update_tokens(self, dt):
+        """
+        Description: Actualiza los tokens.
+
+        Parameters: dt : diferencial de tiempo
+        """
         for i in self.__tokens_group:
             if not i.get_dont_work():
                 i.update(dt)
 
     def __add_point_to_player(self) -> None:
+        """
+        Description: Verifica si el jugador ya completo el arbol completa mente y de ser asi le suma 1000
+        puntos a su puntaje actual.
+
+        """
+
         list_tree = self.__trees_group.sprites()
         max_tree: TreeSprite = list_tree[0]
 
@@ -587,7 +706,19 @@ __path_game: str
             tree.default()
 
     def __GAME_OVER(self) -> None:
+
+        """
+       Description: This method determines the moment on which the game is over.
+       It takes into account the time, the position of the players and if the amount of players alive in
+       the game.
+
+       When the game ends it displays the menu image, and shows who the winner was, based on which player had
+       the higher score
+
+       """
+
         if len(self.__players_group) == 1 or self.UI.getTime() == "7:00":
+
             self.__add_point_to_player()
             max_player = self.__players_group.sprites()[0]
             for player in self.__players_group.sprites()[1:]:
@@ -622,6 +753,9 @@ __path_game: str
 
     @staticmethod
     def get_color() -> dict:
+        """
+        :return: Return a string with a color that will be used for the bg of the game
+        """
         return SceneGame.__colors
 
     @staticmethod
