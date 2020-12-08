@@ -2,18 +2,29 @@ package javas.trees.BST;
 
 import javas.trees.Abstract.Tree;
 
+/**
+ *This class manages the BST trees, it extends from Tress
+ */
 public class TreeBST extends Tree {
 
     private NodeBST root;
 
+    /**
+     * BST Tree consturctor, sets some initial info
+     */
     public TreeBST(){
        super();
        this.setTreeID("treeBST");
        this.setCurrentArray(new int[]{300, 8, 232, 78, 1, -1});
         this.defaultTree();
     }
-    
 
+    /**
+     * Method to insert a new node into the BST tree
+     * @param key
+     * @param tree
+     * @return
+     */
     private NodeBST insert(int key, NodeBST tree){
         if (tree == null){
             tree = new NodeBST(key);
@@ -26,9 +37,10 @@ public class TreeBST extends Tree {
         return tree;
     }
 
-
-
-
+    /**
+     * It sets the param as the new root
+     * @param key
+     */
     @Override
     protected void appendAux(int key) {
         this.root = insert(key, this.root);
