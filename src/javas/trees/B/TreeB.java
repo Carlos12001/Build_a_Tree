@@ -2,13 +2,18 @@ package javas.trees.B;
 
 import javas.trees.Abstract.Tree;
 
-// A BTree
+/**
+ *This class manages the B trees, it extends from Trees
+ */
 public class TreeB extends Tree {
     private NodeB root; // Pointer to root node
     private int t; // Minimum degree
     private String [] nodeComing;
 
-    // Constructor (Initializes tree as empty)
+    /**
+     * Tree B constructor, it sets the initial values for the attributes
+     * @param t
+     */
     public TreeB(int t) {
         super();
         this.setCurrentArray(new int[]{47, 38, 22, 59, 75, -1});
@@ -17,6 +22,10 @@ public class TreeB extends Tree {
         this.defaultTree();
     }
 
+    /**
+     * Preforms the logic to append a new node into the tree
+     * @param k
+     */
     @Override
     protected void appendAux(int k) {
 
