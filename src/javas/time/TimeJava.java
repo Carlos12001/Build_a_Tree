@@ -10,20 +10,11 @@ import java.util.Random;
  */
 public class TimeJava {
 
-    /**
-     *
-     */
     private int minutes;
 
-    /**
-     *
-     */
     private int seg;
 
 
-    /**
-     *
-     */
     public TimeJava(){
         minutes = 0;
         seg = 0;
@@ -48,7 +39,7 @@ public class TimeJava {
     }
 
     /**
-     *This method delays a timer thread one second eaxactiol
+     *This method
      */
    public void timeChallenge(int segMax){
         Thread thread = new Thread(()->{
@@ -58,8 +49,9 @@ public class TimeJava {
             UpdateInfo.getUpdateInfo().setChallenge(new String[]{"", "", "", ""});
         });
     }
+
     /**
-     *
+     *This method delays a timer thread one second eaxactiol
      */
     private static void delaySeg(){
         try {

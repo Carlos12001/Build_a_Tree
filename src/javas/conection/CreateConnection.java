@@ -168,6 +168,10 @@ public class CreateConnection implements Runnable{
         return treeArray[randomPos].getCurrent();
     }
 
+    /**
+     * This method analyzes the data that the server receives and if and checks if some player has completed
+     * a tree, if it is the case, it shows that the player won a challenge
+     */
     public void AnalyzeReceivedData(){
         boolean inchallenge = true;
 
