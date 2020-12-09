@@ -21,9 +21,9 @@ public class TreeAVL extends Tree {
 
     /**
      * This is the method to insert a new node in the tree.
-     * @param key
-     * @param tree
-     * @return
+     * @param key This is the root of the tree or sub tree
+     * @param tree This would be the right or left side of the tree
+     * @return a tree o else balances the tree
      */
     public NodeAVL insert(int key, NodeAVL tree) {
         if (tree == null) {
@@ -42,8 +42,8 @@ public class TreeAVL extends Tree {
 
     /**
      * Method to get the proper balance needed for the tree
-     * @param N
-     * @return
+     * @param N Node that will be checked
+     * @return checks if it needs to be rebalanced
      */
     private int getBalance(NodeAVL N) {
         if (N == null)
@@ -52,8 +52,9 @@ public class TreeAVL extends Tree {
     }
     /**
      * Method to get the tree balanced, this is a requirement of this type of tree
-     * @param tree
-     * @return
+     * @param tree Node to rotate
+     * @param key The key that of that node to know ot needs to get balance and make the proper operation
+     * @return returns the needed operation or the tree
      */
     private NodeAVL balance(NodeAVL tree, int key) {
 
@@ -84,8 +85,8 @@ public class TreeAVL extends Tree {
     /**
      * It preforms a left rotation, move necesary for other operations
      * Specific of the AVL tree
-     * @param root
-     * @return
+     * @param root rotates a node to the left
+     * @return a new root
      */
     private NodeAVL rotateLeft(NodeAVL root) {
         NodeAVL x = (NodeAVL) root.getRight();
@@ -103,8 +104,8 @@ public class TreeAVL extends Tree {
     /**
      * It preforms a right rotation, move necesary for other operations
      * Specific of the AVL tree
-     * @param root
-     * @return
+     * @param root  rotates a node to the right
+     * @return a new root
      */
     private NodeAVL rotateRight(NodeAVL root) {
         NodeAVL x = (NodeAVL) root.getLeft();
@@ -120,16 +121,16 @@ public class TreeAVL extends Tree {
 
     /**
      * It sets the hight of the tree based ont the amount of levels that it has
-     * @param tree
-     * @return
+     * @param tree height value for the tree stating from a node
+     * @return returns the height value
      */
     private int height(NodeAVL tree) {
         return tree == null ? -1 : tree.getHeight();
     }
 
     /**
-     * Stes the root of the tree
-     * @param key
+     * Sets the root of the tree
+     * @param key inserts a node with an specific key
      */
     @Override
     protected void appendAux(int key){

@@ -10,7 +10,7 @@ public class NodeBST extends TreeNode {
 
     /**
      * Constructor, sets the param token into super class
-     * @param token
+     * @param token value for the token
      */
     public NodeBST(int token){
         super(token);
@@ -18,9 +18,9 @@ public class NodeBST extends TreeNode {
 
     /**
      * Constructor for the BST node, sets params into super class
-     * @param token
-     * @param left
-     * @param right
+     * @param token value for the token
+     * @param left left tree for the node
+     * @param right right tree for the node
      */
     public NodeBST(int token, NodeBST left, NodeBST right){
         super(token, left, right);

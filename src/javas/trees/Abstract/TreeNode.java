@@ -4,15 +4,21 @@ package javas.trees.Abstract;
  * This class creates a basic node for the trees
  */
 public class TreeNode {
-
+    /**
+     * This is going to be the value that's gonna be assigned to a node
+     */
     private int token;
-
+    /**
+     * This is the left child of a node
+     */
     private TreeNode left;
-
+    /**
+     * THis is the right child of a node
+     */
     private TreeNode right;
 
     /**
-     * @param token
+     * @param token value assign to the root node
      */
     public TreeNode(int token){
         this.token = token;
@@ -21,9 +27,10 @@ public class TreeNode {
     }
 
     /**
-     * @param token
-     * @param left
-     * @param right
+     * Constructor
+     * @param token value for the token
+     * @param left inserts a treeNode left
+     * @param right inserts a treeNode right
      */
     public TreeNode(int token, TreeNode left, TreeNode right){
         this.token = token;

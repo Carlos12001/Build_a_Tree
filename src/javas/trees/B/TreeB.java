@@ -6,13 +6,22 @@ import javas.trees.Abstract.Tree;
  *This class manages the B trees, it extends from Trees
  */
 public class TreeB extends Tree {
-    private NodeB root; // Pointer to root node
-    private int t; // Minimum degree
+    /**
+     * Pointer to root node
+     */
+    private NodeB root;
+    /**
+     * Minimum degree
+     */
+    private int t;
+    /**
+     * list of the new nodes
+     */
     private String [] nodeComing;
 
     /**
      * Tree B constructor, it sets the initial values for the attributes
-     * @param t
+     * @param t minimum degree for the tree
      */
     public TreeB(int t) {
         super();
@@ -24,7 +33,7 @@ public class TreeB extends Tree {
 
     /**
      * Preforms the logic to append a new node into the tree
-     * @param k
+     * @param k inserts a new key
      */
     @Override
     protected void appendAux(int k) {

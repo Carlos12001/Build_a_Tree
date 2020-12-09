@@ -18,26 +18,68 @@ import java.net.Socket;
  */
 public class CreateConnection implements Runnable{
 
+    /**
+     * Instance of Update info (Singleton) that has all the info that comes from the client
+     * and the updated info that's gonna be sent to the client
+     */
     private UpdateInfo serverInfo;
 
+    /**
+     * Tree array that has an instance of each type of tree
+     */
     public static Tree[] treeArray = {
             new TreeB(3),
             new TreeBST(),
             new TreeAVL(),
             new TreeSplay()};
 
-
+    /**
+     * Saves a TimeJava data thats used for the challenges
+     */
     private TimeJava newTime = null;
+    /**
+     * Boolean that indicates if there's a challenge currently in progress
+     */
     private Boolean inChallenge = false;
+    /**
+     * Boolean that indicates if the first challenge already passed or not
+     */
     private Boolean waitingChallenge = false;
+    /**
+     * Time Until the next challenge starts
+     */
     private int timeTillChallenge = 25;
+    /**
+     * If a challenge is in progress, time until the next token comes
+     */
     private int timeTillToken = 5;
+    /**
+     * This is the counter of the server it acts as a timer
+     */
     private int ChallengeCounter = 0;
+    /**
+     * Indicates if the challenge finished or is still in progress
+     */
     private int ChallengeFinish = 0;
+    /**
+     * It indicates if is the first connection form the client to activate a certain protocol
+     */
     private boolean firstConnection = true;
+    /**
+     * String that saves the last B tree token sent to the client
+     */
     private String lastNodeB = "";
+    /**
+     * String that saves the last AVL tree token sent to the client
+     */
     private String lastNodeAVL = "";
+    /**
+     * String that saves the last BST tree token sent to the client
+     */
     private String lastNodeBST = "";
+    /**
+     * String that saves the last Splay tree token sent to the client
+     */
     private String lastNodeSplay = "";
 
     /**
@@ -59,7 +101,7 @@ public class CreateConnection implements Runnable{
 
     /**
      * Send a String mensaje to the Client, using the clients info and listening port
-     * @param mensaje
+     * @param mensaje Messaje that is going to be sent to the server
      */
     public void enviar(String mensaje){
         try {
@@ -128,7 +170,7 @@ public class CreateConnection implements Runnable{
     /**
      * This method Assigns a challenge to each live player on the game, it checks which player is alive
      * on the same method. Then it returns a String array with the challenges
-     * @return String Array
+     * @return String Array With the challenges assigned to each player
      */
     public String[] ChallengeAssigner(){
         String[] names = serverInfo.getPlayersName();
@@ -153,7 +195,7 @@ public class CreateConnection implements Runnable{
     /**
      * Selects a random tree from the treeArray Variable of the class, and it gets the current token to send.
      * Then return a String with the token info.
-     * @return String
+     * @return String the token that is going to be sent to the client
      */
     public String SelectToken(){ // Necesito saber porque retorna Null, los árboles empiezan en null ?
 

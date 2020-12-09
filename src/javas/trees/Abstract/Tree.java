@@ -5,13 +5,21 @@ package javas.trees.Abstract;
  * This abstract class is the parent base for all the other tree classes
  */
 public abstract class Tree {
-
+    /**
+     * Root of a tree, node type attribute
+     */
     protected TreeNode root;
-
+    /**
+     * The tree ID is the type of tree, it works as an ID
+     */
     private String treeID;
-
+    /**
+     * Current token that is being sent to the client
+     */
     protected String current;
-
+    /**
+     * Current nodes that the tree has
+     */
     protected int[] currentArray;
 
     /**
@@ -24,7 +32,7 @@ public abstract class Tree {
 
     /**
      * Method that checks if a tree exists or is empty
-     * @return boolean
+     * @return boolean that indicates if the tree was already created
      */
     public boolean isEmpty(){
         return this.root == null;
@@ -32,7 +40,7 @@ public abstract class Tree {
 
     /**
      * Adds a new token to the tree, divides the id from the actual token
-     * @param nodeID String
+     * @param nodeID String with the tree type to chek which tree andando
      */
     public void append(String nodeID){
         String[] tmp = nodeID.split("@");
@@ -56,7 +64,7 @@ public abstract class Tree {
     }
 
     /**
-     * @param key
+     * @param key Abstract method that will add each node to the determined tree type
      */
     protected abstract void appendAux(int key);
 

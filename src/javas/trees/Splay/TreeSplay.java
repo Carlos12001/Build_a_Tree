@@ -22,6 +22,9 @@ public class TreeSplay extends Tree {
         }
     }
 
+    /**
+     * Node Splay type root
+     */
     private NodeSplay root;
 
     /**
@@ -37,8 +40,8 @@ public class TreeSplay extends Tree {
 
     /**
      * This method performs a right rotation.
-     * @param x
-     * @return
+     * @param x rotate the Node to the right
+     * @return returns the new node on the position
      */
     private static NodeSplay rightRotate(NodeSplay x) {
         NodeSplay y = x.left;
@@ -49,6 +52,8 @@ public class TreeSplay extends Tree {
 
     /**
      * This method performs a Left rotation.
+     * @param x rotate the Node to the right
+     * @return returns the new node on the position
      */
     private static NodeSplay leftRotate(NodeSplay x){
         NodeSplay y = x.right;
@@ -59,9 +64,9 @@ public class TreeSplay extends Tree {
 
     /**
      * Main logic for the Splay tree, this makes all the tests to chek if the node can be added to the tree, it reboots when the client fails
-     * @param root
-     * @param key
-     * @return
+     * @param root Node that will be checked
+     * @param key the key that will be inserted
+     * @return returns the root of the tree or sub tree
      */
     private static NodeSplay splay(NodeSplay root, int key) {
         if (root == null || root.key == key) {
@@ -107,8 +112,9 @@ public class TreeSplay extends Tree {
 
     /**
      * Sets a new Element in the tree
-     *
-     * @param key The new Element for insert
+     * @param root Instance to create a new NodeSplay root
+     * @param k The new Element for insert
+     * @return returns the node
      */
     private NodeSplay appendAux2(NodeSplay root, int k) {
 
@@ -143,7 +149,6 @@ public class TreeSplay extends Tree {
 
     /**
      * Sets a new Element in the tree
-     *
      * @param key The new Element for insert
      */
     @Override

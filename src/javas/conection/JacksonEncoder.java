@@ -11,8 +11,8 @@ public class JacksonEncoder {
 
     /**
      * THe constructor receives the Object UpdateInfo a changes its format to a jsonString
-     * @param message
-     * @return
+     * @param message Update info object
+     * @return jsonString sent to the client
      * @throws JsonProcessingException
      */
     public String EncodeInfo(UpdateInfo message) throws JsonProcessingException{

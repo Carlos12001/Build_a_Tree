@@ -7,16 +7,31 @@ import javas.trees.Abstract.TreeNode;
  * This class manages all the operations of the NodeB tree Node
  */
 class NodeB extends TreeNode {
-    private int[] keys; // An array of keys
-    private final int t; // Minimum degree (defines the range for number of keys)
-    private NodeB[] childNodes; // An array of child pointers
-    private int countKeys; // Current number of keys
+    /**
+     * Saved keys on a list
+     */
+    private int[] keys;
+    /**
+     *Minimum degree (defines the range for number of keys)
+     */
+    private final int t;
+    /**
+     *An array of child pointers
+     */
+    private NodeB[] childNodes;
+    /**
+     *Current number of keys
+     */
+    private int countKeys;
+    /**
+     *It defines if a node has children or it is a leaf node
+     */
     private boolean leaf;
 
     /**
      * Constructor sets all the atributes of the class
-     * @param t
-     * @param leaf
+     * @param t number of keys
+     * @param leaf if the node is a leaf or not
      */
     public NodeB(int t, boolean leaf) {
         super(0);
@@ -29,7 +44,7 @@ class NodeB extends TreeNode {
 
     /**
      * Performs one of the  insertion types of this tree, its the case whe the leaf is not full
-     * @param k
+     * @param k key to insert in the tree
      */
     public void insertNonFull(int k)
     {
@@ -72,8 +87,8 @@ class NodeB extends TreeNode {
 
     /**
      * If the leaf is full, it performs a split and positions the values differently
-     * @param i
-     * @param y
+     * @param i amount of keys
+     * @param y Node to insert
      */
     public void splitChild(int i, NodeB y) {
         //Crea el nuevo Nodo Hijo

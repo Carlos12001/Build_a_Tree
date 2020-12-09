@@ -6,7 +6,9 @@ import javas.trees.Abstract.Tree;
  *This class manages the BST trees, it extends from Tress
  */
 public class TreeBST extends Tree {
-
+    /**
+     * BST node type root
+     */
     private NodeBST root;
 
     /**
@@ -21,9 +23,9 @@ public class TreeBST extends Tree {
 
     /**
      * Method to insert a new node into the BST tree
-     * @param key
-     * @param tree
-     * @return
+     * @param key key that will be inserted on the ree
+     * @param tree instance to create a BST tree instance
+     * @return returns the tree
      */
     private NodeBST insert(int key, NodeBST tree){
         if (tree == null){
@@ -39,7 +41,7 @@ public class TreeBST extends Tree {
 
     /**
      * It sets the param as the new root
-     * @param key
+     * @param key Key that will be inserted on the tree
      */
     @Override
     protected void appendAux(int key) {

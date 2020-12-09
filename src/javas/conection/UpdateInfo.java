@@ -4,15 +4,45 @@ package javas.conection;
  * Class that holds the info that must be updated and treated by de server
  */
 public class UpdateInfo {
+    /**
+     * Instance of the Update info object
+     */
     private static UpdateInfo instance;
+    /**
+     *List of Strings with the names of the players
+     */
     private String[] playersName;
+    /**
+     *List of booleans with the current state of the players, true alive, false death
+     */
     private boolean[] playersGameOver = {true, true, true, true};
+    /**
+     *Token grabbed by the player with the treeB assigned
+     */
     private String treeB;
+    /**
+     *Token grabbed by the player with the treeBST assigned
+     */
     private String treeBST;
+    /**
+     *Token grabbed by the player with the treeAVL assigned
+     */
     private String treeAVL;
+    /**
+     *Token grabbed by the player with the treeSplay assigned
+     */
     private String treeSplay;
+    /**
+     *String with the time value that the server is going to send to the client
+     */
     private String time = "0:0";
+    /**
+     *Token that will be showed next on the client's interface
+     */
     private String tokenSend = "";
+    /**
+     *List with the challenges settled for each player
+     */
     private String[] challenge = {"", "", "", ""};
 
     private UpdateInfo(){
