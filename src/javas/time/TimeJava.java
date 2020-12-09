@@ -30,9 +30,7 @@ public class TimeJava {
      */
     public void timeStart(int minMax){
         Thread thread = new Thread(() -> {
-            for (minu/**
-     *
-     */tes = 0; minutes < minMax; minutes++){
+            for (minutes = 0; minutes < minMax; minutes++){
                 for (seg = 0; seg < 60; seg ++){
                     UpdateInfo.getUpdateInfo().setTime(minutes + ":" + seg);
                     delaySeg();
