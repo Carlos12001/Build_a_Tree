@@ -98,7 +98,7 @@ public class TreeAVL extends Tree {
         root.setHeight(Math.max(height((NodeAVL) root.getLeft()), height((NodeAVL) root.getRight())) + 1);
         x.setHeight(Math.max(height((NodeAVL) x.getLeft()), height((NodeAVL) x.getRight())) + 1);
 
-        return x;
+        return root;
     }
 
     /**
