@@ -51,7 +51,7 @@ class NodeB extends TreeNode {
 
         int i = this.countKeys-1;
 
-
+        //  revisa si este es un nodo hoja
         if (this.leaf)
         {
 
@@ -65,13 +65,13 @@ class NodeB extends TreeNode {
             keys[i+1] = k;
             this.countKeys = this.countKeys+1;
         }
-        else // If this node is not leaf
+        else // Si no es hoja
         {
 
             while (i >= 0 && keys[i] > k)
                 i--;
 
-
+            //Reliaza el split si necesario, con la condicion de t/2
             if (this.childNodes[i+1].countKeys == 2*t-1)
             {
 
@@ -95,30 +95,29 @@ class NodeB extends TreeNode {
         NodeB z = new NodeB(y.t, y.leaf);
         z.countKeys = t - 1;
 
-        // Copy the last (t-1) keys of y to z
+        // Copia el ultimo de y i+t en el nodo i de z
         for (int j = 0; j < t-1; j++)
             z.keys[j] = y.keys[j+t];
 
-        // Copy the last t children of y to z
+        // Copia el ultimo t hijo de y en z
         if (y.leaf == false)
         {
             for (int j = 0; j < t; j++)
                 z.childNodes[j] = y.childNodes[j+t];
         }
 
-        // Reduce the number of keys in y
+        // Reduce la cantidad de llaves disponibles
         y.countKeys = t - 1;
 
-        // Since this node is going to have a new child,
-        // create space of new child
+        // Realiza el campo necesario para acomodar el nodo hijo,
+        // Hace un espacio en un hijo
         for (int j = this.countKeys; j >= i+1; j--)
             this.childNodes[j+1] = this.childNodes[j];
 
-        // Link the new child to this node
+        // Realiza la coneccion con el nuevo nodo
         this.childNodes[i+1] = z;
 
-        // A key of y will move to this node. Find the location of
-        // new key and move all greater keys one space ahead
+        // Encuentra a nueva localizacion para el nodo
         for (int j = this.countKeys-1; j >= i; j--)
             keys[j+1] = keys[j];
 

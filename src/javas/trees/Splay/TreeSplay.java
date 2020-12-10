@@ -89,6 +89,7 @@ public class TreeSplay extends Tree {
                     root.left = leftRotate(root.left);
                 }
             }
+            //Retorna si es nulo, si no realiza una rotacion
             return (root.left == null) ? root : rightRotate(root);
         } else {
             if (root.right == null)
